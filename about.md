@@ -4,8 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Some information about me!
+I am a mid-level full-stack web developer with a passion for Ruby on Rails and polyglot experience.
 
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+Currently in my spare time I am focusing on gaining expertise in building a continuous delivery pipeline
+for Ruby on Rails applications using Docker and Mina.
