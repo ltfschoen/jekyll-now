@@ -59,33 +59,33 @@ title: Building Apps with React and Flux (by Cory House from Pluralsight) (in pr
     * Optional JSX markup language (abstraction to plain JS) that compiles down to JS for interpretation by browser
     * JSX is preferred over plain JS as it appears like final HTML (easier to read/write)
 
-        {% highlight javascript %}
-        // JS
-        
-        var R = require('r');
-        var A = React.createClass({
-            render: function() {
-                return (
-                    // JSX (appears like HTML but compiles to JS) compiles down to:
-                    // React.createElement("hi", {color: "red"}, 
-                    //   React.createElement("span", {className: "boo"},
-                    //     React.createElement("i", null, {this.props.bar})
-                    //   )
-                    // )
-                    //
-                    // Note: Last element contains calls to other elements when nested markup used
-                    <h1 color="red"><span class="boo"><i>{this.props.bar}</i></span></hi>
-                );
-            }
-        });
-        module.export = A;
-        {% endhighlight %}
+{% highlight javascript linenos %}
+var R = require('r');
+var A = React.createClass({
+    render: function() {
+        return (
+            // JSX (appears like HTML but compiles to JS) compiles down to:
+            // React.createElement("hi", {color: "red"}, 
+            //   React.createElement("span", {className: "boo"},
+            //     React.createElement("i", null, {this.props.bar})
+            //   )
+            // )
+            //
+            // Note: Last element contains calls to other elements when nested markup used
+            <h1 color="red"><span class="boo"><i>{this.props.bar}</i></span></hi>
+        );
+    }
+});
+module.export = A;
+{% endhighlight %}
 
+* ...Continued
     * JSX acknowledges the tight coupling of HTML and JS and allows us to compose HTML using JSX but with ease of debugging as described below
     * JSX uses opposite mindset of other approaches like in Angular.js where they use a proprietary DSL that JS uses to parse HTML
     * Instead React defines HTML markup in JS with the optional help of using JSX (instead of like other frameworks where they do it the other way around and try to enhance HTML with proprietary binding systems)
     * Note: HTML and JS should be kept in sync manually as there is no interface between them. HTML is not strictly parsed like JS so may be the cause of silent failure and hard to debug errors (if any)
     * Note: JSX is preferred (**Fail Fast Fail Loudly**) over enhanced HTML since in case of error it shows line number (since it is JS)
+
 * Virtual DOM
     * Virtual DOM is an abstraction over the DOM. React monitors the value of each component's state using fast memory
     * Efficiency is important with mobile web and to consume batteries using less CPU
@@ -120,45 +120,46 @@ title: Building Apps with React and Flux (by Cory House from Pluralsight) (in pr
     * Alias React Router's `Redirect` Component to programmatically redirect to another route so old URLs (bad references) 
     that have changed still work, or to catch typos in URL. `from` can have value `*` or subdirectory redirects `skills/*`
 
-        {% highlight javascript %}
-        // Alias React Router's Redirect Component
-        var Redirect = Router.Redirect;
-        
-        // Create new route
-        <Redirect from="old-path" to="new-path-name" />
-        {% endhighlight %}
+{% highlight javascript %}
+// Alias React Router's Redirect Component
+var Redirect = Router.Redirect;
 
+// Create new route
+<Redirect from="old-path" to="new-path-name" />
+{% endhighlight %}
+
+* ...Continued
     * Centralised Routes file `routes.js`
     * Optionally display custom route URL using `path` in child for /skills-url (otherwise would just be /skills)
 
-        {% highlight javascript %}
-        <Route name="app" path="/" handler="{require('./component/app)}">
-            ...
-            <Route name="skills" path="skills-url" ...>
-            ...
-        {% endhighlight %}
+{% highlight javascript %}
+<Route name="app" path="/" handler="{require('./component/app)}">
+    ...
+    <Route name="skills" path="skills-url" ...>
+    ...
+{% endhighlight %}
 
 * React Router - Parameters and Querystrings
     * React Router automatically adds data to Props under Params and Query
     
     * Example with placeholder "skillId"
 
-        {% highlight javascript %}
-        // Route
-        <route path="/skill/:skillId" handler={Skill} />
-        
-        // URL with Querystring of 'module' and a Value of '1'
-        '/skill/angular-101?module=1'
-        
-        // Retrieve data from route and populate and make accessible in Component Props as follows:
-        var Skill = React.createClass({
-            render: function() {
-                this.props.params.skillId;  // "module"
-                this.props.query.module;    // "1"
-                this.props.path;            // "/skill/angular-101/?module=1"
-            }
-        });
-        {% endhighlight %}
+{% highlight javascript %}
+// Route
+<route path="/skill/:skillId" handler={Skill} />
+
+// URL with Querystring of 'module' and a Value of '1'
+'/skill/angular-101?module=1'
+
+// Retrieve data from route and populate and make accessible in Component Props as follows:
+var Skill = React.createClass({
+    render: function() {
+        this.props.params.skillId;  // "module"
+        this.props.query.module;    // "1"
+        this.props.path;            // "/skill/angular-101/?module=1"
+    }
+});
+{% endhighlight %}
 
 * React Router - Link Component
     * Link Component allow reuse of routes declared in Route Config (central location) and prevent breaking when change a link
@@ -169,32 +170,32 @@ title: Building Apps with React and Flux (by Cory House from Pluralsight) (in pr
     
     * Example
 
-        {% highlight javascript %}
-        // Create route using placeholder for userId and attribute "name" hook to reference the route in links
-        <route name="skill" path="/skill/:skillId" />
-        
-        /**
-         *  Create link using JSX pointing to specific resource URL route: /skill/1
-         *  Link Component from React Router is used where attribute "to" is set to name to link to,
-         *  and attribute "params" for defining JSON object of data for the URL, where we set properties
-         *  corresponding to placeholders (i.e. skillId) set on the route.
-         *  Note: Below JSX is compiled into HTML: <a href="/skill/1">React.js</a>
-         */
-        <Link to="skill" params={{skillId: 1}}>React.js</Link>
-        {% endhighlight %}
+{% highlight javascript %}
+// Create route using placeholder for userId and attribute "name" hook to reference the route in links
+<route name="skill" path="/skill/:skillId" />
+
+/**
+ *  Create link using JSX pointing to specific resource URL route: /skill/1
+ *  Link Component from React Router is used where attribute "to" is set to name to link to,
+ *  and attribute "params" for defining JSON object of data for the URL, where we set properties
+ *  corresponding to placeholders (i.e. skillId) set on the route.
+ *  Note: Below JSX is compiled into HTML: <a href="/skill/1">React.js</a>
+ */
+<Link to="skill" params={{skillId: 1}}>React.js</Link>
+{% endhighlight %}
 
 * React Router - Handling Transitions between Components and Pages
     * Run static functions before loading/unloading
         
-        {% highlight javascript %}
-        // Timing: Check rules and determine if should transition to page
-        // Usage: Check if user authenticated
-        willTransitionTo
-        
-        // Timing: Check before user navigates away
-        // Usage: Validating if a form has unsafe/incomplete data and prompt user before navigate away and lose work
-        willTransitionFrom
-        {% endhighlight %}
+{% highlight javascript %}
+// Timing: Check rules and determine if should transition to page
+// Usage: Check if user authenticated
+willTransitionTo
+
+// Timing: Check before user navigates away
+// Usage: Validating if a form has unsafe/incomplete data and prompt user before navigate away and lose work
+willTransitionFrom
+{% endhighlight %}
 
 * Client-Side Routing Approaches 
     * Hash-Based Routing Location Style
@@ -218,19 +219,19 @@ Router.run(routes, Router.HistoryLocation, ...
     * Enables moving between routes programmatically
     * Examples:
 
-        {% highlight javascript %}
-        // Go to new route
-        this.transitionTo('skills')
-        
-        // Replace current route
-        this.replaceWith('skills')
-        
-        // Go back
-        this.goBack
-        
-        // Create URL to route
-        makePath(routeName, params, query)
-        {% endhighlight %}
+{% highlight javascript %}
+// Go to new route
+this.transitionTo('skills')
+
+// Replace current route
+this.replaceWith('skills')
+
+// Go back
+this.goBack
+
+// Create URL to route
+makePath(routeName, params, query)
+{% endhighlight %}
 
 * Forms (adding/editing data, input changes, validations, warnings/errors)
     * Virtual DOM used for robust and responsive forms
@@ -263,18 +264,20 @@ Router.run(routes, Router.HistoryLocation, ...
     * Common Errors
         * Problem: Adjacent JSX elements must be wrapped in an enclosing tag
 
-            {% highlight javascript %}
-            var SkillManager = React.createClass({
-                render: function () {
-                    return (
-                        <h1>Manage Skills</h1>
-                        {/* Controller View calls Child Form */}
-                        <SkillForm />
-                    );
-                }
-            });
-            {% endhighlight %}
+{% highlight javascript %}
+var SkillManager = React.createClass({
+    render: function () {
+        return (
+            <h1>Manage Skills</h1>
+            {/* Controller View calls Child Form */}
+            <SkillForm />
+        );
+    }
+});
+{% endhighlight %}
 
+* ...Continued
+    * ...Continued
         * Solution: Only single Top-Level Component function call allowed since JSX compiles to JS.
         Either wrap multiple given components in a <div> or move one elsewhere
 
@@ -331,42 +334,43 @@ Router.run(routes, Router.HistoryLocation, ...
 
 ### Flux (actions, dispatchers, stores)
 
-    * Problem: MVC works for small apps but does not make room for new features
-    
-    * Problem Definition: Client-side app requiring various interactions b/w ViewModels is tricky to debug:
-    
-    [MVC] Action => Controller => Model  \   View
-                              \=> Model  /   View
-                              \=> Model  -   View
-    * Example: Two-way binding
-    
-    ViewModel <=> View
-    
-    * Example: Unidirectional Data Flow (Actions flow in single direction from it to the View.
-     View does not directly update State (whereas in Two-way binding it does), instead
-     Actions are fired that eventually update the State.
-    Upon Action occurrence from user interaction with UI, then Unidirectional Data Flow commences.
-    A Dispatcher notifies Stores that registered with it that Action occurred. When Store changes 
-    the React Component and UI are updated.
-    Additional concepts and code are required for UDF but with benefits of clarity, testability, and predictability
-    
-    Action => Dispatcher => Store => React View
-    
-    * Trade-off is that Two-way binding is conceptually simpler and requires less typing, whereas 
-    UDF is more scalable due to being more explicit and it is easier to update multiple Stores for a given Action
+* Problem: MVC works for small apps but does not make room for new features
+
+* Problem Definition: Client-side app requiring various interactions b/w ViewModels is tricky to debug:
+
+[MVC] Action => Controller => Model  \   View
+                          \=> Model  /   View
+                          \=> Model  -   View
+* Example: Two-way binding
+
+ViewModel <=> View
+
+* Example: Unidirectional Data Flow (Actions flow in single direction from it to the View.
+ View does not directly update State (whereas in Two-way binding it does), instead
+ Actions are fired that eventually update the State.
+Upon Action occurrence from user interaction with UI, then Unidirectional Data Flow commences.
+A Dispatcher notifies Stores that registered with it that Action occurred. When Store changes 
+the React Component and UI are updated.
+Additional concepts and code are required for UDF but with benefits of clarity, testability, and predictability
+
+Action => Dispatcher => Store => React View
+
+* Trade-off is that Two-way binding is conceptually simpler and requires less typing, whereas 
+UDF is more scalable due to being more explicit and it is easier to update multiple Stores for a given Action
 
 
 ### Flux (unidirectional Data Flow handling)
-    * Definition: Facebook's Flux branding for architectural Design Pattern implementation of Unidirectional Data Flow handling is easy to track changes
-    * Instead of MVC it uses "Controller Views" (**React Views** that handle data concerns and compose other child components similar to Controllers in MVC) and UDF 
-    so large apps easier to predict and reason about by avoiding traditional complex interactions between View and View Model
-    because results of a given Action are easy to trace from the Action to Dispatcher to Store to React View 
-    * **React Views** promote Code Reuse and Separation of Concern
-    * Centralised dispatcher handles data flows in single direction to easily update Data Stores as app changes (not two-way binding)
-    * Avoids unpredictable risks of two-way binding (which is normally used to overcome boilerplate) when multiple developers without careful app design
-    * Flux overcomes maintainability issues caused by making data calls from React Controllers
-    * Unidirectional Data Flow requires use of Flux Dispatcher and a JavaScript Event Library
-    * Flux deals with Actions and Data Changes
+* Definition: Facebook's Flux branding for architectural Design Pattern implementation of Unidirectional Data Flow handling is easy to track changes
+* Instead of MVC it uses "Controller Views" (**React Views** that handle data concerns and compose other child components similar to Controllers in MVC) and UDF 
+so large apps easier to predict and reason about by avoiding traditional complex interactions between View and View Model
+because results of a given Action are easy to trace from the Action to Dispatcher to Store to React View 
+* **React Views** promote Code Reuse and Separation of Concern
+* Centralised dispatcher handles data flows in single direction to easily update Data Stores as app changes (not two-way binding)
+* Avoids unpredictable risks of two-way binding (which is normally used to overcome boilerplate) when multiple developers without careful app design
+* Flux overcomes maintainability issues caused by making data calls from React Controllers
+* Unidirectional Data Flow requires use of Flux Dispatcher and a JavaScript Event Library
+* Flux deals with Actions and Data Changes
+
 ### Flux Key Concepts
 * Actions
     * Triggered by View calling appropriate Action due to UI interaction
@@ -386,15 +390,17 @@ Router.run(routes, Router.HistoryLocation, ...
     * Exposes method that allows Actions to triggering dispatch to Stores including the Action Payload 
     * Action Payloads have common structure of Type and Data i.e. below triggered when skill saved
 
-        {% highlight javascript %}
-        {
-            type: SKILL_SAVED
-            data: {
-                skillCategory: 'Back End',
-                skillName: 'Python'
-            }
-        }
-        {% endhighlight %}
+{% highlight javascript %}
+{
+    type: SKILL_SAVED
+    data: {
+        skillCategory: 'Back End',
+        skillName: 'Python'
+    }
+}
+{% endhighlight %}
+
+* ...Continued
     * Action Payload Type informs Store what Action occurred
     * Dispatcher invokes callbacks registered with it and broadcasts the Action Payload received 
     from the Action to relevant Stores
@@ -429,14 +435,14 @@ Router.run(routes, Router.HistoryLocation, ...
 * Store Structure
     * Common Interface functions that are always implemented
 
-        {% highlight javascript %}
-        Extend EventEmitter     // Allows Store to emit events to React Components advising data changed
-        
-        addChangeListener       // Expose methods to inform React Component when Store changes
-        removeChangeListener
-        
-        emitChange              // Emit the change that occurred to the Store
-        {% endhighlight %}
+{% highlight javascript %}
+Extend EventEmitter     // Allows Store to emit events to React Components advising data changed
+
+addChangeListener       // Expose methods to inform React Component when Store changes
+removeChangeListener
+
+emitChange              // Emit the change that occurred to the Store
+{% endhighlight %}
 
 * React Components
     * Stores emit changes that are Broadcast using Node's EventEmitter
@@ -495,23 +501,23 @@ http://stackoverflow.com/questions/12458522/bootstrap-dropdown-not-working
 * Clone repo [https://github.com/coryhouse/react-flux-starter-kit](https://github.com/coryhouse/react-flux-starter-kit)
 * Compile React JSX, ESLint JSX and JS, bundle and migrate JS/CSS files to dist folder, run/open web server in browser, live reload
 
-    {% highlight bash %}
-    node -v
-    nvm use 7.1
-    npm init
-    npm install --save gulp@3.9.0 gulp-connect@2.2.0 gulp-open@1.0.0
-    npm install --save browserify@11.0.1 reactify@1.1.1 vinyl-source-stream@1.1.0
-    npm install --save bootstrap@3.3.5 jquery@2.1.4 gulp-concat@2.6.0
-    npm install --save gulp-eslint@0.15.0
-    npm install --save react@0.13.3 react-router@0.13.3 flux@2.0.3
-    npm install --save gulp-rev-append gulp-sass gulp-sourcemaps gulp-autoprefixer
-    npm install --save lodash
-    npm install --save toastr@2.1.0
-    cat package.json
-    mkdir src && mkdir dist
-    touch gulpfile.js
-    gulp
-    {% endhighlight %}
+{% highlight bash %}
+node -v
+nvm use 7.1
+npm init
+npm install --save gulp@3.9.0 gulp-connect@2.2.0 gulp-open@1.0.0
+npm install --save browserify@11.0.1 reactify@1.1.1 vinyl-source-stream@1.1.0
+npm install --save bootstrap@3.3.5 jquery@2.1.4 gulp-concat@2.6.0
+npm install --save gulp-eslint@0.15.0
+npm install --save react@0.13.3 react-router@0.13.3 flux@2.0.3
+npm install --save gulp-rev-append gulp-sass gulp-sourcemaps gulp-autoprefixer
+npm install --save lodash
+npm install --save toastr@2.1.0
+cat package.json
+mkdir src && mkdir dist
+touch gulpfile.js
+gulp
+{% endhighlight %}
 
 * Use IDE with JSX syntax highlighting
 
@@ -521,59 +527,59 @@ http://stackoverflow.com/questions/12458522/bootstrap-dropdown-not-working
 
 * Single Component Routes - Hard Coded
 
-    {% highlight javascript %}
-    var React = require('react');
-    var Home = require('./components/homePage');
-    React.render(<Home />, document.getElementById('app'));
-    {% endhighlight %}
+{% highlight javascript %}
+var React = require('react');
+var Home = require('./components/homePage');
+React.render(<Home />, document.getElementById('app'));
+{% endhighlight %}
 
 * Multiple Component Routes - Abstraction that interprets URLs for Client-side Navigation (without React Router)
     
-    {% highlight javascript %}
-    "use strict";
-    
-    // IIFE to overcome ESLint warnings and prevent jQuery undefined browser error
-    (function(win) {
-        return function () { win.$ = win.jQuery = require('jquery'); };
-    }(window));
-    
-    var React = require('react');
-    var Home = require('./components/homePage');
-    var About = require('./components/about/aboutPage');
-    
-    // Track child routes and render depending on URL. Check properties and route for the app. Render appropriate markup
-    var App = React.createClass({
-       render: function () {
-           var Child;
-    
-           switch(this.props.route) {
-               case 'about': Child = About; break;
-               default: Child = Home;
-           }
-    
-           return (
-               <div>
-                   <Child />
-               </div>
-           );
-    
+{% highlight javascript %}
+"use strict";
+
+// IIFE to overcome ESLint warnings and prevent jQuery undefined browser error
+(function(win) {
+    return function () { win.$ = win.jQuery = require('jquery'); };
+}(window));
+
+var React = require('react');
+var Home = require('./components/homePage');
+var About = require('./components/about/aboutPage');
+
+// Track child routes and render depending on URL. Check properties and route for the app. Render appropriate markup
+var App = React.createClass({
+   render: function () {
+       var Child;
+
+       switch(this.props.route) {
+           case 'about': Child = About; break;
+           default: Child = Home;
        }
-    });
-    
-    // Define render function for route change
-    function render() {
-        console.log("New Route: ", window.location.hash);
-        var route = window.location.hash.substr(1);
-        React.render(
-                        <App route={route} />,
-                        document.getElementById('app')
-                    );
-    }
-    
-    // Watch for hash change in URL when rendering (i.e. localhost:9005/#about)
-    window.addEventListener('hashchange', render);
-    render();
-    {% endhighlight %}
+
+       return (
+           <div>
+               <Child />
+           </div>
+       );
+
+   }
+});
+
+// Define render function for route change
+function render() {
+    console.log("New Route: ", window.location.hash);
+    var route = window.location.hash.substr(1);
+    React.render(
+                    <App route={route} />,
+                    document.getElementById('app')
+                );
+}
+
+// Watch for hash change in URL when rendering (i.e. localhost:9005/#about)
+window.addEventListener('hashchange', render);
+render();
+{% endhighlight %}
 
 ### React Naming Conventions
 
@@ -614,49 +620,50 @@ http://stackoverflow.com/questions/12458522/bootstrap-dropdown-not-working
     * Methods to hook into a React Component's Lifecycle
         * Note: Despite React being isomorphic, only some hooks work on both Server and Client
 
-            {% highlight javascript %}
-            // Usage: Set initial state
-            // Timing: Runs before initial render (both Client and Server)
-            componentWillMount
-            
-            // Usage: Access DOM, integrate frameworks, set timers, AJAX requests
-            // Timing: After rendered component in DOM
-            componentDidMount
-            
-            // Usage: Set State before render as runs just before new Props received
-            // Limitations: Not called on initial render
-            // Timing: Just before component receives new Props (i.e. Props change)
-            componentWillReceiveProps
-            
-            // Usage: For performance, as can return false from this function to avoid unnecessary re-renders
-            (since some new Props/State changes not affect DOM so component shouldn't need re-render)
-            // Limitations: Not called on initial render
-            // Timing: Just before render when new Props or State being received by component
-            shouldComponentUpdate
-            
-            // Usage: Prepare for updates
-            // Limitations: Cannot call setState from this function. Not called on initial render
-            // Timing: Runs just before rendering when new Props/State being received
-            componentWillUpdate
-            
-            // Usage: Allows operate on DOM just after component updated and re-rendered in DOM
-            // Limitations: Not called on initial render
-            // Timing: Runs just after component's updates are flushed to DOM
-            componentDidUpdate
-            
-            // Usage: Cleanup and resources or DOM elements created when DOM was mounted
-            // Timing: Runs just after component removed from DOM
-            componentWillUnmount
-            {% endhighlight %}
+{% highlight javascript %}
+// Usage: Set initial state
+// Timing: Runs before initial render (both Client and Server)
+componentWillMount
 
+// Usage: Access DOM, integrate frameworks, set timers, AJAX requests
+// Timing: After rendered component in DOM
+componentDidMount
+
+// Usage: Set State before render as runs just before new Props received
+// Limitations: Not called on initial render
+// Timing: Just before component receives new Props (i.e. Props change)
+componentWillReceiveProps
+
+// Usage: For performance, as can return false from this function to avoid unnecessary re-renders
+(since some new Props/State changes not affect DOM so component shouldn't need re-render)
+// Limitations: Not called on initial render
+// Timing: Just before render when new Props or State being received by component
+shouldComponentUpdate
+
+// Usage: Prepare for updates
+// Limitations: Cannot call setState from this function. Not called on initial render
+// Timing: Runs just before rendering when new Props/State being received
+componentWillUpdate
+
+// Usage: Allows operate on DOM just after component updated and re-rendered in DOM
+// Limitations: Not called on initial render
+// Timing: Runs just after component's updates are flushed to DOM
+componentDidUpdate
+
+// Usage: Cleanup and resources or DOM elements created when DOM was mounted
+// Timing: Runs just after component removed from DOM
+componentWillUnmount
+{% endhighlight %}
+
+* ...Continued
     * Dynamic Child Components
         * Assigning keys when creating multiple Child Components dynamically
         * React uses the key to ensure Child Components are re-ordered or destroyed when Child Components added, modified or removed
         * Key may be primary key for database record, or just the id declared for the specific record
 
-            {% highlight javascript %}
-            <tr key={location.id}>
-            {% endhighlight %}
+{% highlight javascript %}
+<tr key={location.id}>
+{% endhighlight %}
 
 ### Lifecycle Functions
 * Hooks to initialise components and attach behaviours at points in time
