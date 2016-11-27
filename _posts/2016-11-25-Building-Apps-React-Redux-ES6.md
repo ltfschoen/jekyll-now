@@ -131,6 +131,54 @@ return state;
     see how affect final state). Turn off specific Actions to see final state without
     certain Actions occurring. Playback at desired speed.
 
+### Reducers Handling of Data changes
+* Store changes by Dispatch an Action handled by Reducer
+* Pure Functions
+    * Return same value when called with same set of arguments
+    * Note: Return value depends only on value of parameters with no side-effects
+* Forbidden in Reducers
+    * Mutation of arguments
+    * Perform API calls and routing transitions
+    * Call non-Pure Functions (i.e. date.now, Math.random)
+* Single Store
+    * Single Reducer slices State changes into multiple smaller Reducers
+    (for separate Data Domains)
+    * Avoids multiple Stores where have to wait for others
+* All Reducers are called on each Dispatch from Single Store.
+Switch statements inside each Reducer function checks if the passed slice of State should
+be handled by that specific Reducer
+(so important that Reducers return untouched State as default if no switch
+case matches, as those that do not match simply return the state passed to them)
+* Multiple Reducers allows handling different pieces of the Store in isolation
+* "Reducer Composition" is where each Action may be handled by Multiple Reducers responsible for updating specific slices of State
+
+{% highlight javascript %}
+// WRONG
+function myReducer(state, action) {
+  // return new State based on given existing State and Action
+  switch(action.type) {
+    case 'INCREMENT_COUNTER':
+      state.counter++; // WRONG - DO NOT MUTATE STATE OR PRODUCE SIDE-EFFECTS!!
+      return state;
+  }
+}
+{% endhighlight %}
+
+{% highlight javascript %}
+// RIGHT
+// Deep clones State object with counter incremented by one
+function myReducer(state, action) {
+  // return new State based on given existing State and Action
+  switch(action.type) {
+    case 'INCREMENT_COUNTER':         // RIGHT - DEEP CLONE WITH PURE FUNCTION
+      return (Object.assign(
+        {},                           // Target object
+        state,                        // Mix new object with existing State
+        {counter: state.counter + 1}  // Change counter property
+      ));
+  }
+}
+{% endhighlight %}
 
 ### Data Management Tools
 * React setState, Flux/Redux, Relay
@@ -288,6 +336,43 @@ NO API to change data in Store (immutable), as may only change by dispatching an
     * Stores are flat (NOT Nested)
     * Flux Store is mutable
     * Explicitly Subscribe the React Views to Stores using OnChange handlers and EventEmitter
+
+### React-Redux Library
+* React-Redux generates Container Components
+(React Components that use `store.subscribe` to read part of
+Redux state tree and supply Props to Child Components)
+* React-Redux library comprises:
+    * Provider Component
+        * Wraps entire app at root top-level Component, only used once when root renders.
+        Makes Redux Store available to all Container Components automatically
+        (using React context)
+        Attaches app to Redux Store
+        (otherwise would have to explicitly pass Store to all Components requiring it)
+
+{% highlight javascript %}
+<Provider store={this.props.store}>
+  <App/>
+</Provider>
+{% endhighlight %}
+
+    * Connect function
+        * Wraps Component so connected to Redux Store
+        * Declare part of Redux Store to attach to Component as Props
+        * Declare Actions to expose on Props
+        * Creates container Components automatically
+
+{% highlight javascript %}
+function mapStateToProps(state, ownProps) {
+    return {appState: state.skillReducer};
+}
+
+// Pass to connect function that specifies State to expose to Component
+// Pass to connect the Actions to expose to Component
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SkillPage);
+{% endhighlight %}
 
 ### Setup Environment
 * Dependencies
