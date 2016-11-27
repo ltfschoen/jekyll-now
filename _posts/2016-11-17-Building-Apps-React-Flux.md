@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Building Apps with React and Flux (by Cory House from Pluralsight) (in progress!)
+title: Building Apps with React and Flux (by Cory House from Pluralsight) (DONE)
 ---
 
 * Cory House @housecor
@@ -12,6 +12,7 @@ title: Building Apps with React and Flux (by Cory House from Pluralsight) (in pr
   * [Chapter 4 - Build App with Custom Routes](#chapter-4)
   * [Chapter 5 - Dynamic Components](#chapter-5)
   * [Chapter 6 - Composition](#chapter-6)
+  * [Chapter 7 - Flux Development](#chapter-7)
 
 ## Chapter 1 - Topics<a id="chapter-1"></a>
 
@@ -87,7 +88,7 @@ module.export = A;
     * Note: JSX is preferred (**Fail Fast Fail Loudly**) over enhanced HTML since in case of error it shows line number (since it is JS)
 
 * Virtual DOM
-    * Virtual DOM is an abstraction over the DOM. React monitors the value of each component's state using fast memory
+    * Virtual DOM is an abstraction over the DOM that performs in-memory comparisons. React monitors the value of each component's state using fast memory
     * Efficiency is important with mobile web and to consume batteries using less CPU
     * Less expensive DOM updates for performance and efficiency. Avoids **browser thrashing** where everything updates due to small change
     * Save time by comparing current DOM state with desired future DOM state and choosing most efficient way to update it without an expensive redraw using up the CPU
@@ -119,6 +120,8 @@ module.export = A;
     * Alias React Router's `NotFoundRoute` Component for handling client-side 404 not found pages
     * Alias React Router's `Redirect` Component to programmatically redirect to another route so old URLs (bad references) 
     that have changed still work, or to catch typos in URL. `from` can have value `*` or subdirectory redirects `skills/*`
+* Centralised Header
+    * Compose the header in the top level component
 
 {% highlight javascript %}
 // Alias React Router's Redirect Component
@@ -408,6 +411,7 @@ because results of a given Action are easy to trace from the Action to Dispatche
 
 * Stores (Data Layer)
     * Flux Stores only interact with Controller Views (top-level Parent Components), not Child Components
+    * Flux Stores find out about Flux Actions by registering a callback with the Dispatcher
     * Flux Stores are the only part of app that should know how to update Data
     * Stores hold app State, and have app State, Logic, and Data Retrieval Methods
     * Stores register callbacks with the Dispatcher so they will be notified of data changes
@@ -457,7 +461,32 @@ emitChange              // Emit the change that occurred to the Store
     * UI changes are rendered due to changes in the Store
 
 ### Constants File
-* Centralised hub to maintain organisation with high-level view of app
+* Centralised hub to maintain organisation with high-level view of app (similar to Enumerations)
+* Instead of having to type Key/Value, pass to React "Key Mirror" library (automatically copies key to the value)
+
+* WITHOUT using React "Key Mirror" library
+{% highlight javascript %}
+"use strict";
+
+module.exports = {
+
+    // Define list
+    CREATE_SKILL: CREATE_SKILL
+};
+{% endhighlight %}
+
+* WITH using React "Key Mirror" library
+{% highlight javascript %}
+"use strict";
+
+var keyMirror = require('react/lib/keyMirror');
+
+module.exports = keyMirror({
+
+    // Define list
+    CREATE_SKILL: null
+});
+{% endhighlight %}
 
 ### Flux Alternative Implementations (often at expensive of clarity or flexibility than Facebook Flux)
 * Alt, Reflux, Flummox, Marty, Fluxxor, Delorean, Redux, Nuclear, Fluxible
@@ -513,6 +542,7 @@ npm install --save react@0.13.3 react-router@0.13.3 flux@2.0.3
 npm install --save gulp-rev-append gulp-sass gulp-sourcemaps gulp-autoprefixer
 npm install --save lodash
 npm install --save toastr@2.1.0
+npm install --save object-assign
 cat package.json
 mkdir src && mkdir dist
 touch gulpfile.js
@@ -736,5 +766,116 @@ Child (Dumb) Component just defines markup, and receives data via Props (NOT Sta
 * Select Components to view/edit Props/State
 * After inspecting DOM element or applying breakpoint in render phase in Elements tab switch over to React tab and corresponding React Component will be highlighted. Enabling stepping through render tree
 
+## Chapter 7 - Flux Development<a id="chapter-7"></a>
+
+### Dispatcher
+* Create Dispatcher folder/file and `src/dispatcher/appDispatcher.js` using Facebook code https://github.com/facebook/flux/blob/master/examples/flux-todomvc/js/dispatcher/AppDispatcher.js
+
+### Actions
+* Create Actions folder/file `src/actions/actionsSkill.js`
+* Action Type must remain in sync with Flux Stores so use a Constants File (like Enums) listing all Action Types used in the app
+
+### Stores
+* Create Stores folder/file `src/stores/storeSkill.js`
+* Add Node.js EventEmitter to broadcast events from Stores to notify React Components
+* Extend the Flux Store to have Event Emitter capabilities using object-assign library
+that joins two objects and their properties together (i.e. SkillStore and EventEmitter prototype)
+https://www.npmjs.com/package/object-assign
+* Extend the Flux Store using object-assign library by passing empty base object, and extend utilising:
+EventEmitter.prototype parameter; and a block that defines the Store parameter.
+Essentially defining EventEmitter.prototype as the base class
+* Define Flux Store providing three core functions for React Components to interact with it
+utilising the EventEmitter.prototype interface and functionality:
+addChangeListener (accepts a callback parameter); removeChangeListener; and emitChange
+* Register Store with Dispatcher so notified when Actions occur (defined below the Store as private method not concerned with public API)
+* Only change data in Flux Store via Public API
+* Call `emitChange` method in Public API to emit the change any time Flux Store changes
+to notify any React Components that registered with `addChangeListener` function of this Flux Store 
+so they update the UI
+* Example Flux Store Boilerplate Template:
+
+{% highlight javascript %}
+"use strict";
+
+// Import core libraries to create new Store
+
+var Dispatcher = require('../dispatcher/appDispatcher');
+var ActionTypes = require('../../constants/flux/typesSkill.js');
+
+// Node.js EventEmitter broadcasts events from Stores to notify React Components
+var EventEmitter = require('events').EventEmitter;
+
+/**
+ *  Extend the Flux Store to have Event Emitter capabilities using object-assign library
+ *  that joins two objects and their properties together (i.e. SkillStore and EventEmitter prototype)
+ *  https://www.npmjs.com/package/object-assign
+ */
+var assign = require('object-assign');
+
+var CHANGE_EVENT = 'change';
+
+/**
+ *  Public Store API functions.
+ *  Extend the Flux Store using object-assign library by
+ *  passing empty base object, and extend utilising:
+ *      - EventEmitter.prototype parameter
+ *      - block that defines the Store parameter
+ *  Essentially this defines EventEmitter.prototype as the base class
+ */
+var SkillStore = assign({}, EventEmitter.prototype, {
+
+    /**
+     *  Define Flux Store providing three core helper functions for React Components to interact with it
+     *  utilising the EventEmitter.prototype interface and functionality
+     *      - addChangeListener (accepts a callback parameter)
+     *      - removeChangeListener
+     *      - emitChange
+     */
+    addChangeListener: function(callback) {
+
+        // Call the callback whenever change occurs in this Store
+        this.on(CHANGE_EVENT, callback);
+    },
+
+    removeChangeListener: function (callback) {
+        this.removeListener(CHANGE_EVENT, callback);
+    },
+    
+    emitChange: function () {
+        this.emit(CHANGE_EVENT);
+    }
+
+});
+
+/**
+ *  Private function implementation detail not concerned with our Public Store API
+ *  Register Store with Dispatcher. All Stores are notified each time any
+ *  Action occurs and is dispatched. Note: Flux differs here from traditional Pub-Sub Design Patterns
+ */
+Dispatcher.register(function(action) {
+
+    // Switch based on all possible Action Types that may be passed in with the Action Payload
+});
+
+module.exports = SkillStore;
+{% endhighlight %}
+
+### Debugging with Breakpoints
+* Add a line `debugger;` wherever want browser to pause during execution. Press F8 to step through
+
+### Definitions:
+* Ponyfill - Polyfill that does not overwrite the native method (i.e. allows library that is native in ES6 to work in ES5)
+
 ### TODO
 * Flux https://facebook.github.io/flux/docs/overview.html
+* Flux Examples Docs https://facebook.github.io/flux/docs/todo-list.html
+* Flux Examples Code https://github.com/facebook/flux/tree/master/examples
+* React Training https://github.com/ReactTraining
+
+* Selection box drop-down for skill Reusable Component
+
+* Build Course Management section with ability to: Add Course, Edit Course
+
+* List Courses page having Title, Author, Category, Length, with ability to: Watch, Delete
+
+* Resources: API - bit.ly/courseapi; Data - bit.ly/mockcoursedata
