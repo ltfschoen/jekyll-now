@@ -338,41 +338,162 @@ NO API to change data in Store (immutable), as may only change by dispatching an
     * Explicitly Subscribe the React Views to Stores using OnChange handlers and EventEmitter
 
 ### React-Redux Library
+* react-redux Library connects React Components to Redux
+* react-redux Library is companion library for Redux 
+* react-redux Library connects React Router Container Components to Redux
+* react-redux Library used between Store/Reducers and React Components
 * React-Redux generates Container Components
 (React Components that use `store.subscribe` to read part of
 Redux state tree and supply Props to Child Components)
 * React-Redux library comprises:
-    * Provider Component
+    * Provider Component - Attaches React App to Store
         * Wraps entire app at root top-level Component, only used once when root renders.
         Makes Redux Store available to all Container Components automatically
         (using React context)
         Attaches app to Redux Store
-        (otherwise would have to explicitly pass Store to all Components requiring it)
-
+        (otherwise would have to explicitly pass Store to all Components requiring it individually)
+    * Note: React context is a feature for Library authors (not developers)
 {% highlight javascript %}
 <Provider store={this.props.store}>
   <App/>
 </Provider>
 {% endhighlight %}
 
-    * Connect function
-        * Wraps Component so connected to Redux Store
+* Cont'd
+    * Connect function - Creates Container Component
+        * Wraps Component so connected to Redux Store 
+        (alternatively in Flux we manually add `addChangeListener/removeChangeListener(this.onChange` 
+        and `onChange() { this.setState({ skills: SkillStore.getAll...` to each Store inside `componentWillMount`) 
         * Declare part of Redux Store to attach to Component as Props
         * Declare Actions to expose on Props
         * Creates container Components automatically
-
+        * Redux `connect` Benefits:
+            * Not need manual subscribe/unsubscribe to Store, as `connect` does it automatically
+            * Not need Lifecycle Methods to subscribe/unsubscribe to Store in Redux, 
+            as Redux allows all to be Stateless "functional" Components (avoiding `this` keyword confusion), 
+            whereas Flux requires use of `componentWillMount` and `componentWillUnmount` so cannot use React Stateless 
+            "functional" Components for Container Components when working in Flux (since Stateless ones do 
+            not have Lifecycle Methods)
+            * Redux allows explicitly exposing subsets of State to Container Component (performance improvements
+            as only renders when specific data that is connected changes, saving unnecessary renders or manual
+            suppression of them using `shouldComponentUpdate`),
+            whereas in Flux after wire `onChange` listener to Store then entire Store data is exposed
+        * `mapStateToProps` function passed to `connect` function specifies State to expose to Component as Props,
+        causing Component to subscribe to Redux Store and gets called when Store is updated. This function returns
+        and object whose properties become available as Props of Container Component
+            * Filter/transform/sort State here ready for use in Container Component
+        * `mapDispatchToProps` function is passed to `connect` function the Actions to expose to Component.
+        * `mapStateToProps` function is called every time Component is called
+            * Use **Reselect** Library to increase performance if any expensive operations (i.e.
+            change list, calculations, etc)
+            being performed in `mapStateToProps`.
+            It memoizes (caching for function calls) to keep track of results of each function call
+            to increase performance, so if function called again with same parameters it just returns 
+            memoized value and but doesn't need call function again
+        * `mapDispatchToProps` function allows specify what Actions to expose at Props.
+        See section "3x Ways to Handle passing Actions to Props in Redux Container Components"  
+            
 {% highlight javascript %}
 function mapStateToProps(state, ownProps) {
     return {appState: state.skillReducer};
 }
 
-// Pass to connect function that specifies State to expose to Component
-// Pass to connect the Actions to expose to Component
+// Optional parameters
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SkillPage);
 {% endhighlight %}
+
+* Cont'd
+    * Cont'd
+        * Example 1: Simple app w 1x Container Component and 1x Reducer
+            * Pass down all State to Presenter Component via Props
+            * Expose only part of Store's State by specifying within return block
+             
+{% highlight javascript %}
+function mapStateToProps(state) {
+    return {
+        // Expose only part of Store's State by specifying here
+        appState: state
+    };
+}
+
+// In React Container Component to access any State handled by appState Reducer
+this.props.appState
+{% endhighlight %}         
+       
+* Cont'd
+    * Cont'd
+        * Example 2: Complex
+            * Create Multiple Container Components (to manage sections of app)
+            * Create different Reducers to handle diff slices of Stores
+
+### 3x Ways to Handle passing Actions to Props in Redux Container Components (i.e. for use with `mapDispatchToProps`)
+* 1) Use Dispatch Directly (not use `mapDispatchToProps`). 
+`dispatch` Prop may be manually called and passed an ActionCreator `this.props.dispatch(loadSkills());`
+so the `dispatch` Prop calls the ActionCreators.
+
+Ignore adding `mapDispatchToProps` (Optional Param) as param of `connect`
+that automatically causes `dispatch` function to attach itself to React Container Component.
+
+Disadvantages: Extra boilerplate explicitly calling `dispatch` each time that has been passed
+an Action to fire off; Child Components become tied to Redux concepts (i.e. dispatch function
+and ActionCreators)
+
+* 2) Manually wrap within `mapDispatchToProps` our calls to `ActionCreator` and `dispatch`
+(results in more code within `mapDispatchToProps` than in the React Container Component).
+Explicitly specify Actions to expose to React Container Component (each ActionCreator wrapped
+in a `dispatch` call)
+{% highlight javascript %}
+function mapDispatchToProps(dispatch) {
+    return {
+        loadSkills: () => {
+            dispatch(loadSkills());     // i.e. loadSkills() ActionCreator wrapped in function that calls dispatch
+        }
+    };
+}
+{% endhighlight %}  
+
+Example:
+
+{% highlight javascript %}
+function mapDispatchToProps(dispatch) {
+    return {
+        loadSkills: () => {
+            dispatch(loadSkills());
+        },
+        createSkill: (skill) => {
+            dispatch(createSkill(skill));
+        },
+        updateSkill: (skill) => {
+            dispatch(updateSkill(skill));
+        }
+    };
+}
+
+// In Component to access any State handled by loadSkills Reducer
+this.props.loadSkills();
+{% endhighlight %}
+
+* 3) Use `bindActionCreators` convenience function that wraps ActionCreators passed to it
+in dispatch calls for us (saving us having to do it manually like in Option 2) so easy to pass
+down to Child Componets
+(does Option 2 approach to expose Actions to React Container Components, but automatically)
+
+{% highlight javascript %}
+// Parameter accepted is dispatch
+// Returns callback Props we want to pass down using Redux's bindActionCreators function
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+// In Component to access any State handled by actions Reducer
+this.props.actions.loadSkills();
+{% endhighlight %} 
+
 
 ### Setup Environment
 * Dependencies
@@ -461,23 +582,32 @@ export default Hi;
 ### Organising Components
 * Separate folders for Container/Presentation or by Feature
 
-### Container Component vs Presentation Component
+### Container Component vs Presentation Component (two types of React Components)
 
 * Container (Parent/Smart/Stateful/Controller View) (back-end of the front-end)
-    * Behaviour
+    * Container Components are easily generated by react-redux Library
+    * Container Components use React Store.subscribe to read part of Redux State tree
+    and supply Props to Child Components (when generated with react-redux Library additional 
+    performance optimisations are included)
+    * Behaviour 
     * Marshalling Data and passing to Child Components
     * Actions passed to Child Components
     * Stateful (manage State)
     * Created using Redux connect
-    * Redux-aware to Dispatch Actions to Store (and connecting to it with connect)
+    * Subscribe to Redux State
+    * Dispatch Redux Actions to Store (and connecting to it with connect)
+    * Aware of Redux
     * No Markup
     * Note: May have multiple Container Component levels
 
 * Presentational (Child/Dumb/Stateless/View)
     * Dumb (no logic)
-    * Receive Data and functions via Props to display UI
-    * Stateless
-    * No dependency on Redux, Actions, or Stores (easier to reuse)
+    * Receive and read Data and Actions functions via Props to display UI
+    using render function that defines markup
+    * Fire Actions by invoking callbacks passed down to them via Props 
+    (so not tied to specific Behaviour)
+    * Stateless functional components (written by hand)
+    * No dependency/awareness of Redux, Actions, or Stores (easier to reuse)
     * Not specify how Data loaded or mutated
     * Markup
 
