@@ -54,11 +54,26 @@ that accepts `event` parameter, extracts the target value and sets State `setSta
 correct in the `onTiteChange` handler, as the function inherits the `this` context
 of the caller (i.e. passing the input field `this` context to the `onTiteChange`
 change handler) instead of `this` being bound to the instance of the Component. 
-**Bind to the `this` context of the Component intance in the `constructor` for all
+**Bind to the `this` context of the Component instance in the `constructor` for all
 Event handling functions**. Note: Alternative is to implement the binding in the
 `render` function, but binding on each render causes a new function to be run on
 each render, which negatively impacts performance
 (i.e. DO NOT `<input onChange={this.onTitleChange.bind(this)}`)
+* Setup Actions for Redux
+    * Create Action Creator for skill in new folder/file of /src/actions/skillActions
+    * Define Actions (define convenience function that returns Action plain object that must have Type property)
+    * Refactor to use a `const` for the value of Type
+Note: The below are equivalent in ES6 (i.e. do not need to show value if key/value are the same)
+
+{% highlight javascript %}
+  return { type: 'CREATE_SKILL', skill: skill }
+  
+  return { type: 'CREATE_SKILL', skill }
+{% endhighlight %}
+
+* Setup Reducer 
+    * In Flux we handled Actions in the Store
+    * In Redux we handle Actions in Reducers (accepts State/Action and returns new State)
 
 ### IDE
 * Atom - Add packages react, and terminal-plus
