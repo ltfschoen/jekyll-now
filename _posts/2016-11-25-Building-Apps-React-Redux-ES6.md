@@ -44,6 +44,21 @@ and check Console for console.log's and that bundle.js compiled
 * Setup navigation
     * Refactor Header into common Header Component
 * Create skills Component and update routes and header
+* Update skills Component with a `constructor` to initialise `state` for form
+and add markup with `input` fields
+* Add Event functions for form input change events (i.e. `onTitleChange`),
+that accepts `event` parameter, extracts the target value and sets State `setState`
+* Test Event functionality in browser and check console for errors
+* Add Binding for ES6 Classes (since NOT done automatically) to overcome errors like
+`Cannot read property 'state' of undefined` by ensuring the `this` context is 
+correct in the `onTiteChange` handler, as the function inherits the `this` context
+of the caller (i.e. passing the input field `this` context to the `onTiteChange`
+change handler) instead of `this` being bound to the instance of the Component. 
+**Bind to the `this` context of the Component intance in the `constructor` for all
+Event handling functions**. Note: Alternative is to implement the binding in the
+`render` function, but binding on each render causes a new function to be run on
+each render, which negatively impacts performance
+(i.e. DO NOT `<input onChange={this.onTitleChange.bind(this)}`)
 
 ### IDE
 * Atom - Add packages react, and terminal-plus
