@@ -4,6 +4,7 @@ title: Building Apps with React, Redux, and ES6 (by Cory House from Pluralsight)
 ---
 
 * Cory House @housecor
+* My Code from the course [https://github.com/ltfschoen/react-redux](https://github.com/ltfschoen/react-redux)
 
 # Table of Contents
   * [Chapter 1 - Setup](#chapter-1)
@@ -60,10 +61,11 @@ Event handling functions**. Note: Alternative is to implement the binding in the
 each render, which negatively impacts performance
 (i.e. DO NOT `<input onChange={this.onTitleChange.bind(this)}`)
 * Setup Actions for Redux
-    * Create Action Creator for skill in new folder/file of /src/actions/skillActions
+    * Create Action Creator for skill in new folder/file of /src/actions/skillActions.js
     * Define Actions (define convenience function that returns Action plain object that must have Type property)
     * Refactor to use a `const` for the value of Type
-Note: The below are equivalent in ES6 (i.e. do not need to show value if key/value are the same)
+    
+Note: Using "short-hand property names", the below are equivalent in ES6 (i.e. do not need to show value if key/value are the same)
 
 {% highlight javascript %}
   return { type: 'CREATE_SKILL', skill: skill }
@@ -72,12 +74,458 @@ Note: The below are equivalent in ES6 (i.e. do not need to show value if key/val
 {% endhighlight %}
 
 * Setup Reducer 
-    * In Flux we handled Actions in the Store
-    * In Redux we handle Actions in Reducers (accepts State/Action and returns new State)
+    * Create Reducer for skill in new folder/file of /src/reducers/skillReducer.js, and set initial state 
+    in default parameters `state = []` (explicit name `skillReducer.js` so easily identify the file in 'tabs' of IDE)
+    * In the Reducer, each Reducer processes specific slice of State. 
+    Fork logic based on the Type of Action being processed using `switch`
+    (alternatively use `if`, a lookup table of functions
+    * DO NOT mutate State in the Reducer. Avoid mutating state by using ES6 spread operator
+    to return new instance of State array, then create deep copy of the passed in action.skill and return a 
+    brand new State containing extra value of new action.skill
+
+{% highlight javascript %}
+case 'CREATE_SKILL':
+    return [...state,
+    Object.assign({}, action.skill)
+    ];
+{% endhighlight %}
+
+* Cont'd
+    * Note: In Flux we handled Actions in the Store. In Redux we handle Actions in Reducers (accepts State/Action and returns new State)
+
+* Setup Root Reducer (to support using Multiple Reducers in Redux)
+    * Create folder/file at /src/reducers/index.js
+    * Alias specific Reducer name for use throughout app (when `import`ing)
+
+* Setup Redux Store
+    * Create folder/file at /src/store/configureStore.js
+    * Define a function to configure the Store and initialise it using `initialState` with some State (good for server-side 
+    rendering), to be called at app entry point, so runs when start app
+    * Pass parameters to `createStore`
+    * Pass optional 3rd parameter as Middleware to enhance the Store using Redux function `applyMiddleware`
+    and pass it any middleware to use in app (`reduxImmutableStateInvariant`) and invoke it
+        * Other middleware options are support for hot reloading, dev tools in chrome, etc (see react-slingshot repo)
+    * Update app entrypoint src/index.js to create instance of the Store Configuration.
+        * Optionally pass initial State to Reducers to override default State defined there
+        Use Cases for passing initial State: To **Rehydrate** Store using separate State passed down from server-side or from local storage
+
+* Wrap app with Redux `Provider` from react-redux Library to makes use of Redux Store Instance across React Container Components
+    * Note: `Provider` is a higher-order Component that attaches Redux Store with React Container Components
+    by wrapping over entire app so the Store may be accessed from React Container Components.
+    It takes the `store` as a Property
+    * In src/index.js, wrap the Router Component with the Provider Component
+
+* Update React Container Components by Decorating them with the React Redux `Connect` Component function
+    * Note: `Connect` is a higher-order Component function that connects React Container Components with Redux
+    * Note: `Connect` takes two functions as params `mapStateToProps` and `mapDispatchToProps` (may be named differently if desired)
+    * Declare `mapStateToProps` - return Properties we want exposed/inject on the React Container Component
+        * Declare Props to expose on Component so access with `this.props.__`. 
+        Obtain the data for Prop from within Redux Store using the `state` parameter
+        (i.e. `state.skills` would access the Alias `skills` for the skills Reducer defined in the Root Reducer)
+        * `ownProps` allows access to Props attached to the React Component.
+    * Declare `mapDispatchToProps` (OPTIONAL) - Actions to expose on React Container Component as Props 
+    (i.e. `createSkill` injected in Component by Connect function)
+        * **Approach Option #1 (Dispatch to Props)** If we DELETE this optional `connect` parameter, doing so causes the Component to automatically get a 
+        `dispatch` Prop attached to it that is injected by `connect`, so now in the `render` function can use
+        `this.props.dispatch`
+        * Use `dispatch` by importing reference to Action Creators, and then dispatching actions in the 
+        Event handlers of the Component by calling `this.props.dispatch(skillActions.createSkill(this.state.skill))` 
+        and passing it an Action and Data
+        for handling by Redux
+        * Note: `dispatch` is a function that allows firing off Actions that are defined in the Action Creator
+    * Example: Chain Functions.
+    
+{% highlight javascript %}
+const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
+export default connectedStateAndProps(SkillsPage);
+
+// Decorate with React Redux Connect function
+export default connect(mapStateToProps, mapDispatchToProps)(SkillsPage);
+{% endhighlight %}
+
+* Cont'd
+    * **Approach Option #2 (Dispatch to Props)** - Use `mapDispatchToProps` instead of verbose way to dispatch an action (i.e. `this.props.dispatch..`)
+     by using `mapDispatchToProps` to wrap the Action in a call to `dispatch` so easy to use in function (i.e. 
+     onClickSave()), and triggers the flow through Redux. `dispatch` is no longer injected by Connect as a Prop
+     on our Component, as we are using `mapDispatchToProps` now so `createSkill` is injected instead
+    
+{% highlight javascript %}
+// BEFORE
+onClickSave() {
+    this.props.dispatch(skillActions.createSkill(this.state.skill));
+}
+
+SkillsPage.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps)(SkillsPage);
+
+// AFTER
+onClickSave() {
+    this.props.createSkill(this.state.skill);
+}
+
+SkillsPage.propTypes = {
+  createSkill: PropTypes.func.isRequired
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createSkill: (skill) => dispatch(skillActions.createSkill(skill))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SkillsPage);
+{% endhighlight %}
+
+* Cont'd
+    * **Approach Option #3 (Dispatch to Props)** - Using Helper function is less verbose than having to wrap
+    Action Creator in a `dispatch` call using `bindActionCreators`, which goes through **all** 
+    `skillActions` and then wraps them in a call to `dispatch`
+    (now we map to **all** Actions and expect Actions at `this.props.actions` to help separate 
+    Actions from Skills)
+
+{% highlight javascript %}
+// BEFORE
+onClickSave() {
+    this.props.createSkill(this.state.skill);
+}
+
+SkillsPage.propTypes = {
+  skills: PropTypes.array.isRequired,
+  createSkill: PropTypes.func.isRequired
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createSkill: (skill) => dispatch(skillActions.createSkill(skill))
+  };
+}
+
+// AFTER
+import {bindActionCreators} from 'redux';
+
+onClickSave() {
+    this.props.actions.createSkill(this.state.skill);
+}
+
+SkillsPage.propTypes = {
+  skills: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(skillActions, dispatch)
+  };
+}
+
+{% endhighlight %}
+
+* Create Mock API to simulate delay calling API 
+(copy from https://github.com/coryhouse/pluralsight-redux-starter/tree/master/src/api)
+    * Create /src/api/mockSkillApi.js
+    * Create /src/api/delay.js (manages simulated delay of each Mock API call)
+
+* Add Thunk Middleware to handle making Async calls
+    * Import and apply Redux Thunk Library as Middleware in store/configureStore.js
+    * Create Thunk to load skills when app loads initially (at bottom of src/actions/skillActions.js)
+    * Note: Action Creator Naming Conventions - postfix 'Success' as only called upon successful promise
+    * Create Success/Error Action Types called after API response (i.e. `LOAD_SKILLS_SUCCESS`)
+
+{% highlight javascript %}
+import * as types from './actionTypes';
+import skillApi from '../api/mockSkillApi';
+
+// Action Creators (postfix 'Success' as only called upon successful promise)
+export function loadSkillsSuccess(skills) {
+  debugger;
+  console.log("action creators:loadSkillsSuccess - Called Action LOAD_SKILLS_SUCCESS");
+  return { type: types.LOAD_COURSES_SUCCESS, skill: skill };
+}
+
+// Thunk async call to Mock API, wait for Promise resolve then dispatch Action
+export function loadSkills() {
+  // Thunk Wrapper function accepts dispatcher and are always returned by Thunks
+  return function(dispatch) {
+    /**
+     *  Thunk Body makes call to API that returns a Promise
+     *  Handle Promise in anonymous function that expects a list of skills
+     *  Dispatch an ActionCreator and pass it the list of skills returned.
+     */
+    return skillApi.getAllSkills().then((skills) => {
+      dispatch(loadSkillsSuccess(skills));
+    }).catch(error => {
+      throw(error);
+    });
+  }
+}
+{% endhighlight %}
+
+* Cont'd
+    * Create handler in Reducers file corresponding to Action Thunk to update Redux State
+    with response from Mock API
+    * Configure app entrypoint `index.js` so Fetches Skill data from Mock API when app initially loads.
+    After `configureStore()` we may start Dispatching Actions against the Store
+     (alternative in server-rendering is to inject JSON data into header of index.html)
+
+* Restructure app to achieve Separation of Concerns
+    * Create SkillsPage, SkillList, SkillListRow
+    * Create common/SelectInput and common/TextInput
+    * Container vs Child Components 
+        * Container to list data (existing skills shown on page load after retrieval from 
+        Mock API). Skills loaded by displaying Action with Redux using Redux Thunks
+        * Child to manage add/edit data 
+    * Move to Child the JSX markup, etc currently contained in SkillsPage
+    * Separate Pages for Adding Skills and Editing Skills (ManageSkills Component)
+    * Create Container Component using IntelliJ's Final Template Feature to create 
+    Redux Container Component with boilerplate already setup
+        * New > React Class Component
+        * New > React Redux Container Component
+        * New > React Stateless Component
+    * Populate form using `mapStateToProps` and `componentWillReceiveProps`
+
+* Centralise declarations of initial State by creating reducers/initialState.js
+    * Reducers handle slices of the Store but provides centralised picture of how initialise object wrapped in Store
+
+* Manage and display Status/Errors of Async Calls using Redux using dedicated Actions and Reducers
+    * Loading indicator when app first loads during API call to retrieve data
+    * Track and Display on progress of async call status when save form data 
+    (avoid redirecting before save complete and updates not immediately shown)
+    * **Solution** Use Loading Dots library as Preloader to display when AJAX call in progress.
+    Add Toastr to show notifications
+    * Handle errors of rejected Promises elegantly (instead of allowing API calls to silently fail)
+    * **Optimistic Updates** are when want to immediately update UI with changes
+    even before AJAX call has completed without showing Preloader (i.e. deleting a user)
+    AJAX finishes behind the scenes.
+    
+### Redirect URL using React Router Context Types
+* Context Types are global variables that Library authors use (avoids boilerplate
+ plumbing code) but that other app developer consumers should avoid
+
+* Declare Context Types (Static Property) to import into Component
+    * Declare after Class Definition (since Context Types is Static Property)
+
+{% highlight javascript %}
+// React Router context pulled in so router available with this.context.router
+ManageSkillPage.contextTypes = {
+  router: PropTypes.object
+};
+
+...
+// Change URL
+this.context.router.push('/skills');
+{% endhighlight %}
+
+### Populate Form on page load (using Lifecycle Methods)
+* `mapStateToProps` - initially populate form when mounted
+* `componentWillReceiveProps` - update local State when Props change 
+
+### Lifecycle Method componentWillReceiveProps updates State when Props change
+* Situation is initialising Container Component State based on Props. 
+After Container Component page initialises any changes to the Props
+are not reflected in the Container Component State. 
+Lifecycle method `componentWillReceiveProps` used to update Container Component State when
+Props change, as it is called anytime the Props are changed.
+* Warning: `componentWillReceiveProps` may run even when Props have not changed
+
+### Container Component Structure Summary (using Redux)
+* File Structure of Container Component
+    * Constructor
+        * Initialise State
+        * Call `bind` on functions to be bound to `this` context
+    * Child Functions (called by `render` function)
+    * `render` function
+        * Calls Child Component with JSX markup (Containers shouldn't renders JSX inline)
+    * `propType` validations
+    * Redux Connect and related functions (`mapStateToProps` and `mapDispatchToProps`)
+
+### Destructuring 
+
+{% highlight javascript %}
+  render() {
+    const {skills} = this.props; // Destructuring to achieve shorter calls (instead of having to write `this.props.skills` later)
+    return (
+       <SkillList skills={skills} />
+{% endhighlight %}
+
+### Automated Testing Stack using React and Redux
+* Testing Stack: 
+    * Testing frameworks
+        * Mocha - highly configurable
+            * Add Chai or Expect assertion library
+                * i.e. Chai (to.equal, etc, with No Spy built-in)
+                * i.e. Expect (toBe, etc, with Spy built-in)
+        * Jasmine - less configurable
+        * Jest - wrapper over Jasmine (from Facebook) with unique features
+        * Tape - minimalistic
+        * AVA - robust like Mocha, but NEW unproven.
+            * Concurrent (not serial)
+            * Built-in assertions
+            * No globals
+            * Built-in ES6
+            * Runs only impacted tests on save
+            * Specific errors with marker
+    * Assertion libraries
+    * Helper libraries
+        * [React Test Utils API](https://facebook.github.io/react/docs/test-utils.html) (built by Facebook, verbose API)
+            * `shallowRender` - render in Isolation a single component (without Child-level Components), no DOM required
+            * `renderIntoDocument` - render Set of components with their Children,
+             actually renders component into DOM using JSDom to simulate browser interaction.
+             Supports use of refs and interactions (not supported yet in `shallowRender`
+                * `findRenderedDOMComponentWithTag` - query specific DOM element by Tag
+                * `scryRenderedDOMComponentWithTag` - find DOM elements by Tag
+                * Simulate event interactions on component and assert based on outcomes 
+        * [Enzyme](https://github.com/airbnb/enzyme) (PREFERRED)
+            * Abstraction that calls React Test Utils API behind the scenes to provide nicer API
+            * JSDOM used to provide in-memory DOM in Node.js
+            * Cheerio used for fast elegant jQuery-like selectors
+            * DOM interaction similar to jQuery https://github.com/airbnb/enzyme/blob/master/docs/api/shallow.md
+            * `shallow` - renders one level deep
+            * `mount` - renders set of components (including Child Components)
+            with full DOM loaded in memory using JSDOM
+* Testing Approaches
+    * Browser (i.e. Karma test runner)
+    * Headless Browser (i.e. PhantomJS)
+    * In-memory DOM (i.e. JSDOM)
+        * Simulates actual browser in-memory to interact with via Node.js
+
+* Test Dumb Presentation Components
+    * Provide Props and expect Markup
+        
+* Automated Unit and Integration Tests using Redux
+    * Test Scope
+        * Test Components connected to Redux
+            * Test `mapStateToProps` by extracting out data selection or manipulation into 
+            separate pure function in src/selectors that are easy to test
+        * Test Redux Action Creators
+            * Simple as just checking return 
+        * Test Thunks
+            * Requires Mock Store (using **redux-mock-store**) and HTTP Calls (using **nock**) with fake responses for testing
+        * Test Reducers
+            * Automate the creation of Reducer tests using "Redux Test Recorder" library 
+            https://github.com/conorhastings/redux-test-recorder
+        * Test Stores (and integration)
+            * **Integration Test** to ensure Actions, Store, Reducers are interacting as expected
+    * Test Sections
+        * Test Markup
+        * Test Behaviour (i.e. Components connected to Redux)
+
+### Setup Production Build
+* Goals
+    * Lint and run tests
+    * Bundle and minify JS and CSS
+    * Generate JS and CSS SourceMaps
+    * Exclude dev concerns
+        * Store
+            * src/store/configureStore does not require `reduxImmutableStateInvariant()` in prod
+        * Webpack
+            * Define global env variable `process.env.NODE_ENV`
+            * Use `devtool: 'source-map'` (slower than other)
+            * Remove Webpack Hot Middleware in Prod
+            * Serving content from /dist folder instead of /src in Prod
+            * Use different Plugins
+            * Change CSS Loader
+            * Create tools/build.js file to run Webpack Prod build
+            * Create tools/buildHtml.js to copy src/index.html to dist/index.html
+            * Serve Prod build on local machine with tools/distServer.js (including GZIP compression library)
+            * Update package.json with Prod scripts
+            
+    * Build React in prod mode
+    * Open prod build in browser
+    * Reduce size of bundle.js (4.9 MB is far too large) to 120 kB
+    
+    * Run prod build locally with `npm run build` and go to localhost:3000
+
+    * Further optimisations:
+        * Remove babel-polyfill, toastr, jQuery, Bootstrap, and use custom React Router to reduce to ~50 kB
+
+### Debugging
+
+* Insert `debugger;` in code and then run in browser to trigger breakpoints (using `devtool: inline-source-map` of Webpack) 
+    * Hover over variables to display info
+    * Test values in console window
 
 ### IDE
 * Atom - Add packages react, and terminal-plus
 * IntelliJ - Configur Languages & Frameworks > JavaScript > Change to ES6 or JSX Harmony/React JSX (for React)
+
+### IntelliJ's File and Code Template Feature
+* Preferences > Editor > File and Code Templates > Files 
+
+**React Class Component**
+{% highlight javascript %}
+import React, {PropTypes} from 'react';
+
+class $NAME extends React.Component {
+    render() {
+    
+    }
+}
+
+$NAME .propTypes = {
+  // myProp: PropTypes.string.isRequired
+};
+
+export default $NAME;
+{% endhighlight %}
+
+**React Stateless Component**
+{% highlight javascript %}
+import React, {PropTypes} from 'react';
+
+const $NAME = (props) => {
+    return (
+      //
+    );
+}
+
+$NAME .propTypes = {
+  // myProp: PropTypes.string.isRequired
+};
+
+export default $NAME;
+{% endhighlight %}
+
+**React Redux Container Component**
+{% highlight javascript %}
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+class $NAME extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+  
+  render() {
+    return (
+      //
+    );
+  }
+}
+
+$NAME .propTypes = {
+  // myProp: PropTypes.string.isRequired
+};
+
+
+function mapStateToProps(state, ownProps) {
+  // debugger;
+  return {
+    state: state
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)($NAME);
+{% endhighlight %}
 
 ### Stack
 * Redux, ES6 and Babel, React Router, Webpack, NPM, ESLint, Mocha, React Test Utils, Enzyme
@@ -258,7 +706,8 @@ performance, Time Travel Debugging (step fwd/back and replay State)
     * Unidirectional data flow - Data flows down, Actions flow up
     * Finite set of Actions utilised that define how State may be mutated
     * Action Creators may be defined to generate Actions
-    * Action Types (constants) may be used
+    * Action Types (constants may be used to prevent typos)
+        * Store constants in src/actions/actionTypes.js
     * Store that holds State
 * Redux Only
     * Single Store only allowed (single source of truth avoids storing
@@ -412,6 +861,7 @@ Redux state tree and supply Props to Child Components)
         causing Component to subscribe to Redux Store and gets called when Store is updated. This function returns
         and object whose properties become available as Props of Container Component
             * Filter/transform/sort State here ready for use in Container Component
+            * Prepare data (transform) to prepopulate forms
         * `mapDispatchToProps` function is passed to `connect` function the Actions to expose to Component.
         * `mapStateToProps` function is called every time Component is called
             * Use **Reselect** Library to increase performance if any expensive operations (i.e.
@@ -640,6 +1090,64 @@ export default Hi;
     * No dependency/awareness of Redux, Actions, or Stores (easier to reuse)
     * Not specify how Data loaded or mutated
     * Markup
+
+### Async in Redux
+* i.e. AJAX calls to server to load data via an API on page load
+
+* Mock API Pattern for client-side apps
+    * Rule of coding to Interface over an Implementation
+    * Benefits
+        * Not reliant on other devs or finalised API to build UI
+        * RAD with fast responses (may mask performance issues but we 
+        test against actual API before deployment)
+        * Test how UI performs when calls to API are slow/fast
+        by using `setTimeout` in Mock API to delay responses
+
+* Flux vs Redux
+    * Flux handles Async API calls in Action 
+    * Redux handles Async API calls using Redux Async Middleware Library such as:
+    Note: Redux Actions are Synchronous and return an object
+        * **redux-thunk**
+            * Return Functions (instead of Objects) from Action Creators
+            * **Thunk** wraps async operation in a function
+                * a function that returns a function
+                * a function that wraps an expression to delay its 
+                evaluation
+                * a thunk always returns a function that accepts dispatch as parameter
+            * Difficult Testing as must use Mock API without easy hooks
+            to observe individual steps in async flow
+            * Easy to learn
+            
+
+{% highlight javascript %}
+// i.e. deleteSkill wraps dispatch function so it runs later
+export function deleteSkill(skillId) {
+    return dispatch => {
+        return SkillApi.deleteSkill(skillId).then(() => {
+            // Call Action Creator (deleteSkill)
+            dispatch(deleteSkill(skillId));
+        }).catch(handleError);
+    }
+}
+{% endhighlight %}
+            
+* Cont'd
+     * Cont'd
+        * **redux-saga**
+            * ES6 Generators used along with an async DSL
+            * Generators handle async operations
+            * Generators are functions that may be paused/resumed later
+            and contain multiple `yield` statements (where generator 
+            pauses)
+            * Testing easy as can `assert` on effects that return data
+            (no Mocking required)
+            * Hard to learn and large API and need to understand possible errors
+        * redux-promise (less popular)
+            * Flux standard Actions/promises used to provide clear conventions
+            to async calls
+* Async Libraries for async flows using Redux
+
+* Thunk to implement Redux flows
 
 ### TODO
 
