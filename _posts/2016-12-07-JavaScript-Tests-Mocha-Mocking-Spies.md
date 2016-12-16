@@ -1071,8 +1071,257 @@ var lessThan100 = sinon.match(function(value) {
         * Example: Support passing either a 'string' or a 'function' as first param
         of a method by using the `and` and `or` functions (available on every matcher)
         `sinon.match.func.or(sinon.match.string)`
-        
+
+* Mock Timers with Sinon Fake Timers
+    * Similar to Jasmine's mock clock
+    * Clock Object allows control time during tests with `setTimeout` and `setInterval` calls
+    * Allows control of Dates (i.e. `Date.now`)
+    * Integrates with jQuery animations (i.e. move forward with time to when jQuery animation callback fires)
+    * Note: Import `sinon-ie` (Custom Sinon Library) when working with IE
+
+{% highlight javascript %}
+var myClass = {
+    // Takes callback as param and calls it after 1s
+    doTimeout: function(cb) {
+        setTimeout(cb, 1000);
+    },
+    hide: function() {
+        $("#hideMe").fadeOut();
+    }
+}
+
+describe("timers", function() {
+    var spy;
+    // Callback function
+    var cb = function() {
+        console.log('cb called');
+    }
+    //
+    beforeEach(function() {
+        $("#hideMe").show();
+        // Initialise to Sinon Spy that wraps around callback
+        spy = sinon.spy(cb);
+    });
+    //
+    // Handling timeouts
+    it('should be able to handle timeouts', function() {
+        // Initialise a Sinon Fake Timer
+        var clock = sinon.useFakeTimers();
+        myClass.doTimeout(spy);
+        // Fire clock tick just after 1s using `tick` function on clock
+        clock.tick(1010);
+        expect(spy.called).toBe(true);
+        // Restore clock to avoid hijacking afterwards and clean state between tests
+        clock.restore();
+    });
+    //
+    it('should be able to handle ui animations', function() {
+        var clock = sinon.useFakeTimers();
+        myClass.hide();
+        clock.tick(1010);
+        expect($("#hideMe:visible").length).toBe(0);
+        clock.restore();
+    }
+    //
+    it('should be able to fake dates', function() {
+        var initialDate = 1237423755011;
+        var clock = sinon.useFakeTimers(initialDate);
+        var date1 = Date.now();
+        console.log(date1);
+        clock.tick(1000);
+        var date2 = Date.now();
+        console.log(date2);
+        clock.restore(); // Move to `afterEach` function
+    }
+});
+{% endhighlight %}
+
+* Sinon Fake XMLHttpRequest (Test Double)
+    * Sinon controls XHR Object in browser but not all requests will receive a response
+    * Fake implementation of XMLHttpRequest (XHR) Object
+    * Tests that verify/inspect each request from SUT making AJAX calls and associated responses
+    * Tests that alternatively use XHR Object for canned responses
+    * Create Fake Request
+        * **Option 1** `useFakeXmlHttpRequest` API low-level method
+        * **Option 2** `fakeServer` API higher-level method for hijacking XHR object in browser
+        that sets up a pattern for responses to allow inspection of specific requests/responses
+
+* Option 1 `useFakeXmlHttpRequest`
+
+{% highlight javascript %}
+var requests = [];
+// Create Fake XHR Object
+var xhr = sinon.useFakeXMLHttpRequest();
+// Register Fake XHR Object to listen to when requests are made and inject them in requests array
+xhr.onCreate = function(req) {
+    requests.push(req);
+    // AJAX Call
+};
+...
+xhr.restore();
+{% endhighlight %}
+
+* Cont'd
+    * Purpose of Test and what is being tested
+        * Inspect request object (Fake XHR Object) to test code is correctly sending requests/data
+        * Testing original objects but want Fake XHR Object to respond the way a server would
+
+* FakeXMLHttpRequest API
+    * Use Fake XHR Object properties to inspect the request object and asset made correctly
+        * `request.url` - url that made request
+        * `request.method` - http method made
+        * `request.requestHeaders` - http request headers
+        * `request.requestBody`
+        * `request.status` - status of Response to http request depending on how Sinon Fake XHR Object setup
+        * `request.statusText`
+        * `request.username`
+        * `request.password`
+        * `request.responseXml` - may have a value based on http request headers
+        * `request.responseText` - text of response if not an XML based response
+        * `request.getResponseHeader(header)` - inspect specific response header
+        * `request.getAllResponseHeaders()` - all response headers as string
+
+* FakeXMLHttpRequest Response API
+    * `request.respond(status, headers, body)` // status (int), headers (obj), body/data (string)
+    Sinon responds when call on Fake XHR `request` object causing callbacks to fire or promises to complete
+    * `request.setResponseHeaders(object)` // set request header separately
+    * `request.setResponseBody(body)`
+
+{% highlight javascript %}
+describe("useFakeXMLHttpRequest", function() {
+    //
+    // Declare Fake XHR Object, and Requests
+    var xhr, requests;
+    //
+    beforeEach(function() {
+        // Initialise Fake XHR Object and Requests
+        xhr = sinon.useFakeXMLHttpRequest();
+        requests = [];
+        // 
+        // Event Listener to onCreate
+        xhr.onCreate = function(request) {
+            requests.push(request);
+        }
+    });
+    //
+    afterEach(function() {
+        xhr.restore();
+    });
+    //
+    it('should be able to handle responses', function() {
+        // Create response data variable
+        var responseData = '{"myData":3}';
+        //
+        // Make Request
+        $.getJSON('some/url', function(data) { console.log(data); });
+        //
+        // Tell Fake XHR Request to Respond to request
+        requests[0].respond(200, {"Content-Type":"application/json"}, responseData);
+        //
+        // Assertion
+        expect(requests[0].url).toBe('some/url');
+    });
+});
+{% endhighlight %}
+
+* Option 2 `fakeServer`
+    * Example
     
+{% highlight javascript %}
+// Create Fake Server
+var server = sinon.fakeServer.create();
+// Define how Fake Server should respond to requests
+server.respondWith(response);
+// Make requests
+// Restore server so original XHR object is available to browser again
+server.restore();
+{% endhighlight %}
+
+* Fake Server API
+    * `server.respondWith(response)`
+    * `server.respondWith(url, response)` - with overload for custom response to url
+    * `server.respondWith(method, url, response)` - with overload for custom response to url for specific methods
+    * `server.respondWith(urlRegExp, response)` - with overload, so vague as to which urls to respond to
+    * `server.respondWith(method, urlRegExp, response)`
+    * `server.respond()` - causes all requests to be responded to
+
+{% highlight javascript %}
+describe("fakeServer", function() {
+    // Declare Fake Server
+    var server;
+    beforeEach(function() {
+        // Initialise Fake Server
+        server = sinon.fakeServer.create();
+        // 
+        // Tell Fake Server how to respond to requests
+        server.respondWith([200, {"Content-Type":"application/json"}, '{"myData":35}']);
+    });
+    afterEach(function() {
+        server.restore();
+    });
+    it('should respond with data', function() {
+        // Create blank Spy
+        var spy = sinon.spy();
+        //
+        // Make Request passing in the Spy
+        $.getJSON('some/url', spy);
+        //
+        // Tell Fake Server to Respond to AJAX request
+        server.respond();
+        //
+        // Assertion to check response is correct
+        sinon.assert.calledWith(spy, {"myData":35});
+    });
+});
+{% endhighlight %}
+
+* Sandboxing
+    * Post-testing ensure global objects restored to original state, including:
+        * Spies, Stubs, Mocks, Fake Timers, Fake XHRs
+    * Implement Sandboxing with either
+        * Option 1: `sinon.sandbox.create`
+        * Option 2: `sinon.test()` - use this method as wrapper to test callback
+
+{% highlight javascript %}
+// Underlying implementation
+var myXhrWrapper = {
+    // Show timing using console.log
+    get: function() { console.log('--get function'); },
+    save: function() { console.log('--save function'); }
+};
+
+describe("sandbox", function() {
+    var server;
+    beforeEach(function() {
+    });
+    afterEach(function() {
+        console.log('sandbox restored');
+        myXhrWrapper.get(); // Not sandboxed so has access to underlying implementation
+        myXhrWrapper.save();
+    });
+    it('should be able to sandbox using Option 1 sinon.sandbox.create', function() {
+        // Create sandbox
+        var sandbox = sinon.sandbox.create(); 
+        //
+        // Stub out XHR Wrapper and call both its methods
+        console.log('in sandboxed test');
+        // Manually create Sandbox and Link the Stub to particular Sandbox
+        sandbox.stub(myXhrWrapper);
+        myXhrWrapper.get(); // Stubs do not use underlying implementation
+        myXhrWrapper.save();
+        sandbox.restore(); // Unstub the stubbed methods used in the Sandbox
+    });
+    //
+    it('should be able to sandbox using Option 2 sinon.test wrapper fn', function() {
+        console.log('in sandbox test');
+        // Call `this.stub` when using sinon.test() Wrapper function
+        this.stub(myXhrWrapper);
+        myXhrWrapper.get();
+        myXhrWrapper.save();
+    });
+});
+{% endhighlight %}
+
 
 ## Links
 
