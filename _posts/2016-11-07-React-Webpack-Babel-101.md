@@ -237,12 +237,41 @@ heroku logs --tail
 heroku run bash
 ```
 
+### JavaScript Refresher (Reintroduction by Mozilla)
+* [JavaScript Refresher](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
+
+* `call` vs `apply`
+- `call` uses "C"omma to separate self defined as first argument and a second argument
+- `apply` takes an "A"rray with self as first argument and an array as second argument
+
+```
+function Person(first, last) {
+  this.first = first;
+  this.last = last;
+}
+
+function lastNameCaps(arg) {
+  return this.last.toUpperCase() + arg;
+}
+var s = new Person("Luke", "Schoen");
+lastNameCaps.call(s, "a");
+"SCHOENa"
+
+function lastNameCaps(...args) {
+  return this.last.toUpperCase() + args[0] + args[1];
+}
+var s = new Person("Luke", "Schoen");
+lastNameCaps.apply(s, ["a", "b"]);
+"SCHOENab"
+```
+
 ### React Definitions and Links
 
 * Architecture
 
 - [Facebook - Beginner - Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html)
 - [Facebook - Advanced - Design Thinking](https://facebook.github.io/react/contributing/design-principles.html)
+- [React AJAX](http://andrewhfarmer.com/react-ajax-best-practices/)
 
 ### Webpack Definitions and Links
 
@@ -290,3 +319,41 @@ heroku run bash
 * [Flux](https://facebook.github.io/flux/)
 * [Alt](http://alt.js.org/)
 * [Excellent React Setup Guide](https://codingbox.io/react-for-beginners-part-1-setting-up-repository-babel-express-web-server-webpack-a3a90cc05d1e#.clvjirdpa)
+
+## Other links unsorted
+
+
+### Webpack
+
+* Webpack config http://jlongster.com/Backend-Apps-with-Webpack--Part-I
+* Webpack config https://medium.com/@dabit3/beginner-s-guide-to-webpack-b1f1a3638460#.yw56ek5k4
+* Webpack nodemon http://stackoverflow.com/questions/28782656/how-to-run-node-js-app-with-es6-features-enabled
+* Webpack config https://www.twilio.com/blog/2015/08/setting-up-react-for-es6-with-webpack-and-babel-2.html
+* Rollup only loads relevant https://github.com/rollup/rollup/wiki
+* React Heroku Webpack http://ditrospecta.com/javascript/react/es6/webpack/heroku/2015/08/08/deploying-react-webpack-heroku.html
+* ES7 http://stackabuse.com/node-js-async-await-in-es7/
+* SocketIO usage http://socket.io/#how-to-use
+* Node Express REST API http://blog.modulus.io/nodejs-and-express-create-rest-api
+* Node generate webpage http://theholmesoffice.com/how-to-build-a-simple-webpage-in-node-js/
+* Node MVC http://theholmesoffice.com/getting-ready-for-scalability-creating-an-mvc-framework-for-our-node-js-page/
+* Node Bluemix https://www.ibm.com/developerworks/library/wa-simplenode1-app/
+* Server side render Node Express https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/
+* Complex React app code https://github.com/zen-js-code/react-universal-web-apps/tree/simple%2Bssr/app
+* Server side React Node https://medium.com/front-end-hacking/server-side-rendering-with-react-and-express-382591bfc77c#.cv0n0c4rt
+* Server side Node http://stackoverflow.com/questions/14951251/how-to-call-node-js-server-side-method-from-javascript
+
+### TDD / BDD Testing
+* Mocha Node https://www.codementor.io/nodejs/tutorial/unit-testing-nodejs-tdd-mocha-sinon
+
+### CLI Node
+
+* Node CLI prompt https://docs.nodejitsu.com/articles/command-line/how-to-prompt-for-command-line-input/
+* Node CLI https://www.sitepoint.com/javascript-command-line-interface-cli-node-js/
+* Node REPL http://www.2ality.com/2011/11/node-repl-start.html
+* Node REPL http://node.readthedocs.io/en/latest/api/repl/
+* Node Custom REPL https://docs.nodejitsu.com/articles/REPL/how-to-create-a-custom-repl/
+
+### Node 7 API
+
+* Node 7 API https://nodejs.org/api/synopsis.html
+* Optimist Node https://github.com/substack/node-optimist

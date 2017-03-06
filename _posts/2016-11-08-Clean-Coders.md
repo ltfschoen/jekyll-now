@@ -6,6 +6,7 @@ title: Clean Coders (in progress!)
 # Table of Contents
   * [Chapter 1 - Intro](#chapter-1)
   * [Chapter 2 - A-Frame Game](#chapter-2)
+  * [Chapter 3 - Episode 1](#chapter-3)
 
 ## Chapter 1 - Intro<a id="chapter-1"></a>
 
@@ -116,3 +117,9 @@ opinionated (i.e. type safety)
 
 * Step 2:
 - Write first test (i.e. can create board)
+
+## Chapter 2 - Episode 1<a id="chapter-3"></a>
+
+* Rigid system modifications are bad for estimates
+* Opacity is readability of code
+* Rush code slows you down

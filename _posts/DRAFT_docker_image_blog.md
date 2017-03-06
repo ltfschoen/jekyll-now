@@ -1,9 +1,5 @@
 ### Docker Image
 
-
-
-
-
 * `.dockerignore`: Define files and directories not to upload to Docker host when build image (i.e. `.git`) 
 
 ### Create Docker Image buy initiating Dockerfile build using Sample app
@@ -22,7 +18,6 @@ git clone https://github.com/spkane/docker-node-hello.git
 
 * Create minimal parent Docker Container for Ruby apps to inherit from
 [Link](https://blog.codeship.com/build-minimal-docker-container-ruby-apps/)
-
 
 
 * [Suggestion (try Phusion Passenger)](http://pacuna.io/2015/05/31/rails-environment-with-docker-and-vagrant/)

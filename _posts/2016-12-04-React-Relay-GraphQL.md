@@ -159,6 +159,12 @@ fragment userInfo on User {
 
 
 ### Relay Framework
+* React allows creation of declarative Views, 
+modelling State for Views (where Views are a function of the Data)
+(without the transactions to render the Views)
+* Relay is Data managing domain of React apps
+* React makes declarative programming easier for building UIs
+* Relay makes declarative programming easier for Fetching and Mutating Data
 * Builds upon Flux pattern and reduces it into Single Store
 * Relay co-locates Model with View. Relay data requirement directly in View to render correctly
 * Data requirements from ViewModel using GraphQL String (of Keys) sent to GraphQL server that provides Values response
@@ -166,6 +172,197 @@ fragment userInfo on User {
 merge GraphQL String (of Keys) from each ViewModel, and aggregates queries into Single Request to gathers Values from GraphQL server
 * Relay receives data from GraphQL server and makes them available to React Components via Props
 * Relay manages updates with GraphQL Mutations
+
+* Traditional HTTP Request/Data issues
+    * Performance 
+    * Optimisation
+        * Throttle requests
+        * Batching requests
+        * Optimistic Mutation and Rollbacks
+            * i.e. showing changes immediately in UI so app is responsive 
+            (even when change requests still in-flight) and perform rollbacks to before
+            what we assumed would work
+        * Pagination
+        * Caching
+            * when to expire cache, where to support cache
+    * Error handling
+        * Retries
+
+* Relay Design Decisions
+    * Storage and Caching (within **Relay.Store**)
+        * RelayStore == QueueStore + MemoryStore + CacheManager
+        * Layer Hierarchy: 
+            * Relay.Store is single normalised client-side in-memory Data Store
+            * Relay.Store's initial load puts all Data in Memory Layer of Relay.Store
+            * Relay.Store's **QueueStore**
+                * Manages in-flight changes to Data
+                * Allows Rollbacks (instead of managing state for a record
+                simply remove a faulty object from QueueStore)
+            * Relay.Store's **MemoryStore** Layer manages symbol binary State for all Records
+            (i.e. fetched or not fetched, etc)
+            * Relay.Store's CacheManager Layer may be any storage engine (i.e.
+            Local Storage, etc)
+        * Queries can read from QueueStore (Optimistic UI Updates) or MemoryStore.
+    * Object Identification
+        * All Relay objects have UUID (unique id) for re-fetching records and prevent duplicate records
+    * Diffing algorithm in Relay provides efficient data fetching 
+    (i.e. only fetches new/changed parts of object) using the **NODE Interface**
+    * **Relay Connection Model** related to **Pagination**
+        * Similar to After/First Model but enhanced with `edge` and `node`
+        that store extra info/metadata (i.e. total number of records, or whether we
+        have next page). All `edges` have built-in `cursor`
+        * Example using **Offset/Limit Model**
+            * i.e. Given list alphabet letters posted as comments and created in order from
+            "Z" to "A" (we sorted them by created by, with most recent "A" first)
+            i.e. ["A"..."Z"]
+            * Step 1 - Fetch first three with **Offset 0 / Limit 3** returns ["A","B","C"]
+            * Step 2 - User adds new comment "A0", which is added to start of list
+            * Step 3A - **Duplicate Problem** Retrieving Next Page **Offset 3 / Limit 3** returns
+            ["C","D","E"] instead of ["D","E","F"]
+            * Step 3B - **Missing Problem** If user deleted comment "A", then
+             **Offset 3 / Limit 3** would return ["E","F","G"] (skipping "D")
+         * Example using **After/First Model** (similar to Relay Connection Model)
+            * Note: Unique IDs required to reference records in After value using this model
+            * Note: Fetch an extra list to check if further requests after fetching first three
+            * i.e. Given same list ["A"..."Z"]
+            * Step 1 - **After ? (null) / First 3** returns ["A","B","C"]
+            * Step 2 - User adding "A0" or deleting "A" does not affect correct retrieval of 
+            Next Page, since query is for first three after "C" **After C / First 3**
+            
+{% highlight javascript %}
+// Relay Connection Model
+{
+    commentConnection(first: 3, after: "C") {
+        edges {
+            cursor,
+            node { authorName, commentText }
+        },
+        totalCount,
+        pageInfo { hasNextPage }
+    }
+}
+{% endhighlight %}
+
+* Relay and GraphQL
+    * Relay transpiles GraphQL Queries and Mutations against 
+    server schema prior to usage
+    * Example with GraphiQL 
+    `http://localhost:3000/graphql?query={dataArrayOfLinkObjects{_id}}`
+    * Relay uses [Tagged Template Strings/Literals (ES2015 feature)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) 
+    to express queries in console.log
+    * **Tagged Template Strings/Literals**
+        * Allows Tagging any Template String with a Function Name to be invoked for Pre-Processing
+        * Tagged Function receives processed list and works with interpolated values
+        * Example
+{% highlight javascript %}
+node
+let titleCase = strings => strings.join().replace(/\b\w/g, match => match.toUpperCase());
+titleCase`my test string`;
+--> 'My Test String'
+{% endhighlight %}
+* Cont'd
+    * `Relay.QL` is Relay function for transpiling queries against
+    schema
+    * Setup Babel Transform `babel-relay-plugin` by requiring it and invoking it with our 
+    Schema as argument to provide a Babel Relay Plugin variable for use with Babel
+    * Add to Babel Loader so Tagged Template Strings work: `npm install --save react-relay babel-relay-plugin`
+    * Queries with Relay are more strict. Always specify the selection set (there is no default)
+    (i.e. `query Test { ...`)
+    * Note: If get error running `webpack -wd`: `Module build failed: ReferenceError: Unknown plugin "./babelRelayPlugin" specified in "base" at 0`
+    then update webpack.config.js with `.map(require.resolve)`
+
+{% highlight javascript %}
+// View what Relay uses to replace raw GraphQL query
+console.log(
+    Relay.QL`
+        query Test {
+            dataArrayOfLinkObjects {
+                _id
+            }
+        }
+    `
+);
+{% endhighlight %}
+    * [Babel Relay Plugin](https://facebook.github.io/relay/docs/guides-babel-plugin.html)
+    is used by Relay to Pre-Process GraphQL Relay-Tagged Queries and Mutations on the
+    Client-Side and then Relay parses them using Server Schema (usually too large to ship to
+    Client-Side). Babel Relay Plugin may be configured ([Relay Starter Kit](https://github.com/relayjs/relay-starter-kit) 
+    is preconfigured) to convert the Relay-Tagged Queries 
+    and Mutations into an Object containing more Info about the types of the query fields
+        * Advanced Setup
+            * Copy from [Advanced Usage](https://facebook.github.io/relay/docs/guides-babel-plugin.html)
+            to generate Plugin instance, and include it in babelRelayPlugin.js
+            * Since we only have a JavaScript representation of the Schema, but not
+             a schema.json. Use the **GraphQL JS implementation builtin tools**
+             to compile the JS schema into a schema.json file so the Relay Plugin works.  
+            * Generate ./data/schema.json file in existing server.js (where we already have the
+            JS schema imported and invoked)
+            * Read from the generated ./data/schema.json file inside the babelRelayPlugin.js file
+            and call `.data` on it, and export the plugin for use by Webpack
+            * Use the plugin with the `babel-loader`, add the `plugins` property to the
+            `query` Property in webpack.config.js, as an array that is passed the path
+            for the plugin (i.e. `./babelRelayPlugin.js`
+            
+            
+* ES2015 Features Client-Side
+    * Babel enables ES2015 Final features
+    * Babel enables ES2015 Earlier stages according to [TC39](https://github.com/tc39/ecma262#ecmascript)
+    by enabling the `stage-0` preset in webpack.config.js (`npm install --save babel-preset-stage-0` 
+    including ECMAScript TC39 debated once such as use of `static propTypes`
+    * Example - Use `stage-0` for all features (beyond 2015) such as:
+        * Move `propTypes` and `defaultProps` (static properties) into the class itself
+        * Move the `state` to be a direct property of the class (not within the contructor)
+        * Convert `onChange` function to be a property of the class instead, allowing use of arrow fn,
+        which means we no longer need to manually `.bind(this)` anymore, and so the `constructor`
+        function may be removed
+
+{% highlight javascript %}
+// BEFORE
+class Main extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = _getAppState();
+        this.onChange = this.onChange.bind(this);
+    }
+    ...
+    onChange() {
+        this.setState(_getAppState());
+    }
+}
+Main.propTypes = {
+    limit: React.PropTypes.number
+}
+Main.defaultProps = {
+    limit: 4
+}
+export default Main;
+{% endhighlight %}
+
+{% highlight javascript %}
+// AFTER
+class Main extends React.Component {
+    // Static Properties
+    static propTypes = {
+        limit: React.PropTypes.number
+    }
+    static defaultProps = {
+        limit: 4
+    }
+    // Instance Properties (every component has its own)
+    state = _getAppState();
+    //
+    onChange = () => {
+        this.setState(_getAppState());
+    }
+}
+export default Main;
+{% endhighlight %}
+
+* ES2015 Features Server-Side (Node)
+    * Babel enables ES2015 Earlier stages according to [TC39](https://github.com/tc39/ecma262#ecmascript)
+    by enabling the `stage-0` preset in package.json in the start script of `babel-node` 
+    including usage of `async` [Stage 3 Draft](https://tc39.github.io/ecmascript-asyncawait/), and 
+    immediately invoke it with an IIFE if required i.e. `(async () => { ... })();`
 
 ### Container Componet
 * `componentDidMount` lifecycle method to invoke API read operation

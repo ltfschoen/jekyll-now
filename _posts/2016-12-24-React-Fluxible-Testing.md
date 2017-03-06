@@ -376,9 +376,6 @@ context.executeAction(myActionCreator, {})
 // console.log("context.getStoreContext().getFoo()", context.getStoreContext().getFoo());
 // console.log("context.getComponentContext().getFoo()", context.getComponentContext().getFoo());
 
-
-        
-
 ## Interpreting Errors
 
 * `Invariant Violation: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined.`

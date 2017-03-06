@@ -35,7 +35,9 @@ suite('my suite', function() {
 * BDD Style Mocha
 
 {% highlight javascript %}
-describe('my suite', function() {
+var assert = require("assert"); // build-in Node.js assert library
+
+describe('a feature/my suite', function() {
     setup(function() { ... });     // Called before every test
     teardown(function() { ... });
     before(function() { ... });    // Called before other tests are run but only once
@@ -43,9 +45,9 @@ describe('my suite', function() {
     it('test 1', function() {
         expect(1).to.equal(1);
     });
-    describe('inner nested suite', function() {
+    describe('a scenario/inner nested suite', function() {
         it('should be test 2', function() {
-            expect(1).to.equal(1);
+            assert(true);
         });
     });
 });
