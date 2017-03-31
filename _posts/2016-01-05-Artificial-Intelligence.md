@@ -332,6 +332,15 @@ https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889
           - Highlights self-driving car applications, benefits (i.e. safety), and modern suppliers
           - Identifies need for multi-tasking AI platform
           - Suggests students to build innovative experiments and forward to Sebastian (i.e. using Arduino)
+        * Q&A (Starring Luke Schoen)
+            * https://youtu.be/AijSw9Q3oas
+            * Initiative of re-writing or summarising research papers so more easily
+            understood by layman by using visuals and animations like Udacity uses
+                * TODO - Central repository that unifies papers into a single site
+                    * Interactive tool where can play with parameters with different outputs
+                    * i.e. create site with all animations associated with Artificial Intelligence
+                    (Udacity would like to work with people involved)
+            * Cyc http://www.cyc.com/
     * Peter Norvig - Google - AI book author
     * Thad Starner - Georgia Tech - Contextual Computing & Google X researcher
     * Arpan Chakraborty - Georgia Tech - Computer Vision - AI research
@@ -414,6 +423,11 @@ https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889
         * https://github.com/morganel?tab=repositories
         * https://github.com/morganel/AIND-Isolation-1
         * https://github.com/morganel/AIND-Planning
+        * https://github.com/madhavajay/nd889
+        * arunkv
+            * https://github.com/arunkv/AIND-Planning/commits/master
+
+        * sumitbinnani
 
 * Chat - Slack https://artificial-intelligence.udacity.com/
     * ai-nd.slack.com
@@ -1772,5 +1786,2257 @@ Run > Debug > + > Python
         * Summary of AlphaGo, excellent https://www.tastehit.com/blog/google-deepmind-alphago-how-it-works/
 
 
+    * Lesson 7 - Search:
+        * **AI dev** dfn: Figure out what to do when don't know what to do
+            * Plan sequence of steps to figure out what to do even when do not know
+            what first step should be until we solve the search problem
+            * Note: Experiment and keep measuring so you can improve.
+            Pay attention to people by keeping them happy and productive
+            * **A\* Algorithm**
+        * **non-AI dev** dfn: Write instructions to tell computer what to do when you do know what to do
+        * Challenge 1:
+            * Tri-City Search Problem
+                * **Problem** is visit 3x places on bicycle, minimising travel distance, and willing to
+                 go down wrong way down one-way streets, with minimal runtime, and minimal overhead
+                * **Step 0**
+                    * Consider Space and Time advantages/disadvantages of each algorithm
+                * **Step 1**
+                    * Option 1: Simultaneously (trick) start Search from A, B, and C
+                    using **A\* Algorithm** (aka Tri-Directional A\* Search),
+                    by growing them out until first two connect, then continuing
+                    until third location connects somewhere with first two
+                    (avoids repeated node visits)
+                        * **Tri-Directional A\* Search** uses an Admissible **Heuristic**
+                        function that accounts for **two potential goals at the same time**
+                        otherwise would just be an uninformed Tri-Directional Search
+                    * Option 2: DFS - not viable as may cross country multiple times
+                    just for first branch
+                    * Option 3: BFS (UCS) - works, but 3x searches required,
+                        * Sequentially Search from: A to B, B to C, and C to A,
+                        then determine Shortest two of the three paths,
+                        and set the polling station between those two paths as the
+                        next to visit and start at either of the other two cities
+                        * Issue: Would explore more streets intersections / nodes
+                        repeatedly in the 3x searches more than necessary
+                        (duplicates), and search range is further than necessary
+                    * Option 4: Bi-Directional Search
+                        * Instead of each of 3x searches requiring **b^d nodes**
+                        it would be done in **(b^d)/2 nodes**, but would still revisit
+                        nodes in triangle b/w the cities
 
-* TODO ALL - http://redux.js.org/docs/introduction/
+        * Challenge 2:
+            * Rubik's Cube
+                * **Problem** Goal of all same colours on same side, cube levels twistable on
+                vertical or horizontal. Design search algorithm that guarantees least qty moves to
+                finish from any starting state, where each 1/4 (90 degree) turn is a move
+                * **Solution** Iterative Deepening with A\* Search Algorithm (IDA*), which
+                looks for increasingly longer solutions in series of iterations, and using a special
+                admissable Heuristic (search technique) described here [Korf, 1997. Finding Optimal Solutions to Rubik's Cube Using Pattern Databases.](https://www.cs.princeton.edu/courses/archive/fall06/cos402/papers/korfrubik.pdf),
+                that uses a lower-bound heuristic to prune branches when their estimated
+                length exceeds the current iteration bound, and a heuristic function
+                based on large memory-based lookup tables
+                or "pattern databases" (storing exact qty of moves req'd to solve sub-goals
+                such as individual movable cubies) and where the effectiveness of the
+                admissible heuristic function is characterised by is **expected value** (see paper
+                for details),
+                searching to median depth of 18 for random configs attempted.
+                Proved that max quarter turns required to solve cube is 26  [God's Number is 26 in the Quarter-Turn Metric](http://www.cube20.org/qtm/)
+                using 29 CPU years of idle computer time of super computer
+                    * Note: Overcomes issue since search space is large (i.e. nodes at depth of 18
+                    in search tree is Quintillion (i.e. xx,xxx,xxx,xxx,xxx,xxx,xxx) so is Intractable
+        * **"Problem Solving" AI-Agents**
+            * i.e. theory and tech of building AI-agents to plan ahead to solve problems,
+            where problem complexity is due to many problem states
+            * **Conditions that must be True in order to successfully
+            search for a plan that solves a problem and be guaranteed of working**
+                * Domain must be **Full Observable**
+                (i.e. must be able to see initial state we start with)
+                * Domain must be **Known**
+                (i.e. must know the actions that are available to us)
+                * Domain must be **Discrete**
+                (i.e. must be finite qty of actions to choose from)
+                * Domain must be **Deterministic**
+                (i.e. must know the result of taking an action)
+                * Domain must be **Static**
+                (i.e. must be nothing else in world that can change the world
+                excpet our own actions
+            * **State Spaces** of many Types may be dealt with using Problem-Solving through Search,
+            such as:
+                * 2D
+                    * Route finding problems
+                    * Sliding blocks puzzle called "15 Puzzle"
+                        * Note: **requires a Heuristic function to be applied in order for the
+                        search algorithm to work**
+                        * Starting State is mixed up positions
+                        * Approach - Slide tiles around until reach goal
+                        * Goal - Tiles in certain configuration in order left-to-right
+                        and top-to-bottom
+                            * i.e.
+                            ```
+                             1  2  3  4
+                             5  6  7  8
+                             9 10 11 12
+                            13 14 15
+                            ```
+
+                        * **Heuristic Usage** Solution Approach
+                            * Heuristic h1 = qty of misplaced blocks
+                                * Admissible (never overestimates, since each time
+                                in wrong position must be moved at least once to get
+                                to right position)
+                            * Heuristic h2 = sum of distances that each block would
+                            have to move to get to right position
+                                * Admissible (since each tile in wrong position
+                                can be moved closer to correct position no faster
+                                than one space per move)
+                            * Heuristic h3 = always exact cost at every node
+                            (so naturally expands the least number of nodes)
+                            * Heuristic h4 = always 0 (so naturally
+                            expands the most number of nodes of all possible heuristics)
+                            * Note: h2 >= h1
+                                * So with the exception of breaking ties, an
+                                A\* Search using h2 always expands fewer paths
+                                than one using h1
+                            * Note: Heuristic that is greater than or equal to another
+                            one gets use closer to the perfect heuristic and expands
+                            at least the same qty of nodes
+                        * **Deriving Candidate Heuristics Automatically
+                        (aka Generating a Relaxed Problem)** (by manipulating a formal
+                        description of the problem where many constraints, such as harder to move
+                        tiles around, and made easier by relaxing one or more of the constraints)
+                            * Note: By **relaxing the problem**, it is
+                            as though new operators are being added that traverse the state in new ways,
+                            making the problem **easier** to solve (never overestimates, and is admissible)
+                            * Program that is:
+                                * Given Description of a Problem (i.e. sliding blocks puzzle)
+                                ```
+                                Line 1 - A block can move from any tile A to any tile B
+                                Line 2 - if (A is adjacent to B)
+                                Line 3 - and if (B is blank tile
+                                ```
+                            * Loosen the restriction by:
+                                * Crossing out Line 3, results in **Heuristic h2**
+                                (since a block can move anywhere to an adjacent state)
+                                ```
+                                Line 1 - A block can move from any tile A to any tile B
+                                Line 2 - if (A is adjacent to B)
+                                ```
+                            * Loosen the restriction again further by:
+                                * Crossing out Line 2, results in **Heuristic h1**
+                                (where a block can move anywhere, regardless of any condition)
+                                ```
+                                Line 1 - A block can move from any tile A to any tile B
+                                ```
+                        * **Generating Another Heuristic**
+                            * Guaranteed Admissible (as long as h1 and h2 Admissible) and
+                            never overestimates, and is guaranteed better as gets closer to true value
+                            ```
+                            h = max (h1, h2)
+                            ```
+                            * Note: Problem with combining heuristics is that there is cost to compute
+
+
+                * 3D
+                    * i.e. Abstract properties other than x-y position on a plane
+                    * Robot vacuum cleaner world state space
+                        * In either of only 2x possible positions
+                            * Each position may or may not have dirt in it
+                            (additional property to deal with)
+                        * States Space required: 2x2x2 = **8** states
+                            * 2x physical states (State A or B)
+                                * 2x dirty states for State A (dirty A-dirty or not A-not-dirty)
+                                * 2x dirty states for State B (dirty B-dirty or not B-not-dirty)
+                        * Actions connect between each State
+                        * Example 1 (Simple):
+                            * Action of Move Right - Changes to State with position to the right that is dirty
+                            * Action of Sucking - Change to State with same position but no longer dirty
+                        * Example 2 (More Complex):
+                            * Given possible Robot positions 10 OFF
+                                * Given Robot possible positions
+                                    * 10 possible positions
+                                * Given Power Switch in one of 3 possible positions
+                                    * On
+                                    * Off
+                                    * Sleep
+                                * Given Robot with Dirt Sensing Camera either
+                                (2 possible positions):
+                                    * On
+                                    * Off
+                                * Given Robot with vacuum Brush Heights 5 OFF
+                                (5 possible positions):
+                                    * 1-5
+                                * Given Dirty or not
+                                (2 possible states)
+                                    * Dirty or Not Dirty
+
+                            * State Space has qty of states of:
+                                * Cross product of all variables (since each independent
+                                and any combination may occur)
+                                * = 3 * 2 * 5 * 2^10 * 10 = 307,200 states
+            * **Paths in the State Space**
+                * **Linked List** of Nodes implement the Paths within a computer algorithm,
+                where a Node is a Data Structure that has four Fields.
+                    * State Field - indicates the state at end of the Path (i.e. B)
+                    * Action - action take to get there (i.e. AB)
+                    * Cost - total cost and parent is pointer to another node (i.e. 234)
+                    * Parent - pointer to another node state (i.e. A), or null pointer
+                    if no parent
+                * Note:
+                    * Path - abstract idea
+                    * Node - same thing as Path, but terminology for
+                    representation in computer memory
+            * **Data Structures that deal with Nodes/Paths and their implementation**
+                * Frontier
+                    * Operations
+                        * Remove best item
+                        * Add new items
+                        * Membership test (i.e. is item in frontier?)
+                    * Implementation
+                        * **Priority Queue** (knows how to keep track of best
+                        items in proper order)
+                    * Representation
+                        * Set (i.e. built from Hash Table or Tree)
+                    * Build
+                        * Hash Table
+                        * Tree
+                * Explored List
+                    * Operations
+                        * Add new members
+                        * Check for membership
+                    * Implementation
+                        *
+                    * Representation
+                        * Single Set
+                    * Build
+                        * Hash Table
+                        * Tree
+            * Example 1: Navigation WITHOUT Fog Problem
+                * Initially many choices
+                * Complexity in **Sequence of Actions** (i.e. of picking right choice
+                of turn at each intersection)
+            * Example 2: Navigating WITH Fog Problem
+                * Complexity in **Partial Observability** (i.e. if unable to see through fog
+                where possible paths are, actions themselves are unknown, and
+                can't see result of actions)
+            * **Example A: Route-Finding 2D Problem (Partial Observability)**
+                * Given
+                    * Start location (i.e. Arad)
+                    * Destination location (i.e. Bucharest). Note: Corner of map
+                    * Partial map not showing the Destination
+                * Problem:
+                    * Find route from Start to Destination location
+                    * Actions executable by AI-agent is driving from city-to-city along roads
+                    shown on a map
+                * Question:
+                    * Is there a solution the AI-agent can return?
+                * Answer:
+                    * No, not if Start or Destination are not on the map
+            * **Example B: Route-Finding Problem (Full Observability)**
+                * Given
+                    * Same as above but Full map showing Destination
+                * Problem
+                    * Same as above
+                * Question
+                    * Same as above
+                * Answer
+                    * Yes, many possible Sequences of Actions (routes) chained together that
+                    each achieve the goal
+            * **Defining a Problem**
+                * Break down into components
+                    * **Initial State** (of AI-agent) - s0  (i.e. being in Arad)
+                    * **Actions** Function takes state input argument and returns
+                    set of possible actions executable when agent in the state
+                    (i.e. sometimes same actions available in multiple states)
+                    (i.e. sometimes actions are dependent on the state) (i.e. possible to go to
+                     neighboring cities but not any city in one move)
+                        * myActionFunc(s) -> {a1, a2, a3}
+                    * **Result** function takes state and action as input argument
+                    and returns new state as output
+                        * myResultFunc(s, a) -> s'
+                        * i.e.
+                            * State - Initial AI-agent state - s0 (in Arad)
+                            * Action - Go via route E671 to Timisora
+                            * Result - New State where AI-agent in Timisora
+                            (of applying Action in given State)
+                    * **GoalTest** function takes state and returns Boolean whether state
+                    is goal or not (i.e. only True in final destination)
+                    * **Path Cost** function takes a path, sequence of transitions
+                    (from performing Actions to move between States), and returns
+                    Cost of the path. Note: Usually just additive (i.e. Path Cost
+                    just sum of cost of individual Action steps) so implement the
+                    Path Cost function in terms of a **Step Cost** function (i.e Path cost
+                    is just the sum of the Step Costs along a path)
+                    * **Step Cost** function takes a State, Action, and the
+                    Resulting State from that Action, and returns the **Action Cost** as a
+                    number (n)
+                        * i.e. in route finding example this cost may by qty of kms
+                        travelled or minutes taken to get to destination)
+            * **Apply to Route Finding example the Definition of a Problem**
+                * Given **Initial State** of Arad
+                * Given **Goal State** of Bucharest
+                * Given possible **Actions** of roads to follow when in specific city
+                * **Sequences of Actions** are built from paths we follow
+                * Note: **Path Length** of 0 when just in **Initial State**
+                * Note: **Path Length** with "X" **Sequences of Actions** from
+                Initial State has **Path Length** of "X"
+                * Note: **State Space** is the set of all states
+                * Note: **Actions** are used to navigate the State Space
+                * Note: **Step Cost** of going between two adjacent States are shown
+                * Note: **Path Cost** for a path is sum of Step Costs along that path
+                * Note: At each Point we separate **State** into 3x different components:
+                    * **Frontier** consists of the States at the end of the Paths
+                    that have been explored
+                    * **Explored** region States before the end of the Paths that have been explored
+                    * **Unexplored** region States after the end of the Paths that have been explored
+            * **Define a Function for Solving Problems** called **Tree.Search**
+                * Note: Tree.Search represents a family of algorithms/functions, not a single algorithm,
+                which superimposes a search tree over the state space
+                * Note: It initialises frontier to be path consisting of only Initial State,
+                then a loop checks if still anything left in Frontier, otherwise fails
+                with no solution. If something left in Frontier we make a choice and use the
+                Tree.Search's family of functions to choose one of the paths in the Frontier,
+                and then remove that path from the Frontier. If we find the State at the
+                end of the Path that is a Goal State we return success, Else we
+                perform **Expanding that Path** by iteratively inspecting all possible Actions
+                expanding from that State and add to the Path the Actions and the result of that
+                State to get a New Path (which has the Old Path, the Action, and result of the Action).
+                All New Paths are added to the Frontier
+            * **Tree.Search Family of Algorithms - Commonalities and Differences**
+                * Commonalities:
+                    * All algorithms look at Frontier, popping items to check against Goal Test
+                * Differences between the algorithms:
+                    * The "choice" of which path to look at first (i.e. `remove.choice` of
+                    how you expand the next item of the Frontier)
+            * Search Algorithms
+                * **Breadth-First Search (BFS) Algorithm (aka Shortest steps first)**
+                    * Dfn: i.e. Searches by expanding first the shortest possible path steps,
+                    since always choose from the Frontier one of the paths that hasn't been
+                    considered yet, which is shortest possible
+                    * Optimal and Complete (if goal at finite depth)
+                * **Cheapest-First (Uniform Cost) Search (UCS) Algorithm (aka Cheapest cost first) (aka Dijkstra's algorithm)**
+                    * Dfn: i.e. Searches by expanding first for path with cheapest possible total cost first
+                    * Optimal and Complete (if goal has finite cost)
+                * **Depth-First Search** (Opposite of Breadth-First Search)
+                    * Dfn: i.e. Searches by expanding first the longest path,
+                    with the most links in it
+                    * NOT Optimal, and NOT Complete (since if infinite path, DFS would keep following it
+                    and never get to path consisting of the goal)
+                    * DFS only uses Storage Space of n nodes (instead of 2^n nodes in BFS and CFS)
+                    so saves a huge amount of space. But if also track the "Expored Set" we do not
+                    save as much.
+                * **Greedy Best-First (GBF) Search Algorithm (UCS focussing on Estimate)**
+                    * Dfn: i.e. Searches by expanding first the path that's closest to the goal
+                    according to the **Estimate** (search leads us directly toward the goal but searching in ellipses
+                    toward the goal, instead of circles searching in all directions even away from the goal.
+                    * Note: If **obstacles/barrier** in the way, may lead us to the
+                    goal in a longer path than necessary if we continue toward the goal without back-tracking
+                    back to states farther from the goal and exploring in the opposite direction around
+                    the barrier)
+                    * Similar to **Uniform Cost Search** by expanding in terms of Contours,
+                    like on a topological map, first expanding
+                    to a certain step distance, then to a farther distance, etc, from the initial state
+                    until at some point we reach the goal state, but note that the search
+                    was not directed toward the goal, but instead was expanding out everywhere in the space
+                    and we should expect to explore Half the state space on average to find the goal,
+                    so when the state space is large, we won't get to goal fast enough).
+                    To **find the goal faster than with UCS, we add more Knowledge to the search**
+                    by using an **Estimate of the Distance from the Start State to the Goal State**.
+                    In Route finding problem we can move in any direction (up, down, left, right), but for
+                    the **Estimate** we use the straight line distance between a State and Goal,
+                    and use that **Estimate** to find way to goal fastest.
+                * **A\* Algorithm (aka Best estimated total path cost first)
+                (combines UCS and GFS)**
+                    * Dfn: i.e. Searches by always expanding path with **minimum** value of the
+                    Heuristic function f (defined as sum of g and h components) so result is a search
+                    strategy that is the best possible (i.e. it finds shortest length path
+                    whilst expanding minimum qty of paths possible),
+                    where g of a path equals path cost,
+                    where h of a path equals h value of the state (final state of the path),
+                    which equals the estimated distance to the goal
+                        * Heuristic Function (generated by relaxing the problem definition)
+                        ```
+                        f = g + h
+                        g(path) = path cost (sum of path costs from initial state to current state)
+                        h(path) = h(s) = estimated straight line distance to goal (from current state)
+                        ```
+                    * Note: h is a Heuristic function finds the lowest cost path since
+                    when A\* Search ends it returns path P, with estimated cost C,
+                    where C is also the actual cost, since the h component is 0 at the goal state
+                    (so path cost is total cost, as estimated by the h function).
+                        * Path P must have a cost less than true cost of other paths on Frontier.
+                        * Paths beyond the Frontier must have cost greater than Path P's cost, since step
+                        cost is always 0 or more
+                        * Note: All paths on Frontier have estimated cost > C, since Frontier
+                        is explored in cheapest-first order
+                    * Note: Minimising g helps keep path short
+                    * Note: Minimising h helps keep focused toward finding goal
+                    * **Conditions under which A\* Algorithm will find the lowest cost
+                    path to goal**: A\* will always find the lowest cost path to the goal dependent
+                    on if the heuristic estimate function h for a state is less than the
+                    true cost of the path to the goal through that state:
+                        * h function want never to overestimates the distance to the goal
+                        * h is **Optimistic**
+                        * h is **Admissible** (since admissible to use it to find lowest cost path)
+                    * Goal test works by taking paths off the Frontier, not putting paths on
+                    the Frontier
+                    * Additional Heuristic
+                        * Use additional heuristic of the Straight Line distance between
+                        a State and a Goal, for each State
+                    * Combines **Greedy Best-First Search** of exploring a smaller number of nodes
+                    directed toward the goal state, and **Uniform Cost Search** that is guaranteed
+                    to find the shortest path to the goal state
+                    * Example
+                        * Given a found path through state space to State X, and trying
+                        to give value to the path. The measure f is sum of g (path cost so far)
+                        and h (estimated distance remaining for path to get to goal)
+                * Note: Resolve ties in left to right order
+                * **Optimality Property of Algorithms** (i.e. guaranteed to find the shortest path, cheapest total cost
+                path, and longest path respectively)
+                    * Yes, Optimal - Breadth-First Search
+                    * Yes, Optimal (assuming individual step costs are non-negative) - Cheapest-First Search
+                    * Not Optimal (if more than one goal state) - Depth-First Search
+                * **Storage Requirements Property of Algorithms**
+                    * Given a state space of "very large" Binary Tree (each level down
+                    the nodes double)
+                        * BFS "Frontier" requires at Level n a Storage Space of 2^n paths
+                        * CFS "Frontier" determines a sort of contour of cost but with a similar
+                        total number of nodes as BFS as Storage Space
+                        * DFS goes all the way down levels of branches to leaf and then
+                        back up working left to right, but at any point the "Frontier" has
+                        only n nodes (instead of 2^n nodes). If also tracking the
+                        "Explored Set" then do not get as much savings over BFS and CFS.
+                * **Completeness Property of Algorithms**
+                    * i.e. if there is a Goal State somewhere, will the algorithm find it?
+                    * Given a state space of infinite trees where a Goal State is hidden deep down
+                    in the tree then the algorithms guaranteed to find a path to the goal include:
+                        * BFS, CFS, but NOT DFS
+            * **Tree.Search Family of Algorithms - List of Algorithms**
+                * **General Tree Search (Non-Graph Search)** using **Breadth-First Search (BFS) Algorithm**
+                    ```
+                    Tree.Search (problem p) returns path
+                        frontier = { path(p.initial) }
+                        loop:
+                            if frontier is empty: return FAIL
+                            path = remove.choice(frontier)
+                            s = path.end
+                            if Goal Test (s): return path
+                            for a in p.Actions (s):
+                                add [path + a > Result(s,a)]
+                                to frontier
+                    ```
+                    * Steps
+                        * Sequence of Paths 1:
+                            * Pick Initial State with Path Length 0 (only path in Frontier, so is shortest)
+                            * Expand Initial State, adding in all paths that result from applying possible Actions
+                        * Sequence of Paths 2:
+                            * Remove Sequence of Paths 1 from Frontier
+                            * Find Shortest possible path resulting from next expansion
+                                * Get all new paths resulting from applying possible Actions from Initial State
+                                * If multiple new paths, then pick the shortest one
+                                    * If all have same length, then break the tie at random, or use a technique
+                        * Sequence of Paths 3:
+                            * Remove other Sequence of Paths 2 from Frontier (i.e. keep only the shortest path)
+                            * Add new paths to the Frontier, those that extend one level from new State (and including the
+                             back-tracking path back to the previous state that is also now part of the Frontier)
+                        * See **Graph Search** approach from here
+                    * Note: Build a tree, always keeping track of the Frontier (ends of paths we haven't explored yet)
+                    as the search space is explored, whilst behind the Frontier is the the set of Explored states,
+                    and ahead is the Unexplored States
+                    * Note: **Explored** States are tracked for when we want to expand and we find a duplicate,
+                    so we can point back to a previously seen state (without having to create a new state in the
+                    tree) and make a regressive step into the previously Explored state
+                        * See slide "7.9. Tree Search Continued"
+                * **Graph Search Algorithm** using **Breadth-First Search (BFS) Algorithm**
+                    ```
+                    Graph.Search (problem p) returns path
+                        frontier = { path(p.initial) };
+                        explored = { };
+                        loop:
+                            if frontier is empty: return FAIL
+                            path = remove.choice(frontier)
+                            s = path.end; add s to explored
+                            if Goal Test (s): return path
+                            for a in p.Actions (s):
+                                add [path + a > Result(s,a)]
+                                to frontier
+                                unless Result(s,a) in frontier or explored
+                    ```
+                    * **Avoids the repeated paths** in Graph.Search function,
+                    by modifying the Tree.Search function
+                    * Steps
+
+                        * Sequence of Paths 3:
+                            * With **Graph Search**
+                                * After we initialise "Explored Set" of paths already explored
+                                * And after exploring new path, we add new state to set of "Explored Set"
+                                * So when expanding the path and adding new states to end of it, we
+                                **don't add an end if we've already seen that new state before in either
+                                the "Frontier" or the "Explored Set"**
+                        * Sequence of Paths 4
+                            * When using **Breadth-First Search (BFS) Algorithm**, the paths
+                            that are candidates to be explored next are the "shortest" ones
+                            (i.e. length 1) that haven't already been explored yet
+                            * When we try to add new paths to the Frontier from this "shortest" state,
+                            if we find that those that extend one level from new State are either already in the
+                            "Frontier" or the "Explored Set", then we won't add them, and
+                            instead try the next "shortest" path, and try and add new paths from it to the Frontier
+                        * Sequence of Paths 5
+                            * Now with Frontier states that are all length of 2, we choose one of them,
+                            * We then add state paths to the Frontier that expand one level from this chosen state
+                            (but not the back-tracking path state since we're doing Graph Search),
+                            and determine whether we terminate the
+                            algorithm at this point (if we've reached Goal State) or if continue
+                            * Note: The Goal Test isn't applied when we add a goal node path to the Frontier, but
+                            instead when we remove a path from the Frontier. This is because it may not be
+                            the BEST path to the Goal.
+                                * Note: **Optimisation** may be made if using **Breadth-First Search** by
+                                **changing the algorithm** and writing a **specific BFS Routine** so that
+                                it checks the state as soon as they are
+                                added to the Frontier and gives result as soon as the goal state is added to the
+                                Frontier and terminates early (instead of after removing it from the Frontier by
+                                waiting until they are expanded),
+                                when we know there isn't the possibility of having a
+                                shorter path to the goal of say length 2.5 instead of 3
+                    * Note: **Breadth-First Search**
+                        * Will find shortest path in terms of least number of steps
+                        * Will NOT find shortest path in terms of shortest total cost
+                        (by adding up the step costs), perhaps try **Uniform Cost Search** instead
+                * **Graph Search Algorithm** using **Uniform Cost Search (UCS) Algorithm**
+                    * Steps
+                        * Initial State "Unexplored" - Step 0
+                        * Change Initial State to "Explored"
+                        * Expand out looking at an adding paths out of that State (i.e. 3 OFF) to the "Frontier"
+                        * Pick path X to be expanded next (using UCS rules of "Cheapest total cost first")
+                        * Remove that path X from the "Frontier" and add X to the "Explored"
+                        * Expand out looking at an adding paths out of that State from X (without back-tracking) to the "Frontier"
+                        and sum the total cost of those paths (across steps from initial state) and put on "Frontier" to compare
+                        * Pick path Y branching from initial state to be expanded next
+                        (using UCS rules of "Cheapest total cost first")
+                        * Remove that path Y from the "Frontier" and add Y to the "Explored"
+                        * Add new paths to neighboring/successor states from Y (without back-tracking) to the "Frontier"
+                        and sum the total cost of those paths (across steps from initial state) and put on "Frontier" to compare
+                        * Repeat picking path, etc
+                        * Note, cannot terminate the algorithm until reach Goal State and have popped that cheapest path
+                        off the "Frontier" (i.e. continue searching to see if a better cheaper path that also
+                        reaches the Goal State)
+    * Lab 7: Pac-Man
+        * Help Pac-Man navigate his world in the most efficient way to
+        find food and other objects by implementing BFS, DFS, and A\* Search.
+        Opportunity to create a visually good app for portfolio.
+        * Reference http://inst.eecs.berkeley.edu/~cs188/pacman/project_overview.html
+        * Udacity Forums https://discussions.udacity.com/c/nd889-search-optimization/nd889-lab-pac-man
+
+    * Lesson 8 - Simulated Annealing (in family of Local Search Algorithms):
+        * Reading: AIMA Chapter 4.1, + 4.2-4.5
+        * References: Different viewpoints and extensions
+            * [Randomised Optimisations](https://classroom.udacity.com/courses/ud741/lessons/521298714/concepts/5344086080923)
+        * Dfn: Used in AI when State Space is large and other
+        techniques required to search it and find optimal solutions.
+        * Example Problems: N-Queens problem where N Queens set up on a board
+        in such a way that they cannot attack each other
+
+        * **Iterative Improvement Problems and Algorithms**
+            * Example #1: Travelling Salesman Problem
+                * Problem:
+                    * Given a Salesman
+                    * Given 5x cities possible to visit
+                    * Rules:
+                        * Must visit all 5x cities before tour is finished
+                        * Must return to starting city at finish
+                    * Goal: Find most efficient order to visit the
+                    cities to minimise overall distance flown
+                    * Note:
+                        * This is an **NP-hard** Problem
+                        where all NP Problems are about as hard as each
+                        other (exponentially difficult)
+                            * N - Non-Deterministic
+                            * P - Polynomial Time
+                        * Use tricks to solve problem efficiently
+                * Solution
+                    * Approaches
+                        * Randomly connect the cities
+                        * Identify where paths cross
+                            * **Iterative Improvement Algorithm** applied
+                            by adding a small amount of intelligence to
+                            (i.e. iteratively revising figure to uncross
+                            each crossed situation to reduce distance
+                            travelled) results in getting very close to
+                            optimum solution (i.e. do this with 1000's of
+                            cities and will get result within 1% of
+                            optimum solution)
+            * Example #2: Goodness graph
+                * Problem:
+                    * Given an N-dimensional x-y axis graph
+                    that represents a Goodness Function that we are trying
+                    to Optimise for a problem
+                    * Find the Maximum point along it
+                * Solution:
+                    * Approach #1:
+                        * **Hill climbing** - start somewhere (say right-most point)
+                        and improve answer by travelling up the gradient
+                        toward one of the maximum points, but the
+                        problem is we may get stuck at a local maximum
+                        when there may be multiple maximums.
+                        Unstick from **Local Maximum** to find a
+                        **Global Maximum** by using these techniques
+                        * **Randomness Techniques** to use to get over problem
+                        of getting stuck :
+                            * **Random Restart**
+                                * Start many particles at random positions on graph,
+                                then Hill Climb, and take best results
+                            * **Genetic Algorithms**
+                                * Select positions based on Fitness Function
+                                to breed children that mutate and eventually converge
+                                on solution
+                            * **Simulated Annealing**
+                                * Analogy of gradual cooling temperature of particle
+                                from very high temperature to make it move in
+                                progressively less random ways while hill climbing
+                                until converge on Global Maximum
+                            * **Stochastic Beam Search**
+                                * Combines the ideas of **Random Restart**,
+                                 **Genetic Algorithms** and
+                                **Simulated Annealing**, such that multiple particles
+                                are released on graph and their children generate
+                                progressively less randomly and eventually converge
+                                on the maximum value
+
+
+                        * Note that Minimax is only relevant to
+                        Game playing, whilst UCS and BFS are difficult
+                        to implement in 2D graphs since infinite
+                        steps possible, and steps may need to be
+                        be infinitely small to avoid skipping solution
+            * Example #3: N-Queens Problem
+                * Problem
+                    * Given N queens placed randomly
+                    on N*N chessboard in positions
+                    so they cannot attack each other
+                    i.e. only any one queen can be on any one
+                    horizontal, vertical, or diagonal
+                    * Find queen positions to reduce attacks down
+                    to zero
+                * Solution
+                    * **N-Queens Heuristic Function**
+                        * **Try the stupid thing first, then add
+                        intelligence until solve the problem**
+                        * Move queens to separate axis
+                        * **Constraint Situation**
+                            * i.e. only allow each queen to move up/down its column
+                            (i.e. **Hill Climbing** so only allow move left/right along
+                            x-axis of graph, so not too many pieces to move)
+                        * Try Move queen subject to most attacks first
+                        (move that improves situation the most)
+                        * Test First Move - See how many attacks reduced to by
+                        moving each of the queens to different positioins up/down
+                        and comparing to find the lowest resulting attacks
+                        * If more than one move reduces attacks by same amount
+                        then choose one randomly
+                        * Iterate until reach goal of 0 attacks
+                        * **Local Minimum** If encounter situation where
+                        No move decreases qty of attacks or increases them
+                        (no move improves situation)
+            * **Randomness Technique** - Other Usages
+                * Particle Filters Technique
+                * Pattern Recognition with Hidden Markov Models
+                * Monte Carlo Markov Chains
+            * **Random Restart (with use of Improvements)**
+                * Given the following:
+                    * **Objective Function (y-axis) in State Space (x-axis) Graph**
+                        * Shoulder - positive gradient interrupted part-way with no increase
+                        so can get stuck here like at Local Maximum
+                        * Global Maximum - largest maximum in graph
+                        * Local Maximum - smaller maximum along the graph
+                        * "Flat" local maximum
+                * Goal:
+                    * Find Global Maximum and get Unstuck if encounter a Local Maximum
+                    by using Random Restart
+                * Steps
+                    * Repeat the following:
+                        * Randomly chooses a particle on the graph
+                            * **Taboo Search Trick** of skipping to next if detect
+                            is place we've been before since we are tracking prior places
+                        * **Heuristic #1 - Large Step size and reduce over time**
+                            * Start with Large Step size and decrease it over time to
+                            ensure we reach the Global Maximum
+                        * **Heuristic #2** - **Simulated Annealing** (Alternative to Heuristic #1)
+                        * **Potential Issues**
+                            * **Step Size Too Small Issue** Issue of landing on flat plateau
+                            or Shoulder where not enough info available to determine
+                            which way to go (to improve answer or check if reached maxium)
+                            and may result in wandering
+                            so need to only allow a Max amount of steps with no improvement in
+                            score, but with small enough step size we may thing we're not
+                            improving and that algorithm should stop
+                            * **Step Size Too Large Issue**
+                                * **Step across to different Hill**
+                                Issue is that may miss intended hill
+                                all together and go up a different hill instead with same incline
+                                * **Infinite Loop Risk** since if step big enough to step over to other
+                                side of hill where alternate incline direction and step big enough
+                                over again and repeat (oscillating and not converge on answer)
+                                    * Solution **Reduce Step Size** if detect any oscillations
+                        * Follow up the positive gradient steps until reach Maximum
+                        * Check if its the Global Maximum
+                        * **Stage Algorithm Variant** Keep track of the current
+                        found Maximum and try to generate shape
+                        of the problem to predict where new Maximum may be
+                        given places not yet explored
+                        * Keep track place we have been before
+                    * Find the Maximum of all the iterations
+            * **"Simulated" Annealing**
+                * Dfn: Repeat **Annealing process** according to a formula and timing
+                to refining toward desired properties
+                * Dfn: "Simulated" since we are borrowing ideas from physicists
+                such as energy minimisation where:
+                    * When external conditions may result in
+                    molecules becoming mobile, and where their mobility slowly reduces,
+                    they then arrange themselves into **Minimum Energy Configuration**,
+                    which result in regular **Patterns**
+                    * i.e. mud cracks where decrease in water in mud reduces molecule mobility
+                    over time and causes mud cracks to change into regular **Patterns**
+                    * i.e. iron molecules compact into **Minimum Energy Configuration**
+                    forming lattice with other molecules like carbon
+                    useful for sword making where a mixture of hardness and ductility is
+                    needed (**Annealing process** heating to temp where atoms can move about and form
+                    new structures with carbon and other molecules,
+                    and cooling iron molecules repeatedly to so they preserve alignment
+                    in desired lattice structures so swords are hard not brittle,
+                    recrystalisation of sword making)
+                    * i.e. honeycombs with **Minimisation by Design** where bees try
+                    optimise storage space
+                    the building materials used for the structure
+                    * i.e. lava cooling slowly and rocks form
+                    * i.e. columns of basalt rock where when it cools it shrinks and cracks
+                    into hexagonal lattice which is a **Minimum Energy Configuration**
+                * Note: Use idea of Heating and Cooling to get Unstuck from Local Minima
+                toward finding Global Maxima, where the following applies until
+                converge on solution:
+                    * High Temperature equates to Higher Randomness
+                    * Gradual Cooling results in Decreasing Randomness
+                * Algorithm:
+
+                    ```
+                    for t=1 to inf do
+
+                        # schedule of T values that is guaranteed to converge to the
+                        # Global Maxiumum if it starts with very high values
+                        # of T (temperature), causing lots of random graph motion as
+                        # we take all random positions offered to us, even bad positions
+                        # and climb up and down hills. then we'll decrease T slowly enough
+                        # until it's very small with no randomness where we just
+                        # Hill Climb to nearest peak normally
+                        #
+                        # when temperature T is VERY HIGH approaching infinity
+                        # then probability (e^(change_in_E/inf) = e^0 = 1) approaches 1
+                        # (even if change_in_E is negative)
+                        #
+                        # when T is VERY SMALL small (opposite situation) normal Hill Climbing occurs (instead of random)
+                        #
+                        # given temperature T approaching 0
+                        # T = 0.01 (i.e. near 0)
+                        # note: do not want T to be precisely 0 as will give undefined answer
+                        #
+                        # if new random pos. improves score E then take it (up the gradient)
+                        # if new random pos. does not improve E then change_in_E = 0
+                        # if new random pos. worsens score then change_in_E < 0 (down the gradient)
+                        #   e^change_in_E/T = e^(-1/0.01) = e^-100 (very small number)
+                        #   (so almost no chance of taking this suggested new random pos.)
+                        #
+                        # if get stuck at a flat plateau (i.e. shoulder) where change_in_E == 0, and regardless of T's value,
+                        # then e^0 = 1 and the algorithm will revert back to taking new random positions again
+                        # until walk off the plateau to a position with positive gradient that can improve E toward maxium peak
+                        #
+                        # similarly in "real-world" annealing, when temperature
+                        # is very high the particles jump around a lot at the
+                        # start so that if the particle gets stuck at a
+                        # Local Maxium instead, then given sufficiet time and
+                        # randomness it has the ability to leave the
+                        # peak and (ignore the fact that it is going the wrong way
+                        # and ending up at different part of the graph).
+                        # since temperature T is high, the next fixed random point
+                        # may make it move both down and up the slope until it
+                        # hits the Global Maximum
+
+                        T <- schedule (t)
+                        if T=0 then return current
+
+                        # select points randomly in nearby region
+
+                        next <- a randomly selected successor of current
+
+                        # select points if we find with improved value
+
+                        if change_in_E > 0 then current <- next
+
+                        # select points also if poorer value but only with
+                        # a probability
+
+                        else current <- next only with probability e^(change_in_E/T)
+                    ```
+            * **Local Beam Search**
+                * Given a graph, uses k multiple particles (positions)
+                instead of just one
+                * At each time-frame inspect all randomly generated neighbors
+                of each particle and compare them with each other and retain
+                the k best particles for the next iteration.
+                * Shares information between each particle and iteration, which differs from
+                Normal **Random Restart** that doesn't share any info between iterations
+                * Terminate if any particle reaches a Goal State
+            * **Stochastic Beam Search**
+                * Combines the ideas of **Random Restart**, **Genetic Algorithms** and
+                **Simulated Annealing**, and
+                * Same as Local Beam Search but more useful, since successors are
+                chosen not just based on fitness, but also based on Randomness
+                so we don't get stuck in a Local Maximum (similar to Simulated Annealing
+                within class of Genetic Algorithms)
+            * **Genetic Algorithms** (aka, second best solution to ANY problem)
+                * Dfn: Genetic Algorithms is analogy to Natural Selection in Biology
+                that uses Breeding and Mutation to find Optimal answer to problem
+                (fancy version of Stochastic Beam Search that happens to make a nice
+                analogy with biology)
+                * **Reducing Randomness over time** (like in Simulated Annealing)
+                    * **Fitness Function** reduces the Randomness as each Generation
+                    gets closer to solution
+                    * Additional measures to Optimise and converge quickly such as:
+                        * **Tuning Parameters**
+                            * Crossover
+                            * Mutations qty
+                            * Parents qty
+                * **Convention to represent given board**
+                    * Given one Queen in each column, encode a board with a number
+                    shown below each column that indicates where Queen is
+                    (i.e. grid distance of the Queen from the bottom)
+                    (i.e. 24748552, for 8x8 board)
+                    * Given 8x8 board, where there are 8 Queens, then after examining
+                    every possible pair of Queens that could attack each other we find there are
+                    28 pairs.
+                        ```
+                        8 choose 2 = ( 8! / (8-2)!*2! ) = 28
+                        ```
+                    * Goal is to reduce qty of attacking pairs of Queens to 0,
+                    so use **Fitness Function** as follows, such that when it is
+                    equal to 28 we know we have Won:
+                        ```
+                        Fitness Function for board
+                            = Max qty of attacking pairs of Queens - qty of attacking Queens for given board
+                            = 28 - qty of attacking Queens for given board
+                        ```
+
+                * **N-Queens Problem using Genetic Algorithms**
+                    * **Gene Pool** Choose 4x random boards
+                    (i.e. 24748552, ..., ..., ...)
+                    * Combine Genes from Gene Pool in different
+                    Patterns to Breed better boards
+                    * Choosing Genes from Gene Pool
+                    * Evaluate each board state in initial population
+                    using **Fitness Function** to get a
+                    Fitness Score Value (aka qty of non-attacking pairs of Queens)
+                    for each is calculated by going through each column from left-to-right
+                    and looking only to the right for each Queen to see if it attacks
+                    another (to prevent duplicates)
+                    * Proportional Probabilities (%) based on the Fitness Scores
+                    indicative of how likely each board is to be chosen as
+                    a Parent and breed, when then list them in descending order of %
+                    (i.e. add the 4x scores and Normalise each into a percentage)
+                    * Randomly Select 4x Parents from the 4x Boards and order from best
+                    to worst (best on top)
+                    (i.e. given 4x boards with 31%, 29%, 26%, and 14% respectively,
+                    by rolling a 100 sided dice to select 1st Parent, and if it
+                    rolls between 1 and 31 we select the 1st board, 32 to 60
+                    (i.e. 31% + 29% = 60%) we select
+                    2nd board, 61 to 76 we select the 3rd board, and 77 to 100 we
+                    select the 4th board)
+                    * Create 2x Children from each of the 4x Parents using a
+                    **Crossover Process** (see Lesson 8.21) where we group parents
+                    into Pairs
+                    and pick a random vertice (**Crossover Point** b/w two columns)
+                    for each Pair. Create the 1st Child
+                    by combining the LHS of the vertice of the Parent 1 with the
+                    RHS of the vertice of Parent 2, and repeat by
+                    combining LHS of Parent 2 with RHS of Parent 1 (for 1st Pair),
+                    and repeat for remaining Pairs... This way at least one of the
+                    Children gets the Best attributes of the Parents
+                        * Change **Parameters** in Genetic Algorithms to try and
+                        Optimise how quickly we converge to a good result,
+                        such as the qty of Children that each Parent may create
+                    * Note: Survival of the fittest, as with increasing amount
+                    of Generations of Children eventually we evolve to an
+                    8-Queens game board that solves the problem,
+                    the ones with lesser attacking Queens
+                    will have Higher Fitness Function and higher chance to create
+                    children, whereas the one with higher attacking Queens will
+                    have a Lower Fitness Function and less chance of creating children
+                    * **Genetic Algorithms Mutation**
+                        * **Problem**
+                            * Not selecting a Parent to breed where
+                            Fitness Function gives it Low Proportional Probability,
+                            but where that Parent has a critical piece, but never
+                            returns as a result of breeding from the other Parents
+                        * **Solution**
+                            * **Genetic Mutations** to add Randomness after Crossover
+                            with a Mutation step that avoids risk of never reaching goal state
+                            (similar to occasionally choosing a random direction
+                            in Simulated Annealing, and similar to randomness in
+                            Stochastic Beam Search),
+                            whereby
+                            for each qty (digit) of attacking queens for a given board,
+                            we have a small chance by significant chance that the digit
+                            will mutate into a different digit
+    * Lab 8 - Simulated Annealing
+        * Discussion Forums https://discussions.udacity.com/c/nd889-search-optimization/nd889-simulated-annealing
+        * Use simulated annealing to implement the algorithm in a Jupyter notebook
+        and using it to solve the Traveling Salesman Problem (TSP) between US state
+        capitals.
+        * Steps
+            * Fork https://github.com/udacity/AIND-Simulated_Annealing
+            * Open AIND-Simulated_Annealing.ipynb with:
+                `jupyter notebook AIND-Simulated_Annealing.ipynb`
+            * Follow instructions from AIMA to implement Simulated Annealing
+            in the Jupyter Notebook
+                * Simulated Annealing pseudo-code https://github.com/aimacode/aima-pseudocode/blob/master/md/Simulated-Annealing.md
+                * Simulated Annealing code https://github.com/aimacode/aima-python/blob/master/search.py
+                    ```
+                    def simulated_annealing(problem, schedule=exp_schedule()):
+                        """[Figure 4.5] CAUTION: This differs from the pseudocode as it
+                        returns a state instead of a Node."""
+                        current = Node(problem.initial)
+                        for t in range(sys.maxsize):
+                            T = schedule(t)
+                            if T == 0:
+                                return current.state
+                            neighbors = current.expand(problem)
+                            if not neighbors:
+                                return current.state
+                            next = random.choice(neighbors)
+                            delta_e = problem.value(next.state) - problem.value(current.state)
+                            if delta_e > 0 or probability(math.exp(delta_e / T)):
+                                current = next
+                    ```
+            * Install Jupyter Notebook with Miniconda
+                *  http://jupyter.readthedocs.io/en/latest/install.html
+                * `pip3 install --upgrade pip`
+                * `pip3 install jupyter`
+    * Lesson 9 - Constraint Satisfaction:
+        * Reading - AIMA Chapter 6
+        * **Techniques**
+            * Implement these algorithms optimise searching for solutions in
+            constraint satisfaction problems in the following order, starting with
+            the stupidest one first, then add intelligence as required
+                * **Backtracking Search** (aka Simple Search) (i.e. stupidest algorithm)
+                    * i.e. States are defined by values assigned so far
+                    * Initial State is empty assignment
+                    * Check if current assignment is goal
+                    * Assign a value to unassigned variable that does not conflict with current assignment
+                    * Dead End is reached when no legal assignments (if so, backtrack to previous
+                    state and try different assignment)
+                    * Repeat recursively until find answer or have tried all possible assignments and
+                    reported failure
+                * **Forward Checking**
+                    * Tracking remaining legal values for each unassigned Variable,
+                    so if ever make decision causing unassigned Variable to not
+                    be able to have a value, we stop search and backtrack
+                    * Benefit: If stuck (i.e. can't assign a colour to a territory)
+                    can backtrack earlier than would have if continued
+                    assigning variables (i.e. early warning system that our search is going
+                    down the wrong branch)
+                    * Weakness: Does not provide early detection for all failures
+                    (i.e. detect when two unassigned Variables are adjacent and only the
+                    same Domain is available to populate them with, so we need to use other
+                    Constraint Propagation repeatedly to enforce all local constraints)
+                * **Arc Consistency (aka **Simple Constraint Propagation)**
+                    * A Variable and a Constraint Propagation Problem are considered
+                    Arc Consistent wrt another Variable if value still available to
+                    Second Variable after assign value to First Variable.
+                    Network is **Arc Consistent** if all Variables in graph satisfy this condition.
+                    * Benefit: Potentially saves a lot of unncessary deep searching for more
+                    complicated problems
+                    * Example (see Map Colouring example below)
+                * Heuristics
+                    * **Minimum Remaining Values (MRV)** (see Map Colouring example below for explanation)
+                    * **Degree Heuristic** (see Map Colouring example below)
+                    * **Least Constraining Value**
+                        * Assign the Domain to
+                        a Variable that least constraints future choices (i.e. reuse previously
+                        used Domains unless absolutely necessary to use a new one) to avoids
+                        Dead Ends and Backtracking
+                        (i.e. rules out the fewest values
+                        in the remaining Domains to improve Backtracking Search
+                        algorithm efficiency)
+        * Example:
+            * Airport departure scheduling:
+                * Given:
+                    * 2500 arrivals / day
+                    * 2500 departures / day
+                    * Plane departs every 30 sec
+                * Problem:
+                    * How schedule all the flights?
+        * Example: Crypto-arithmetic Q1
+            * Given
+                * Each letter represents a digit
+                * Combination of all letters in word represent a different digit
+                * None start with 0
+            * Setup problem by listing
+            * Variables         `F T U W R O X1 X2 X3`
+            * Domains           `{ 0,1,2,3,4,5,6,7,8,9 }`
+            * Constraints/Rules: `alldiff { F, T, U, W, R, O }`
+                * Global Constraints
+                    * 1) All letters different. No letter can represent same digit
+                    * `O + O == R + 10*X1`
+                    (i.e. except when carry to next column X1 in 10ths place)
+                        * where X1 == 0 || 1
+                    * `X1 + W + W == U + 10 * X2`
+                        * where X2 is 100ths place
+                    * `X2 + T + T == O + 10 * X3`
+                        * where X3 is 1000ths place
+                    * `X3 == F`
+                    * `F != 0` (since problem does not allow leading 0's)
+
+                * Preference Constraints
+                    * Unary Constraints
+                        * Show constraints as square boxes on
+                        **Constraint Hypergraph**
+                            * Top square represents Global Constraint 1)
+
+            * Use procedure of **Backtracking Search** improved by using
+            WITH **Minimum Remaining Values (MRV) Heuristic**, **Degree Heuristic**, and
+            **Least Constraining Value Heuristic** to minimise backtracking)
+                * Given Variables, Domains, and Constraints
+                * Select unassigned Variable (i.e. X3), with Domain of 0 or 1
+                * Assign Variable X3 with a Domain value (i.e. 1),
+                since can't choose 0 as would fail constraint and
+                not pass Forward Checking
+                * Apply **MRV Heuristic** and select unassigned Variable (i.e. F)
+                since only has 1 remaining value and assign it with Domain value 1
+                * Now, **MRV Heuristic** find that X2 and X1 are tied with min remaining values
+                at 2 (i.e. 0 or 1), so choose 0 for both (either value passes Forward Checking)
+                * Now, O must be 4, since;
+                    ```
+                    `O + O == R + 10*X1`
+                    `2*O == R
+                    `O == R/2`
+                    so O is even since R max is 8, such that O == 4
+                    ```
+
+                    ```
+                    `X2 + T + T == O + 10 * X3`
+                    `0 + 2*T == O + 30
+                    `2*T - O == 30`
+                    `T == 15 + (O/2)`
+                    so if O == 4, then T == (1)7 == 7 (passing 1 to F)
+                    ```
+
+                    ```
+                    `X1 + W + W == U + 10 * X2`
+                    `U == 2*W`
+                    so, U must be even number less than 9, so
+                    choose U value of 6 (passes Forward Checking)
+                    ```
+
+
+
+            * Outcome (see lecture notes for details https://www.youtube.com/watch?time_continue=97&v=iqJbOGWEd6Y)
+                * X3: {0,1} => X3 = 1
+                * X2: 0
+                * X1: 0
+            * Answer i.e. F=1, O=4, R=8, T=7, U=6, W=3
+            ```
+              TWO
+            + TWO
+            =====
+             FOUR
+            ```
+
+        * Example: Map Colouring
+            * **Constraint Optimisation Problem** since has Preference Constraints, and is solved with
+            Linear Programming, Factory Job Scheduling
+                * e.g. Map Colouring, Sudoku, Car Assembly, Class Scheduling, Spreadsheets,
+                Transport Scheduling, Floor Planning, N-Queens (1000-Queens)
+            * Given
+                * Add colours to each territory in Australia
+                * Ensure no neighboring territory use same colour
+            * Setup problem by listing:
+                * Variables             `WA, NT, Q, NSW, V, SA, T`
+                * Domains               `Di = { green, blue, orange }`
+                * Constraints/Rules:    adjacent regions must have different colours
+                                        (i.e. list all possible pairwise constraints `WA != NSW`)
+                                        OR (i.e. list all allowable assignments for each pair of territories
+                    * Preference Constraints
+                        * **Unary Constraints** (restrict value of given variable) (i.e. `WA not orange`)
+                        * **Binary Constraints** (relate two variables at most)
+                            * **Constraint Graph** uses for representation visually
+                                * Nodes - (i.e. variables `WA, NT, ...`. Note `TAS` is independent from rest of problem
+                                * Lines - show constraints between variables)
+                                * Apply **General Constraint Satisfaction Problem Algorithms** to the Constraint Graph
+                                Structure to search quickly for answer
+                        * **Multiple Constraints** (i.e. 3 or more variables)
+                        * **Soft Constraints** (i.e. prefer to teach on Tues and Thu)
+            * Solution:
+                * An assignment of colours to each of the territories that satisfies all constraints
+           * Concrete Example Solution (i.e. using **Backtracking Search** ONLY)
+                * Given Variables, Domains, and Constraints
+                * Select unassigned Variable (i.e. `WA`)
+                * Assign Variable a Domain `orange` from possible (i.e. `green, blue, orange`)
+                * Select unassigned Variable (i.e. `NT`)
+                * Assign Variable a Domain `blue` from possible (i.e. `green, blue`)
+                * Select unassigned Variable (i.e. `QLD`)
+                * Assign Variable a Domain `blue` from possible (i.e. `blue, orange`)
+                * **Dead End** when try unassigned Variable (i.e. `SA`)
+                * **Backtrack** up to previous branch where only `orange` and `green` had been used
+                * Continue until find solution
+                    * Improve efficiency of algorithm
+           * Concrete Example Solution (i.e. **Backtracking Search** improved by using
+           WITH **Minimum Remaining Values (MRV) Heuristic**, **Degree Heuristic**, and
+           **Least Constraining Value Heuristic** to minimise backtracking)
+                * Given Variables, Domains, and Constraints
+                * **Structured CSPs Algorithm (Optimisation)**
+                    * Reference: **Graph Algorithm**: Topological Sorting
+                    https://courses.cs.washington.edu/courses/cse326/03wi/lectures/RaoLect20.pdf
+                    * Benefit: Save time when deep searching
+                    * Approach: Investigate "Structure" of problem and decompose
+                    into independent sub-problems (i.e. `TAS` is separate), which
+                    removes a level from the search tree
+                    * Example 1:
+                        * Given problem with:
+                            * n = 80 possible Variables
+                            * d = 2 possible values each (Domain makes Variables binary in nature)
+                            * c = 20 possible Variables in each sub-problem
+                            (after dividing into 4x problems of 20 each)
+                            * d^n = 2^80 (original Search Space)
+                                * n/c * d^c = 4 * 2^20 (afterward Search Space)
+                    * Example 2: **Tree-Structured CSPs Algorithm (fast method, but must convert
+                    Constraint Graph into a tree first**
+                        * Given problem with No Loops, can solve problem
+                        in O(n*d^2) Time instead of O(d^n) Time
+                        (where n is qty Variables, and d is size of Domain) by:
+                            * If Constraint Graph is not a "tree", then try to modify the problem
+                            by assigning a Domain to some Variables first in order to
+                            change the Constraint Graph into a "tree"
+                            (i.e. if use MRV first and assign Domain to unassigned Variable
+                            so that Variable is removed from the possibilities of its neighbors
+                            then the problem becomes a "tree" and can be solved using this fast
+                            method)
+                            * Choose a Variable as root
+                            * Choose an ordering of Variables from the root to the leaves such
+                             that each Variable node appears after its parent node in the tree
+                            * Start at end Variables (leaves) and make each parent **Arc Consistent**
+                            going up the tree until we get to the root, and if not possible,
+                            report failure of the problem
+                            * Start at root of tree and choose any Domain assignment
+                            available until we get to the leaves (since when the tree is
+                            **Arc Consistent** any of the available assignments will solve the problem)
+
+                * **Forward Checking** Status:
+                    * All territories could have any of the 3x possible colours
+                * Select unassigned Variable (i.e. `WA`)
+                * Assign Variable a Domain `orange` from possible (i.e. `green, blue, orange`)
+                * **Forward Checking** Status Update:
+                    * All territories could have any of the 3x possible colours,
+                    EXCEPT:
+                        * Orange removed from colours available to NT and SA
+                * Select unassigned Variable (i.e. `NT`)
+                * Assign Variable a Domain `green` from possible (i.e. `green, blue`)
+                * **Arc Consistency (aka Simple Constraint Propagation check)**
+                    * When assigning `green` to NT, ensure **Arc Consistency** by potentially
+                    causing a chain of changes to nested neighbors. First checking NT's
+                    unassigned Variable primary-neighbors
+                    (i.e. QLD, SA) and check if assignment of "green" reduces qty of
+                    Domains available to them, and if so, remove "green" from the possible Domains
+                    available to each of them, then check the unassigned Variable secondary-neighbors
+                    and so forth to propagate remaining Domains. Repeat until
+                    no more unassigned Variables, or if a neighbor is found to not have any
+                    remaining Domains available in which case we force the search to try another option
+                    for NT.
+                    Note: Entire region of combined territories is **Arc Consistent** if
+                    there are no regions without a possible colour
+                * **Forward Checking** Status Update:
+                    * etc
+                * Optimise and improve Backtracking efficiency by choosing next
+                Variable using a Heuristic as follows:
+                    * **Minimum Remaining Values (MRV) Heuristic** to assign Domain to a
+                    Variable that has fewest legal moves (i.e. remaining unused Domains)
+                        * i.e. Select unassigned Variable `SA`
+                    * **Degree Heuristic** used if there is a Tie when performing MRV,
+                    and involves choosing Variable with most Constraints on remaining
+                    Variables (i.e. has the most borders with other territories so is most complex)
+                    and we will run into problems sooner rather than delaying them
+                * Optimise and improve Backtracking efficiency by choosing next
+                Domain using a Heuristic as follows:
+                    * **Least Constraining Value Heuristic** used to assign the Domain to
+                    a Variable that least constrains future choices (i.e. reuse previously
+                    used Domains unless absolutely necessary to use a new one) to avoids
+                    Dead Ends and Backtracking
+                        * i.e. Assign Variable a Domain `orange` again as it least
+                        constraints future choices (leaving `blue` unused)
+        * Example: N-Queens (Constraints Satisfaction Problem)
+            * **Iterative Improvement Algorithms**
+                * Examples: Genetic Algorithms or Hill Climbing Algorithms
+                * Most efficient when either:
+                    * Many solutions OR
+                    * Few solutions
+                * Very Hard (requiring significant CPU time)
+                to solve at a Critical Ratio point between
+                qty of Variables for a given qty of Constraints
+                * Solved by randomly assigning values to Variables and
+                iteratively improve the assignments until reach solution.
+                **Minimising Conflict Method**
+                of minimizing qty of attacks with each
+                iterative improvement can find solution for 4-Queens
+                problem which has 4^4 = 256 possible states.
+                It can also solve 1,000,000-Queens in average of 50 moves
+                (where large qty of solutions to problem)
+    * Lab 9 - Constraint Satisfaction
+        * Discussion Forums https://discussions.udacity.com/c/nd889-search-optimization/nd889-constraint-satisfaction
+        * 8-Queens Puzzle Solution
+            * Constraint Satisfaction Problem of solving N-queens problem using symbolic constraints
+            and backtracking search in a Jupyter notebook.
+        * Steps
+            * Clone https://github.com/ltfschoen/AIND-Constraint_Satisfaction
+            * Open AIND-Simulated_Annealing.ipynb with:
+                `jupyter notebook AIND-Constraint_Satisfaction.ipynb`
+            * Follow the instructions to complete the constraints for the N-Queens CSP
+            and implement Backtracking-Search from AIMA in the notebook.
+                * CSP pseudo-code https://github.com/aimacode/aima-pseudocode/blob/master/md/Tree-CSP-Solver.md
+                * CSP code https://github.com/aimacode/aima-python/blob/master/csp.py
+
+            * Install Jupyter Notebook with Miniconda
+                *  http://jupyter.readthedocs.io/en/latest/install.html
+                * `pip3 install --upgrade pip`
+                * `pip3 install jupyter`
+
+    * Lesson 10 - Logic and Reasoning:
+        * Dfn:
+            * Logic - A logic is a way of describing the world. If logical statements
+            about world selectively capture what want to know about world correctly, then
+            we may reason within the logic to come to conclusions (without having to reference
+            the world again)
+        * AI Background
+            * 50's & 70's - Requirement for better languages and systems for logical statements
+                * Mistakes:
+                    * Trying to make statements only in Boolean Logic (where only True or False)
+                    even though world is uncertain and Probability Logic is better fit with world
+            * 80's - Better algorithms for Probability Logic
+                * Issues
+                    * Too laborious writing by hand
+            * 90's - More data available online
+                * Opportunities
+                    * Learning about world from data instead of writing rules by hand
+        * **Uncertainty Domains**
+            * Goal: Eliminate uncertainty of real-world and solve significant problems using logic
+            * Future of Planning Algorithms:
+                * Learning from examples
+                * Transferring learning across domains (i.e. learn in one domain and execute in another)
+                * Interactive Planning where human-machine team solves problems together
+                and being able to explain things in terms that a human can understand,
+                allowing humans to add things that were overlooked in the original problem statement
+                (i.e. need correct UI interface as well as correct answer)
+            * Examples:
+                * Logistics
+                    * **Planning Algorithms** for when actions or world is uncertain such as
+                    for all deliveries of packages using a large fleet of vehicles
+                        * Describe as logic problem where want find solution minimising time and expense
+        * **Valid Sentence**
+            * Dfn: True in every possible Model for every combination of values of Propositional Symbols
+        * **Satisfiable Sentence**
+            * Dfn: True in some Models, but not necessarily all Models
+        * **Satisfiable Sentence**
+            * Dfn: False for all Models
+        * **Logic Types**
+            * **Propositional Logic**
+                * **Truth Tables for all Logical Connectives**
+                    * Lists all four possibilities for combinations of Propositional Symbols
+                    * Note: "v means either OR both"
+                    * Note: "> means P implies Q" (aka if P then Q)
+                    * Note: Meaning in Logic is defined explicitly by Truth Table
+                ```
+                P  Q  !P  P ^ Q  P v Q  P > Q  P <> Q
+                F  F  T   F      F      T      T
+                F  T  T   F      T      T      F
+                T  F  F   F      T      F      F
+                T  T  F   T      T      T      T
+                ```
+                * Example:
+                    * Given the following propositions
+                        * [O] means Five is odd number
+                        * [P] means Paris is capital of France
+                        * [E] means Five is even number
+                        * [M] means Moscow is capital of France
+                    * Connectives:
+                        * O > P (i.e. IF Five is odd number THEN implies Paris is capital of France)
+                                      IF True THEN implies True
+                        * E > M (i.e. IF Five is even number THEN implies Moscow is capital of France)
+                                      IF False THEN implies False
+                            * Note: In terms of real-world formal logic both statements are True
+                            since according to the **Truth Table** definition,
+                            P > Q is True when both P and Q are False
+                * Example: Alarm Problem
+                    * Given propositional Symbols B, E, A, and M, where our belief in
+                    Propositional Logic is that each is either True, False, or Unknown
+                    (similar to in Probabilistic Models, but dissimilar in that
+                    our degree of belief in Propositional Logic is not a number).
+                    They correspond to proposed Events:
+                        * [B]urglary occurring
+                        * [E]arthquake occurring
+                        * [A]larm going off
+                        * [M]ary calling
+                        * [J]ohn calling
+                    * **Propositional Logical Sentences** are either True or False with respect
+                    to a Model of the world (a set of True/False values for all the
+                    Propositional Symbols), (i.e. **Model** may be the set {B: True, E: False}).
+                    **Truth Tables** used to define Truth of a Sentence in terms of the
+                    Truth of the Symbols with respect to the Models.
+                    They may be created by combining these Symbols with
+                    Logical Constants of True and False, and Logical Operators, where
+                    **Connectives** include: "^ means AND", "v means OR", "> means Implies",
+                    "<> means Equivalent" (biconditional)" (when one true the other is true, and when
+                    one is false the other is false), and "! means Negation"
+                        * (E v B) > A   (i.e. imply Alarm is True whenever Earthquake and Burglary is True)
+                          i.e. E OR B == A
+                        * A > (J ^ M) (i.e. imply both John and Mary call when Alarm is True)
+                          i.e. A == J AND M
+                        * J <> Mary (i.e. John calls if and only if (iff) Mary calls, so John is equivalent to Mary)
+                          i.e. J == Mary
+                        * J <> !M(i.e. when John calls Mary does not call, and vice versa, so John is equivalent to not Mary))
+                          i.e. J == !M
+            * **Propositional Logic Limitations**
+                * Inference Mechanisms that are efficient at determining **Validity** and **Satisfiability**
+                * Limitations
+                    * Only able to handle True and False values (in Truth Table), with no
+                    capability to handle **Uncertainty** like covered in **Probability Theory**
+                    * Only talks about True or False events in the world
+                        * Does not talk about objects with properties such as size, weight, etc.
+                        * Does not talk about relations between objects
+                        * Does not include any shortcuts to succinctly talk about multiple things happening
+                        (i.e. vacuum world with multiple 1000 locations, to say every location
+                        is free of dirt, we need a conjunction of 1000 propositions,
+                        but **can't** just write a single sentence saying all locations are clean)
+            * **First-Order Logic (FOL)**
+                * Dfn: **First-Order Logic** means that relations are on Objects but
+                not on Relations
+                    * Note: Every model must have at least one object, and multiple variables
+                    may refer to the same object
+                    * Note: P(x) means there may exist an x that is a member of P, where
+                    P may be an empty relation
+                    * Note: Don't just have Sentences with an assertion, always include a
+                    condition (If and Only If), so can prove the negative of the assertion
+                    without just an implication in one direction,
+                    when doing the definition of an adjacency or a membership problem
+                * Dfn: **Higher-Order Logic (HOL)** means that relations are on Relations
+                    * i.e. define notion of a transitive relation about relations itself
+                    * Valid statement in Higher-Order Logic (but invalid in FOL:
+
+                    ```
+                    For All R, transitive of R is equivalent to, ...
+                    For All a,b,c, R(a,b) and R(b,c) implies R(a,c)
+
+                    ∀R Transitive(R) <=> (∀a,b,c R(a,b) ^ R(b,c) => R(a,c))
+                    ```
+
+                * About: Overcomes Limitations encountered in Propositional Logic
+
+                    ```
+                    Logic varies in what you can say about the world, and what you can believe
+                    about what's been said about the world
+
+                                            World                                   Belief
+                                            (Ontological Commitment)                (Epistemological Commitments)
+                    ======================================================================================
+                    First Order Logic       Rel'ships, Obj's, Functions on Obj's    True, False, Unknown (?)
+                    (extension on Prop logic)
+                    Propositional Logic     Facts (Symbols, Variables)              True, False, Unknown (?)
+                    Probability Theory      Facts (")                               [0..1] (real numbers)
+
+
+                    Atomic           Factored                       Structured
+                    ===========================================================
+
+                    Search &
+                    Problem Solving  Variables                      Relations b/w Objects
+                                     (i.e. Propositional Logic &    (i.e. Programming languages, SQL)
+                                      Probability Theory)
+                    ```
+
+                    * **Atomic Representation**
+                        * Dfn: where representation of state is just individual state
+                        when no piece is inside it (no internal structure to states)
+                        * i.e. given transition from State A to State B
+                        can say if identical or not, if goal state?
+                        * Examples: Search, Problem Solving
+                    * **Factored Representation**
+                        * Dfn: break up world into set of True/False facts
+                        * Dfn: representation that individual state of world is factored into
+                        several **Variables** (i.e. B, E, A, M, J), i.e. boolean or other type
+                        of representation, but Not in Propositional Logic
+                        * Examples: Propositional Logic, Probability Theory
+                    * **Structured Representation**
+                        * Dfn: Most complex representation. Individual state is not just
+                        a set of values for variables, but also includes rel'ships b/w
+                        objects, a branching structure, complex representations, relations
+                        b/w different objects
+                        * Examples: Programming languages, structured databases (with SQL over them)
+                * Process
+                    * Definitions
+                        * **Function** defined as mapping from objects to objects
+                    * Model in FOL **differs from Propositional Logic Model**, where value for each Propositional Symbol in
+                    Model corresponding to what is going on in a possible world
+                        i.e. { P: True, Q: False }
+                    * **Model in FOL** instead starts with Set of Objects and
+                    Set of Constants that refer to those Objects
+                    but don't need one-to-one correspondence b/w Constants and Objects
+                    (i.e. multiple Constants may refer to same Object,
+                    for instance CEE could refer to Object C3)
+
+                        * Set of Objects include: 4x tiles  A1 C3
+                                                          B3 D2
+                              Note: with numbers 1,2,3 that are also Objects in Model
+
+                        * Set of Constants:       {A, B, C, D, 1, 2, 3, CEE}
+
+                        * Set of Functions:
+
+                            "Number" Function (i.e maps from tile to number on the tile)
+                                Defined as mapping:
+
+                                                { A -> 1, B -> 3, C -> 3, D -> 2 }
+
+                        * Set of Relations:
+
+                            "Above" Relation (i.e. where in this model of the world, this
+                                              relation is a set of two pulls where
+                                              A is above B, and C is above D)
+                                  Note: A binary relation holding b/w two objects, say where
+                                  one block is above another block
+
+                                                { [A, B], [C, D] }
+
+                            "Vowel" (Unary Relation)
+                                        if Vowel is True only for the Object A,
+                                        then that's a set of Tuplies of length 1 containing just A
+
+                                                { [A] }
+
+                            "Rainy" (Relation over no objects, just refers to current situation)
+                                        if not rainy, represent as empty set of no tuples:
+
+                                                { }
+
+                                        if is raining, represent with Singleton Set,
+                                        and since Arity of rainy is zero, there'd be
+                                        zero elements in each of the tuples
+                                                { } { [] }
+
+                    * **Syntax in FOL**
+                        * **Atomic Sentences** - describe facts as either True or False
+                        and are predicates corresponding to Relations
+                            i.e.
+                            ```
+                            Vowel(A)
+                            Above(A, B)
+                            2 = 2          (i.e. Equality Relation in every model to distinguish)
+                            ```
+                            * **Operators** Sentences may be combined with all operators from
+                            Propositional Logic (i.e. ^, v, !, >, <>, () )
+                            * **Quantifiers** Complex Sentence Types (unique to FOL)
+                                * ∀x - For All, followed by Variable it introduces such as x
+                                * Ǝy - There Exists, followed by Variable it introduces such as y
+                                * Note: If no Quantifier provided, its a shortcut meaning For All
+                                * Note: Typically don't want to say something about every object in
+                                the domain since objects can be so different, instead
+                                we usually want to say something about a particular type of object
+                                (i.e. Vowels)
+                                * Note: Typically when have a "There Exists an x" or any other
+                                Variable, it typically doesn't go with a Conditional since
+                                only describing one object
+
+                            * Example Sentences Typical in FOL:
+                                `∀x Vowel(x) => Number of (x) = 1`
+                                (i.e. For All x, if x is Vowel, then Number of x equals 1)
+                                `Ǝy Number of (x) = 2`
+                                (i.e. There Exists an x such that the Number of x equals 2)
+                                (means there is some Object in the Domain to which the Number of
+                                 Function applies and has a value of 2, but without saying
+                                 what the Object is)
+                        * **Terms** - describe Objects, may be Constants, Variables, or Functions
+                            i.e.
+                            ```
+                            A,B,2         (i.e. Constants)
+                            x, y          (i.e. Variables)
+                            Number of (A) (i.e. Functions)
+                                i.e. just another expression referring to same object as 1
+                            1             (least in model shown previously)
+                            ```
+                * Example: Vacuum world represented using FOL
+                    * Add:
+                        ```
+                        Locations
+                        =========
+                        A - Left Location
+                        B - Right Location
+                        V - Vacuum
+                        D1, D2 - Dirt
+
+                        Relations
+                        =========
+                        Loc - True of any location
+                        Vacuum - True of the vacuum
+                        Dirt - True of dirt
+                        At(o,l) - True of object and location
+                        ```
+                    * i.e. Say "vacuum is at location A":
+                        `At(V,A)`
+                    * i.e. Say "no dirt at any location";
+                        * Note: This Sentence still holds for 1000's of locations,
+                        which is the **power of FOL**
+                        ```
+                        For All dirt, and For All locations, if D is Dirt,
+                        and if l is a location, then d is not at l.
+
+                        ∀d ∀l Dirt(d) ^ Loc(l) => ¬At(d,l)
+                        ```
+                    * i.e. Say "vacuum is in a location with dirt" (without specifying the location)
+                        ```
+                        There Exists an l, and There Exists a d, such that d is the Dirt,
+                        and l is the Location, and the vacuum is at the location,
+                        and the dirt is at that same location
+
+                        Ǝl Ǝd Dirt(d) ^ Loc(l) ^ At(V,l) ^ At(d,l)
+                        ```
+
+
+        * **Expert Systems**
+            * Dfn:
+                * Export Systems are common throughout the world
+                * Algorithms to help understand how Export Systems work
+            * Examples:
+                * Decisions
+                    * Superhuman decision made by military expert system such as deciding
+                    where to place a supply base to save money (higher return than
+                    their investment in AI)
+        * **Resolution Algorithm** - Inferring new knowledge from a knowledge base
+        * **GraphPlan** - Used to make planning practical for new range of problems
+        * **Value Iteration Concept** - Key concept for **Markov Decision Processing**
+
+    * Lesson 11 - Planning:
+        * About:
+            * Problem Solving AI-agent
+                * Given a State Space, Start Space, and Goal
+                * Planning ahead, thinking only to figure out path to find goal, without interacting/sensing world
+                * Executes path
+            * Real-Life differs from Problem Solving AI-agent and requires:
+                * Avoiding blindfolded execution and getting lost by:
+                    * **Interleaving** planning and executing
+                    * Feedback from environment required, cannot just plan ahead and derive whole plan
+        * **Planning and Executing**
+            * **Interleaving** required due to Properties of the environment that make it difficult:
+            * **Change Perspective** to overcome Difficulties by planning in
+            **Space of Belief States** instead of **Space of World States**
+            * **Difficulties**
+                * **Stochastic Environments** - don't know outcome of performing an action, so need to
+                  deal with **Contingencies**,
+                    i.e. try turn right and wheel slipped, skidding, feet not move forward entirely straight,
+                    or traffic lights red (prevents go forward)
+                * **Multiagent Environments** -
+                    i.e. other cars or people obstacles, plan about what they will do
+                    and react to unexpected (only know at **Execution** time, not at **Planning** time)
+                * **Partial Observability**
+                    i.e. given plan to go from A to S to F to B, which appears it will work
+                    [A, S, F, B]
+                    but suppose we know at S the road to F sometimes closed (and sign there tells us),
+                    but when start off we cannot read that sign
+                    i.e. when start, we may not know what state we are in (i.e. may know
+                    we are in state A, but may not know if road is open or closed until
+                    we get to S in order to know if can continue down that path or not)
+                * **Unknown**
+                    i.e. due to lack of knowledge on our part, where some model of world is unknown
+                    (such as map or GPS that is inaccurate or incomplete), then may not be able to execute
+                * **Hierarchical**
+                    i.e. may need to deal with plans that are hierarchical at a high level steps
+                    that cannot be executed (i.e. action of go from A to S) without
+                    detailed low level plan steps (i.e. turn right, left, accelerate more, etc) being scheduled
+                    during execution
+        * Example 1: Vacuum Cleaner (**Deterministic environment**)
+            * Add:
+                ```
+                Locations
+                =========
+                A - Left Location
+                B - Right Location
+                V - Vacuum
+                D1, D2 - Dirt (Yes or No)
+
+                Possible States == 2 * 2 * 2 == 8
+
+                State Space diagram - shows 3x possible Actions transitioning between states
+                    - Moving Right
+                    - Moving Left
+                    - Dirt Sucking
+                ```
+
+                * Given **"Fully Deterministic" and "Fully Observable"** world it is easy to plan
+                    i.e. Start State to Goal State where both sides clean
+
+                    0) Initally in Left Location
+                    1) Execute Action to Dirt Suck
+                    2) Move to Right Location
+                    3) Execute Action to Dirt Suck
+                    4) Transition to Goal State of no dirt
+
+
+                * Given **"Unobservable" (Sensorless) and Deterministic world** where Vacuum's
+                sensors stop working, so can't determine current State (i.e.
+                what Location it is in or whether any Dirt).
+
+                    * How does the AI-agent represent the State of the world?
+
+                    * Solution: Search in the State Space of **Belief States**
+                    (instead of the State Space of Actual Spaces)
+                    i.e. we believe we are in one of the 8 states, and
+                    when we execute a subsequent Action we **go to another Belief State
+                    and gain knowledge about the world even without sensing**,
+                    which is either a known, or unknown state
+
+                        * i.e. Move Right, according to State Space of
+                        **Belief States** diagram we know we're in Right-Hand Location
+                        (either Moved from Start to Right Wall or we were already
+                        at the Right Wall and stayed there)
+                            * Note: Reduces possibilities from 8 down to 4
+                            so know more about world even though haven't observed anything
+
+                * Note: In real-world, operations of Move Left and Move Right are
+                **inverses** of each other
+                * **Conformant Plans** Plans that reach the goal without ever
+                observing the world
+                    i.e. to achieve Goal of clean location, simply Dirt Suck,
+                    where move from Initial State where 8 possibilities to
+                    one of 4 possible states where one or both Locations are clean
+                    (do not know which of the 4 states we are in, but we know
+                    we achieved the Goal)
+
+                * Given **"Partially Observable" Vacuum Cleaner in Deterministic world**
+
+                    * Given **Local Sensing** - where Vacuum knows
+                    its current Location, and sub-states going on i.e. if dirty or clean,
+                    but does not know about sub-state of other Locations (if contain dirt or not)
+
+                    * Draw **Partial Diagram** of part of Belief State from that world,
+                    where **Belief State** unfolds as the following occurs:
+                        * 1) Initial State
+                        * 2) Action taken to Move Right
+                        * 3) Observation (in **Act-Percept Cycle**) allows
+                        us to split the Belief State of our world to say:
+
+                            * if we observe we are in Location B and it's Dirty
+                            then we know where in a certain state according to the diagram,
+                            and if observe we're in Location B and its Clean we know we're in
+                            another state according to the diagram
+        * **Act-Percept Cycle**
+            * In a Deterministic world, each individual **world state** (common to multiple
+            states) in a Belief State maps exactly to another one (reason why we say
+            "deterministic", so the **size** of the Belief State either stays the same
+            or may decrease if two Actions accidentally take you to the same Location
+        * **Observation**
+            * Works opposite of **Act-Percept Cycle**, in that when we
+            Observe the world, we're taking the current Belief State and
+            partitioning it into pieces of where we know they are.
+            Observations cannot introduce a new **world state** into the Belief State.
+            Cannot learn less about the world after an Observation.
+        * **Stochastic** (non-Deterministic)
+            * Multiple outcomes for an Action
+
+        * Example 2: Robot with slippery wheels (**Stochastic and Partially Observable Environment**)
+            * Given Robot:
+                * Which has slippery wheels
+                * Where Move Left or Move Right causes wheels to slip,
+                so most of time No Location Change, but sometimes Location Changes
+                * Assume Suck always works perfectly
+            * Draw **Belief State** Diagram where result of Actions often result
+            in a **Belief State** increase (larger than before),
+            since Action increases **Uncertainty** as do not know
+            what result of Action will be
+                * For each of individual **world states** belonging to a Belief State
+                we have multiple outcomes for the Action (meaning of Stochastic),
+                so end up with larger Belief State, since **Actions tend to increase Uncertainty**
+                (in Stochastic and Partially Observable environment)
+                * Observation-wise, same holds as in Deterministic world,
+                where observation partitions Belief State into smaller Belief States
+                and **Observations tend to reduce the Uncertainty**
+                (in Stochastic and Partially Observable environment)
+            * Planning approach
+                i.e. want to go from initial Belief State to one where all squares are clean,
+                need to know if will Always work or Maybe sometimes work for possible plans?
+
+                All are Maybe, since with a plan that is a linear sequence, we are never
+                guaranteed to achieve goal with **Finite Sequence** of Actions, since
+                a successful plan must include at least one move action, but if try
+                move action a finite number of times, each of those times the wheels may slip
+                and won't move.
+
+                Note: We can introduce a new notion of plans that include
+                **Infinite Sequences**
+
+        * **Infinite Sequences**
+            * Instead of writing plans as Linear Sequence,
+            i.e.
+                ```
+                (suck, move right, suck)
+
+                [SRS]
+                ```
+            instead write as **Tree Structure**
+            * **Tree Structure** (where Finite Representation represents an
+            Infinite Sequence of plans)
+                * New State - Starting **Belief State**
+                * Action - Suck
+                * New State - A
+                * Action - Move Right
+                * Observation - either [A, Clean] or [B, Clean] or [B, Dirty]
+                  of current State
+                    * If identifies we are still in previous state,
+                    then go back in plan to A
+                    * Else continue
+                * Action - Suck
+            * Write infinite sequence of plans in more linear notation:
+                ```
+                S, while we observe A do R, and then do S
+
+                [S, while A: R,S]
+                ```
+            * Note: If Stochasticity is independent
+            (i.e. sometimes works and sometimes it doesn't work),
+            then with Probability of 1 as Limit, then this Plan
+            will achieve the Goal. However, can't state any
+            bound qty of steps with which can achieve the goal,
+            can only say it's infinite
+
+        * **Finding a Successful Plan**
+
+            * **Approach with Problem Solving (using Trees)** (Previously)
+                * Start in Single State (not a Belief State)
+                * Search possible states in a Tree
+                until find one pair that takes us to Goal State
+                * Pick single path from Tree (sequence of steps
+                with no branches in it where one leaf node is goal)
+
+            * **Approach with Problem Solving (using Maths Notation)**
+                * Given plan with straight line sequence
+                    ```
+                    [A,S,F]
+                    ```
+                * Decide if is plan that satisfies the goal by
+                checking if end state is goal state
+
+
+                * Mathematical formulation for plan to be a goal
+                    ```
+                    1 Started in start state S1
+                    2 Transitioned to state S2 that is result of
+                      applying to that start state S1 the action
+                      of going from A to S
+                    3 Apply the result of starting
+                      in intermediate state S2 and applying action
+                      of going from S to F
+                    4 Check if resulting tate is an element of
+                      the set of goals to see if plan is valid
+                      and gives us a solution
+
+                      Result (Result (A, A -> S), S -> F) <- Goals
+
+                    ```
+                * **Stochastic and Partially Observable**
+                    * Note: In Stochastic and Partially Observable worlds
+                    the equations are more complicated
+
+                    * Instead of just dealing with **Individual States**
+                    such as getting result of applying action to
+                    initial state (i.e. `s1 = Result(s, a)`), we're
+                    actually dealing with **Belief States** where
+                    we making Prediction where we start
+                    in a belief state "b"
+                    and we look at the action "a" and each possible
+                    result of the action (since they're stochastic
+                    to each possible member of the Belief State, which
+                    gives us a larger Belief State), then we
+                    Update the Belief State by taking the Observation "o"
+                    into account (which gives the same or smaller sized
+                    Belief State), and the we get a new state "b1"
+
+                    * Note: Use this **Predict-Update Cycle**
+                    to Track where we are
+                        * tells everything we need to know
+                        * Weakness: Belief States start to get large
+                        since they just list all the possible world states
+                            * Alternative: Instead represent the possible
+                            states using Variables (i.e. using
+                            Classical Planning) and an overarching
+                            Formula over the Variables that describes the
+                            states
+
+                    ```
+                    b1 = Update(Predict(b, a), o)
+                    ```
+
+            * **Approach with Belief States and Branching Plan Structures**
+                * Same process as for "Problem Solving",
+                but more complex tree with
+                different possibilities
+                * Example (of searching through tree)
+                    * Init State
+                        * Possible Actions to for Next State
+                            * Move Right
+                            * Suck
+                        * Branch of the Plan (not part of Search Space)
+                    * Try each Action and expanding nodes
+                    until find a Portion of the tree that is
+                    a Successful Plan according to criteria of reaching
+                    a Goal
+
+            * **Unbounded Solutions**
+                * If every leaf node in a plan is a goal since we
+                can't guide it in one direction or another
+                (no matter what path with execute based on observations,
+                noting that observations come to us, we do not pick them)
+
+            * **Bounded Solution**
+                * No loops (do not know how many steps it will take),
+                but ok to have branches
+
+        * **Notation of Classical Planning (i.e. Action Schema)**
+            * Dfn:
+                * Representation language for dealing with States, Actions,
+                and Plans
+                * Used as approach to deal with complexity by factoring the
+                world into **Variables**
+                * State Space
+                    * All possible assignments to k-Boolean Variables
+                * State Space Size - 2^k
+            * Example - Vacuum world with 2 Locations
+                * States
+                    * Possible States: 2*2*2 = 8
+                    (succinctly represented through the 3 Variables below)
+                    * Variables: 3 (Boolean)
+                        * DirtA - Dirt in Location A
+                        * DirtB - in Location B
+                        * VacA - Vacuum in Location A
+                    * World State - Complete Assignment of True or False
+                    to each of the 3 Variables
+                    * Belief States (depends on type of env we want to deal with)
+                        * Complete Assignment (in Core Classical Planning,
+                        useful in Fully Deterministic Fully Observable domains)
+                        * Partial Assignment (by extending Classical Planning)
+                        i.e. Belief State where VacA is True, whereas other 2 Variables
+                        are unknown, such that formula represents 4 possible world states
+                        * Arbitrary Formula (in boolean logic)
+
+                * Actions
+                    * Represented in Classical Planning by **Action Schema**
+                    since represents a set of actions (i.e. for all possible planes,
+                    for all x and y)
+                    * Example 1: Fly Cargo
+                        * Given
+                            * Goal - need to send cargo around world
+                            * Assets - plans at airports, cargo
+                            * Action Schema (of plane flying from one
+                            location to another) -
+                                ```
+                                Action - since Action Schema
+                                Operator and Args - i.e. Fly from x to y
+                                Preconditions - what need to know to be true
+                                  to execute actions
+                                    - P must be a plane
+                                    - ^ - AND from Boolean Propositional Logic
+                                    - At - p better be at x
+                                Effects (what will happen as a result of action
+                                in terms of transition between state spaces) -
+                                  i.e. when fly from x to y, the plane is no longer at x
+
+                                Action (Fly(p, x, y)
+                                    PRECOND: Plane (p) ^ Airport (x) ^ Airport (y)
+                                                       ^ At (p, x)
+                                    EFFECT: ¬ At (p, x) ^ At (p, y)
+                                ```
+                        * Note: Can apply the Action Schema to specific world states
+                        where p and x would have specific values (we concatenate the names
+                        together to come up with one variable where the name has a complex form
+                        with commas and parenthesis to make easier to write one Action Schema
+                        that covers all individual flying actions)
+
+                    * Example 2: Fly Cargo
+                        * More complete representation of Problem Solving domain
+                        in language of classical planning
+                        * Note: Below representation and algorithms is good enough to
+                        handle 100,000+ cargo planes, and representing millions of ground actions
+                        at dozens of airports.
+                        If 100 planes, would be 10,000 different fly actions
+                        If had 1000's of cargo pieces we'd have more Load and Unload actions
+                        (all representable by the below succinct Schema)
+                        *
+                        ```
+                        ###################
+                        # Initial State (2x Cargo pieces, 2x Planes, 2x Airports) and wher things are
+                        ###################
+                        Init(
+                              At(C1, SFO) ^ At(C2, JFK) ^ At(P1, SFO) ^ At(P2, JFK)
+                              ^ Cargo(C1) ^ Cargo(C2) ^ Plane(P1) ^ Plane(P2)
+                              ^ Airport(JFK) ^ Airport(SFO)
+                            )
+                        ###################
+                        # Goal State (i.e. C1 cargo must be delivered to JFK airport and...)
+                        ###################
+                        Goal(
+                              At(C1, JFK) ^ At(C2, SFO)
+                            )
+                        ###################
+                        # Operator "Load" (loads cargo "c" onto Plane "p" at Airport "a")
+                        ###################
+                        Action(
+                              Load(c,p,a),
+                              PRECOND: At(c, a) ^ At(p, a) ^ Cargo(c) ^ Plane(p) ^ Airport(a)
+                              EFFECT: ¬ At(c, a) ^ AIn(c, p)
+                              )
+
+                        ###################
+                        # Operator "Unload" (unloads cargo "c" from Plane "p" at Airport "a")
+                        ###################
+                        Action(
+                              Unload(c, p, a),
+                              PRECOND: In(c, p) ^ At(p, a) ^ Cargo(c) ^ Plane(p) ^ Airport(a)
+                              EFFECT: At(c,a) ^ ¬ In(c,p)
+                              )
+                        ###################
+                        # Fly Action Schema
+                        ###################
+                        Action(
+                              Fly(p, from, to,
+                              PRECOND: At(p, from) ^ Plane(p) ^ Airport(from) ^ Airport(to)
+                              EFFECT: ¬ At(p, from) ^ At(p, to)
+                              )
+
+                        ```
+
+        * **Progression (Forward) State Space Search - Planning using Notation of Classical Planning (i.e. Action Schema)**
+            * Searching through Concrete world states
+            * Planning using Action Schema is done same as we did planning for Problem Solving
+            * Searching through space of exact states, where each state is an Individual World State
+            and where Actions are Deterministic then its the same approach as in Problem Solving
+            * Since we are using this representation using Action Schema, there are other possibilities
+            available
+
+            * Example: Fly Cargo
+                * Initial State `At(P1, SFO), At(C1, SFO)`
+                * Branching to possible Actions
+                    i.e. one possible Action is to Load `Load(C1, P1, SFO)`
+                    * Continue Branching until satisfy Goal predicate
+
+        * **Regression (Backwards) State Space Search**
+            * Searching through Abstract states (where some Variables unspecified)
+            * Where we start at the Goal representation (of many world states)
+            * Use the same representation for arrows that represent a set of possible Actions
+
+            * Example: Fly Cargo
+                * Take description of Goal State `At(C1, JFK), At(C2, SFO)`
+                (all we know about the state is that these two Propositions are True)
+                * Backward Search by asking what Actions would lead to that Goal State,
+                which represents a whol family of States with different Variables and values
+                * Individually inspect one at a time the "Definition" of each possible Actions
+                that would result in this each of the part of the Goal
+                    * i.e. inspect Actions in Action Schema that would result in `At(C1, JFK)`,
+                    where we find the only Action that results in an `At` is the
+                    Unload Action Schema, such that `Unload(c,p,a)` results in `At(c,a)`,
+                    so we know to achieve goal we'd have to perform an Action
+                    `Unload(C1, anything, JFK)`,
+                    (i.e. branch leading into Goal state is `Unload(c,p,a)`, which
+                     represents all possible Actions for any Plane "p" for Unloading cargo
+                     at the destination)
+                * Regress the State over the Operator to get another representation before the Action
+                that also will be Unknown (i.e. do not know what "p" is involved)
+                * Continue searching backwards until enough of Variables are filled in
+                and where we match against Initial State so we have our Solution that we found
+                going Backwards
+                * Apply the found Solution going Forwards
+
+            * Example: Buying a Book
+                ```
+                # Single Action (buying a book)
+                # Precondition is identifying what book and Effect is that own the book
+                # Goal is to own the book satisfying precondition ISBN
+                Action(buy(b)
+                    PRECOND: ISBN(b)
+                    EFFECT: OWN(b)
+                Goal (Own(0136042597))
+                ```
+                * **Progression** Forward Search Solution:
+                    * Initial State - own nothing
+                    * Actions - which possible to apply
+                        i.e. if 10,000,000 possible books
+                             then branching factor is 10,000,000
+                             coming out of initial state node
+                             and have to try all in order until hit
+                             goal
+                        **Very Inefficient**
+                * **Regression** Backward Search Solution:
+                    * Goal State - own ISBN No. 0136042597
+                    * Actions - Inspect possible ones
+                                out of the 10,000,000,
+                                where there is Action Schema,
+                                which can only match Goal in one way
+                                when "b" == 0136042597
+                                so we know Action is to
+                                buy 0136042597, so able to connect
+                                Goal State to Initial State in
+                                backwards direction in one step
+
+        **Plan Space Search**
+            * Dfn: Searching through space of plans
+            (rather than searching through space of states)
+            * Note:
+                * Plan Space Search - Old approach
+                * Forward Search - Popular as easier to come up with good Heuristics for search,
+                                   as deals with Concrete Plan States
+
+                    * Example: Sliding Puzzle (using **Heuristics**)
+                        * **Action Schema** for puzzle is formal representation
+                        of **encoding Actions in logical form, so a program
+                        could modify and generate Heuristics from it
+                        (rather than requiring a human to manually do it)**
+
+                            ```
+                            # Action - slide tile to from location a to b
+                            Action(Slide (t,a,b)
+
+                                    # Precondition - tile must be on location a,
+                                      and must be a tile, and location b
+                                      must be blank, and location a and b
+                                      must be adjacent
+
+                                    PRECOND: On(t,a) ^ Tile(t) ^ Blank(b) ^ Adj(a,b)
+
+                                    # Effect - tile is now on location b, and blank
+                                      is now on location a, and tile is no longer on
+                                      location a, and blank is no longer on location b
+
+                                    EFFECT: On(t,b) ^ Blank(a) ^
+                                            ¬ On(t,a) ^ ¬ Blank(b)
+                                  )
+
+                            ```
+                        * Use **Action Schema** to automatically derive
+                        good **Heuristics** by modifying original Problem Heuristic
+                            * Heuristic #1
+                                * Remove a Precondition to make the problem easier
+                                and generate a different Heuristic.
+                                i.e. remove `Blank(b)` to end up with
+                                the **"Manhattan" (aka City Block) Heuristic**
+                                (i.e. since not Blank, and not contain Tile, it
+                                contains something else)
+                            * Heuristic #2
+                                * i.e. remove `Adj(a,b)` to get the
+                                **Qty Misplaced Tiles Heuristic**
+                                (i.e. allows sliding a tile from any location a
+                                to any location b, no matter how far apart they)
+                            * Heuristic #3 (Ignore negative effects)
+                                i.e. remove `¬ Blank(b)` from EFFECT,
+                                to make the problem easier (more relaxed problem)
+
+                * Backward - Benefit as may be more Efficient than Forward Search
+
+            * Example: Getting Dressed with clothes in right order
+                * Initial Empty Plan (flawed as does not lead from Start to Goal)
+                    ```
+                    Start State
+                    Goal State
+                    ```
+                * Update Plan
+                    * Add "Right Shoe" Operator
+                        ```
+                        Start State
+                        Right Shoe
+                        Goal State
+                        ```
+                * Check if updated plan solves problem, otherwise further refine plan
+                * Update Plan
+                    * Add parallel sequence of Operators in branching structure
+                        * "Left Shoe"
+                        * "Right Shoe"
+                    * Note: Captures that can achieve in any order
+                    ```
+                        Start State
+                         /       \
+                    Left Shoe    Right Shoe
+                         \       /
+                        Goal State
+                    ```
+                * Repeat until get plan that works
+
+        **Planning Representation**
+
+            * **Situation Calculus (using FOL for Planning)**
+                * Dfn: Regular FOL with a set of conventions for how to
+                represent states and actions
+                * **Possibility Axioms** and **Successor-State Axioms** are most of what
+                comprises Situational Calculus and are used to describe entire
+                **Domains** (i.e. airport cargo domain).
+                We describe our specific Problem within that Domain by
+                describing the Initial State/Situation, where we make different
+                types of assertions using different predicates
+                * Note: Deriving Solution from a Problem described in
+                that supports full power of FOL using Situation Calculus
+                where we can write anything we want
+                (much more flexible than in Problem Solving or Classical Planning)
+                and doesn't need
+                any special program since there are already Theorem Provers for FOL,
+                so simply state as a Problem, apply the Normal Theorem Prover
+                that we already had for other uses so
+                it comes up with a Situation as an answer which
+                corresponds to a Path that satisfies the Goal, given the Initial
+                State and Action descriptions.
+
+                * **Conventions**
+                    * **Actions** represented as Objects in FOL (normally by functions)
+                        ```
+
+
+                        # Function Fly - represents an Object that is the Action
+                        # (i.e. fly plane from airport x to y)
+
+                        Fly(p,x,y)
+                        ```
+                    * **Situations** described by Objects in the logic and
+                    correspond to the **Past History of Actions** that
+                    are in state space search
+
+                        i.e. arriving at same world state from two different sets of
+                        actions, they would be considered two different situations
+
+                        ```
+                        # Initial Situation
+                        S0
+
+                        # Function of Situations (aka "Result") where
+                        result of situation object "s" and action object
+                        "a" equals another situation S'
+
+                        S' = Result(s, a)
+
+                        # Possible
+
+                            # Note: Situation Calculus does not describe Actions
+                            applicable in a Situation with predicate Actions of
+                            "s" as `Actions(s)`. Instead Situation Calculus talks
+                            about Actions that are possible in a state by using
+                            a predicate `Poss(a,s)`, which is an Action "a" that is
+                            possible in a state
+
+                        Poss(a, s)
+
+                        # Precondition
+
+                            # Note: Form for describing predicates (i.e. Poss(a,s)),
+                            which has the form of a Precondition of state "s"
+                            that implies it's possible to do Action "a" in
+                            state "s"
+
+                        SomePrecond(s) -> Poss
+
+                        # Possibility Axiom for the Action "Fly"
+
+                            # if some "p" exists which is a Plane in state "s" and
+                            there's some "x" which is an Airport in state "x" and
+                            there's also some "y" which is also an Airport in state "s" and
+                            "p" is at Location "x" in state "s", then that implies
+                            it's possible to fly "p" from "x" to "y" in state "s"
+
+                        Plane(p,s) ^ Airport(x,s) ^ Airport(y,s) ^ At(p,x,s) -> Poss(Fly(p,x,y))
+
+                        ```
+
+                    * **Predicates**
+
+                        * **Fluents** (fluidity or change over time)
+                        ```
+                        i.e.
+
+                        # Plane "p" at Airport "x" in Situation "s"
+
+                        At(p,x,s)
+                        ```
+
+                    * **Possibility Axiom** `Poss(...)`
+
+                    * **Successor-State Axiom** `In(...)`
+
+                    * **Describing what Changed and what Does Not Change
+                    in Classical Planning vs Situational Calculus**
+                        * **Classical Planning** had "Action Schemas" that
+                        described one Action at a time and what changed
+                        * **Situation Calculus** however does it the other way around
+                        by instead of writing one Action, Schema, or Axiom for
+                        each Action, we instead do one for each Fluent (Predicate)
+                        that can change using a **convention** called
+                        **Successor-State Axioms (SSA)** that describe what happens in the
+                        state that is a Successor of executing an Action.
+                        SSAs have the form of saying:
+                        ```
+                        i.e. For All Actions and States, if it's possible to execute
+                        Action "a" in State "s", then the Fluent is True
+                        if and only if (IFF) Action "a" made it True OR
+                        if Action "a" didn't undo it
+
+                        (i.e. either it wasn't true before and "a" made it True,
+                        or it was true before and "a" didn't stop it from being True)
+
+                        ∀a,s Poss(a,s) -> (fluent true <-> "a" made it true V "a" didn't undo it)
+                        ```
+                        * Example: **Successor State Axiom** for the `In` Predicate
+
+                        ```
+                        i.e. For All Actions and States, for which it's Possible to execute
+                        Action "a" in Situation "s", and if that's true then the In
+                        Predicate holds between some cargo "c" in some plane "p" which is
+                        in the state that is the "result" of executing Action "a" in state "s",
+                        so the In Predicate will hold, IFF "a" was a Load Action
+                        (i.e. if we load the cargo into the plane, then the result of
+                        executing that Action "a" is that the cargo is in the Plane "p")
+                        OR it might be already true that the cargo was in the Plane "p" in
+                        Situation "s", AND Action "a" is not an Unload Action
+
+                        ∀(a,s) Poss(a,s) -> In(c,p,result(s,a)) <-> (a=Load(c,p,x) V (In(c,p,s) ^ "a" != Unload(c,p,x)))
+
+                        # Predicate states valid sentences in FOL like the following
+                        to asset the initial state
+                            - Plane P1 is at Airport JFK in Situation S0
+                            - For All C, if C is Cargo then that C is at JFK
+                            in Situation S0
+
+                        Initial state: S0
+                            At (P1,JFK,S0)
+                            ∀c Cargo(c) -> At(c,JFK,S0)
+
+                        # There Exists a Goal State "s" such that For All "c"
+                        if "c" is Cargo, we want all that cargo
+                        to be as SFO in state "s'
+
+                        Goal:
+                            Ǝs ∀c Cargo(c) -> At(c,SFO,s)
+
+                        ```
+
+                * Example: Fly Cargo
+                    * Goal: Move all cargo from Airport A to Airpot B,
+                            regardless of qty of cargo
+                        * Note: In FOL, you can express the notion of "All",
+                        but NOT in Propositional Languages like
+                        Classical Planning Notation
+
+        * **Predicates** i.e. `At(...)`
+
+        * **Complete Assignment** Dfn: when all Variables have values
+        * **Partial Assignment** Dfn: when some Variables have values and others do not
+
+
+
+
+
+
+
+
+
