@@ -1,12 +1,19 @@
 ---
 layout: post
-title: Artificial Intelligence Nanodegree (in progress!)
+title: Artificial Intelligence Nanodegree Term 1
 ---
 
 # Table of Contents
   * [Chapter 1 - Artificial Intelligence Nanodegree](#chapter-1)
   
-## Chapter 1 - Artificial Intelligence<a id="chapter-1"></a>
+## Chapter 1 - Artificial Intelligence Nanodegree Term 1 <a id="chapter-1"></a>
+
+### Term 2 About
+
+* https://medium.com/udacity/ai-nanodegree-program-syllabus-term-2-deep-learning-in-depth-d935197b66ec
+* Orientation http://go.udacity.com/aind-term2-orientation
+    * Slack - #ai-deeplearning
+    * Stanford Deep Learning https://www.youtube.com/playlist?list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6
 
 ### Background and Definition
 
@@ -243,8 +250,6 @@ title: Artificial Intelligence Nanodegree (in progress!)
 
 up to page 18
 
-
-
 ## Python Links
 
 * Python `zip, map, lambda` https://bradmontgomery.net/blog/pythons-zip-map-and-lambda/
@@ -290,6 +295,7 @@ https://openai.com/blog/
 https://github.com/songrotek/Deep-Learning-Papers-Reading-Roadmap
 https://github.com/terryum/awesome-deep-learning-papers?files=1
 http://www.arxiv-sanity.com/
+https://research.google.com/pubs/papers.html
 * Summaries already done https://docs.google.com/spreadsheets/d/1xej5Nca2xUUtrZ1GCyPjFMqI9ZgNq_OhgnTxOOMQ2js/edit#gid=404493967
 * DL related (Jack Clark at OpenAI to crowdsource via dhruvp): https://docs.google.com/spreadsheets/d/1MT8LRuEn3xdJ7j6_XQjRZwV_fRmrpjaWwZKGk2Dqm4k/edit#gid=0
 
@@ -356,6 +362,8 @@ https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889
     * Shelly - provides Quizzes during course
     * Help: ai-support@udacity.com OR Chris LaPollo (outside enrolment)
 
+* Udacity Code Style Guide - https://udacity.github.io/git-styleguide/
+
 * Project 1 - Sukoku AI-agent
     * Build and code AI-agent solves any Sudoku problem
         * Learn 2x AI techniques
@@ -396,7 +404,8 @@ https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889
         * **Projects** category – post anything specific to projects in respective sub-categories there
         * **Announcements** specific to cohort including reminders and additional resources
         * **Cafe** interact with your peers
-* Community - Online/Offline Study Groups arranged by Udacity 
+
+* Community - Online/Offline Study Groups arranged by Udacity
 * Career Services - http://career-resource-center.udacity.com
     * Udacity partners
         * Google, IBM Watson, Accenture, AT&T, Priceline.com, Nvidia, Mercedes-Benz, Amazon
@@ -424,10 +433,29 @@ https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889
         * https://github.com/morganel/AIND-Isolation-1
         * https://github.com/morganel/AIND-Planning
         * https://github.com/madhavajay/nd889
+        * https://github.com/frogermcs
         * arunkv
             * https://github.com/arunkv/AIND-Planning/commits/master
 
         * sumitbinnani
+    * Recogniser project
+        * DONE + Part 4 https://github.com/frogermcs
+        * DONE + Part 4 https://github.com/climberwb/AIND-SignLangRecognizer
+        * DONE https://github.com/IlanStefanon/AIND-Recognizer
+        * DONE https://github.com/binojohnthomas/AIND-Recognizer
+        * DONE https://github.com/iamsteveng/AIND-Recognizer
+        * DONE + Part 4 https://github.com/ArthurLu/AIND-Recognizer
+        * HALF-DONE https://github.com/curiousily/AIND-Recognizer
+        * HALF-DONE https://github.com/tienthanh8490/AIND-Recognizer
+        * ??? https://github.com/RenSilvaAU/AIND-Recognizer
+        * ??? https://github.com/Blindshooter/AIND-Recognizer
+        * No progress https://github.com/zouyu9631/AIND-Recognizer
+        * No progress https://github.com/edhzsz/AIND-Recognizer
+        * No progress https://github.com/AgremE/AIND-Recognizer
+        * ??? https://github.com/WestonLu/AIND-Recognizer
+
+
+
 
 * Chat - Slack https://artificial-intelligence.udacity.com/
     * ai-nd.slack.com
@@ -444,7 +472,8 @@ https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889
         It could be a github account, a youtube videos, etc.
         
         We want your experience at Udacity to be the best possible. So please chat with other people in the channel, make friends, and most importantly learn and have fun!
-* Bug Reporting https://waffle.io/udacity/aind-issue-reports
+* Bug/Issue/Problem Reporting https://waffle.io/udacity/aind-issue-reports
+    * https://github.com/udacity/aind-issue-reports/issues
 
 * IntelliJ Python Debugger Setup
 
@@ -4032,9 +4061,3734 @@ Run > Debug > + > Python
         * **Complete Assignment** Dfn: when all Variables have values
         * **Partial Assignment** Dfn: when some Variables have values and others do not
 
+        * Theorem Provers - My Research
+
+            I did some web research this morning to try and answer my question and prepared the below summary of my findings. Unfortunately I couldn't find any helpful nested infographics that present the big picture concisely, perhaps this still hasn't been done before (if you happen to know of any, please share). So to understand how everything fits together better, I guess I'd just have to find the time to read, summarise, and consolidate a lot of different research papers, books, lecture notes from various sources.
+
+            Problem Types
+            =========
+
+            * **CSF** - Constraint Satisfaction Problem (CSP) problems
+            * **SAT** - Boolean Satisfiability (SAT) problems
+            * **IP** - Integer Programming (IP) problems
+            * **LP** - Linear Programming (LP) problems
+
+            Algorithms
+            =========
+
+            * **DPLL** - Davis–Putnam–Logemann–Loveland (DPLL) algorithm - complete backtracking-based search algorithm
+
+            Approaches
+            =========
+
+            * **ASP** - Answer Set Programming (ASP) problem solving approach
+
+            Strategies / Techniques
+            =========
+
+            * **Resolution** - Theorem Proving Strategy for Propositional Logic and First-Order Logic, which is the way most modern automated Theorem Provers are implemented
+            * **Unification** - Tool of matching two terms so they look the same by determining what variables/functions/constants combine, as an enabler of performing Resolution in FOL
+
+            Formats
+            =========
+
+            * **CNF** - Conjunctive Normal Form (CNF) format may be used to represent SAT engines/solvers
+            * **STRIPS** - formal language of the inputs to the STRIPS planner
+
+            Solvers
+            =========
+
+            * **Randomised Systematic Solvers** - ?
+            * **SATzilla** - SAT-based and DPLL-based
+            * **PrecoSAT** (previously known as RelSAT, Siege, and ZChaff) - SAT-based and DPLL-based
+
+            Planners / Provers
+            =========
+
+            * **SATPlan** - general propositional theorem prover that uses propositional logic instead of FOL. Input is a set of Axiom Schemas
+            * **GraphPLAN** - Input is a set of STRIPS-style operators
+            * **Blackbox** - planning system that works by converting problems specified in STRIPS notation into SAT problems
+            * **STRIPS** (Stanford Research Institute Problem Solver) system - automated planner. STRIPS problems may be translated into Boolean Satisfiability (SAT) problems
+            * **Tweak** - non-linear planning
+
+            Misc
+            =========
+            * **Ground** - Variable-free (i.e. FOL is a lifted version of Ground Propositional Logic
+              where Variables are used)
+
+            References: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002/lecture-notes/Lecture7FinalPart1.pdf
+
+
+    * Project 3:
+        * Discussion: https://discussions.udacity.com/c/nd889-logic-reasoning-planning/nd889-implement-planning-search
+
+    * Lesson 12 - Probability:
+        * Reading: Chapter 13 AIMA
+        * **Conditional Probability** and Bayes' Rule (used in Machine Learning Algorithms)
+            * **Bayes' Rule** (from **Statistics**)
+                ```
+                P(X|Y)     = P(Y|X)     * P(X)  / P(Y)
+
+                posterior  = likelihood * prior / marginal likelihood
+
+                where "prior"     = prior probability (aka unconditional probability)
+                where "posterial" = posterior probability (aka conditional probability)
+                where "|"         = given
+
+                where P(Y|X) = 1 - P(~Y|X)
+
+                where P(Y) equals the "Theorem of Total Probability"
+
+                P(Y) = ∑i P(Y|X=i) P(X=i)
+
+                (prob. of Y is sum over all probabilities of Y
+                conditional on X equals i, times probability of X equals i
+                ```
+            * Example
+                ```
+                LHS of Bayes' Rule
+
+                Given Y (i.e. test result),
+                but we want to know X (probability of have or not have cancer)
+                where P(X|Y) is diagnostic reasoning (from evidence to causes)
+
+                RHS of Bayes' Rule (turns LHS on its head and correct for the
+                inversion by multiplying by the "prior" of the cause to be be
+                the case in the first place, i.e. whether have cancer or not,
+                and dividing by the probability of the evidence Y, where the divisor
+                is often expanded using the Theorem of Total Probability )
+
+                where P(Y|X) is causal reasoning (i.e. hypothetically given
+                we know the cause X, what is probability of evidence Y we just
+                observed)
+                ```
+
+            * Applied to Cancer Question 4 to understand (further below)
+                ```
+                P(C|+) = P(+|C) * P(C) / P(+)
+                       = 0.9 * 0.001 / Theorem of Total Probability
+                       = 0.9 * 0.001 / (prob. of pos. test result given have cancer +
+                                        prob. of pos. test result given do not have cancer)
+                       = 0.9 * 0.001 / (0.9 * 0.01 + 0.2 * 0.99)
+                       = 0.009 / 0.009 + 0.198
+                       = 0.0434
+
+                care about prob. of cancer (cause) conditional on
+                result of hidden cause, which is the positive test
+                result in this case (evidence)
+                =
+                probability of seeing pos. test result given have cancer
+                *
+                prior probability of having cancer
+                /
+                prob. of seeing pos. test result
+
+                ```
+            * Question:
+                ```
+                1 - Probability of a given population positively having
+                disease X being 3%.
+                2 - Drug company has test Y to show if
+                person has disease X.
+                3 - Given probability of negative detection
+                using test Y given a person with
+                disease X being 1%
+                4 - Given probability of positive detecting
+                using test Y but person not actually having
+                disease X is 10% (false positive)
+                5 -
+                Find probability person positively has disease X
+                given they took test Y with positive result?
+                ```
+            * Solution:
+                * Translate problem into Probability Notation:
+                    ```
+                    1 - P(X)    = 0.03 (prob. with X)
+                    so  P(~X)   = 0.97 (prob. not with X)
+                    3 - P(~Y/X) = 0.01 (prob. Y neg. detect with X)
+                    4 - P(Y/~X) = 0.1  (prob. Y pos. detect but not with X)
+
+                      - P(Y/X)  = 0.99 (prob. Y given pos. detect with X)
+                      - P(X/Y)  = ?    (prob. with X given pos. detect)
+                    ```
+                * Find P(Y/X) first to use with Bayes' Rule
+                    ```
+                    P(Y/X) = 1 - P(~Y/X) = 0.99 (prob. pos. detect)
+                    ```
+                * Find P(Y) second using **Ven Diagrams** where
+                P(Y) is overlap intersection of X and Y plus
+                area of Y without the overlap intersection
+                    ```
+                    P(Y) = P(Y/X) P(X) + P(Y/~X) P(~X)
+                         = 0.99 * 0.03 + 0.1 * 0.97
+                         = 0.1267
+                    ```
+                * Substitute into Bayes' Rule
+                    ```
+                    P(X/Y) = P(Y/X) P(X) / P(Y)
+                           = 0.99 * 0.3 / 0.1267
+                           = 0.234
+
+                    so, 23.4%,
+
+                    mainly since disease X is rare with 3% in numerator
+                    so doctors would rely on multiple tests before
+                    giving definitive diagnosis
+                    ```
+        * **Graph Structure of Probability using Bayes' Networks**
+            * **Bayes' Network**
+                * Dfn: Compact representation of a distribution
+                over a very large Joint Probability Distribution
+                of all Variables (i.e. Node)
+                    * **Assume** that events are discrete (i.e. **Binary Events**)
+                    * **Specify** the Bayes' Network
+                    * **Observe** values of Variables (Nodes)
+                    (i.e. car not start, oil light, etc)
+                    * **Compute** Probabilities of hypotheses
+                    (i.e. probability fanbelt broken)
+
+                * Dfn: Complex structure composed of nodes that correspond
+                to events (known or unknown, random variables). Nodes are
+                linked by **Arcs** that suggest a Child of an Arc is
+                Influenced by its Parent (perhaps in Probabilistic way but
+                not a Deterministic way) (i.e. battery age older has
+                higher chance of causing battery dead but not clear that every
+                old battery is dead).
+                Describes a way to understand
+                how a car (complex system) doesn't start, where many variables
+                not immediately measurable, but with **sensors** that allow
+                understand a bit about state of the car
+                Assists in reasoning from observable **variables**
+                (i.e. car not start, dipstick value) to hidden **causes**
+                (i.e. is fanbelt broken?, is battery dead?)
+
+                * Usage: Used extensively in most fields of
+                smart computer systems:
+                    * Diagnostics
+                    * Prediction
+                    * Machine Learning
+                    * Finance
+                    * Google
+                    * Robotics
+                    * Computer Vision
+                    * Bayes' Network Inference
+                * Advanced AI Techniques that extend from Bayes's Networks
+                    * Particle Filters
+                    * Hidden Markov Models
+                    * MDP's
+                    * POMDP's
+                    * Kalman Filters
+            * **Conditional Independence**
+                * Dfn: ??
+            * **D-Separation Concept**
+                * Dfn: ??
+            * **Parameter Counts**
+                * Dfn: ??
+            * **Inference of Bayes' Networks**
+                * Dfn: ??
+            * Question: Car not start
+                * Problem: Given car not start in morning.
+                * Solution:
+                    * **Specify** the **Bayes' Network** by drawing it (Influence Diagram) graph of possible causes
+                    and show methods of diagnosis
+                    (increase/decrease belief that battery may cause car failure)
+                    and Effects
+                        * Diagnostic Tool
+                        * Check battery age
+                        * Problem:
+                            * Car not start
+                                * **Possible Causes**:
+                                    * Battery ok, but not charging
+                                    OR Battery dead
+                                        * Possible Causes:
+                                            * Alternator broken
+                                            * Fanbelt broken
+                                            * Starter broken
+                                        * Diagnositics
+                                            * Battery Meter (Diagnostic Tool)
+                                            * Battery age
+                                    * Lights
+                                        * Possible Causes:
+                                            * Lightings draining battery
+                                        * Diagnositics
+                                            * Check if lights on
+                                    * Oil
+                                        * Possible Causes:
+                                            * No oil
+                                        * Diagnostics
+                                            * Check oil light
+                                    * Fuel
+                                        * **Possible Causes**:
+                                            * No fuel
+                                            * Blocked fuel line
+                                        * **Diagnostics**
+                                            * Check fuel guage
+                                * **Possible Effects**:
+                                    * Battery Flat
+                                        * Affects:
+                                            * Lights (no power)
+                                            * Oil light
+                                            * Fuel guage as no power
+                                        * Not Affect:
+                                            * Oil level dipstick
+                                    * No Oil
+                                        * Affects:
+                                            * Oil level dipstick
+                                            * Oil light
+                                        * Not Affect:
+                                            *
+                                    * No Gas
+                                        * Affects:
+                                            * Fuel guage
+                                            * Car not start
+                                        * Not Affect:
+                                            *
+                    * Count Total Variable Centers
+                        * Note: Graph Structure and associated Probabilities
+                        specify a large **Probability Distribution** in space
+                        of all Variables (i.e. one Variable for each Node)
+                        * Assuming each Variable (Node) is **Binary** then
+                        **given 16 Variables**, we assume there can be **2^16
+                        different Values**
+                * **Probabilities**
+                    * **Total Probability**
+                        ```
+                        P(Y) = ∑i P(Y|X=i) P(X=i)
+
+                        prob. any random variable Y can be written:
+                            sum of all possible outcomes i for the random variable X of the:
+                            prob. of Y given another random variable X of assumed value i
+                            * prob. of X equals i
+                        ```
+
+                    * **Negation of Probabilities**
+                        ```
+                        P(¬X|Y) = 1 - P(X|Y)
+                        ```
+
+                    * **Complementary Probability**
+                        ```
+                        P(A) = p
+                            =>  P(¬A) = 1 - p
+                        ```
+
+                    * **Independence**
+                        * Probability of the Join of any two
+                        Variables is the Product of the Marginals
+                            ```
+                            X ⊥ Y : P(X)(Y)   = P(X,Y)
+                                    marginals = joint probability
+                            ```
+                        * Usage: When asked for probability of any
+                        combination of a number of coins,
+                        look at probability of each coin individually
+                        and multiple them
+                        * Important note:
+                        ```
+                        If X and Y are not independent, you can't use P(X and Y) = P(X | Y).
+
+                        But if X and Y are independent. You can replace the formula:
+
+                        P(X and Y) = P(Y/X) P(X)
+                        X and Y independent so,
+                        P(X) P(Y) = P(Y/X) P(X)
+                        so, if I eliminate P(X) in both sides (P(X) not 0)
+                        P(Y) = P(Y/X)
+                        ```
+
+                    * **Product Rule** (Joint - Multiplication Rule)
+                        ```
+                        P(X,Y) = P(X and Y)
+                               = P(X) * P(Y|X)
+
+                        ```
+                        * http://www.mathgoodies.com/lessons/vol6/conditional.html
+
+                    * **Dependence**
+                        * Given two coins flipped
+                            ```
+                            P(X1 = H) = 0.5 (prob. 1st flip heads)
+                                |
+                                branch to pick another coin
+                                based on 1st flip outcome
+                                |
+                                `--> H : P(X2 = H | X1 = H) = 0.9
+                                |
+                                `--> T : P(X2 = T | X1 = T) = 0.8
+
+                                i.e. prob. 2nd flip X2 is H given that
+                                1st flip X1 was H is 0.9
+                                (by Conditional Probability)
+
+                            where X1 is outcome of first flip
+
+                            What is probability of 2nd flip being H ?
+
+                            P(X2 = H) = ???
+                            ```
+                        * Solution:
+                            ```
+                            compute probability catering for the complement
+
+                            using Theorem of Total Probability
+
+                            P(X2 = H)
+                              =
+                                P(X2 = H | X1 = H) * P(X1 = H)
+                                + P(X2 = H | X1 = T) * P(X1 = T)
+                              =
+                                0.9 * 0.5
+                                + 0.2 * 0.5
+                              =
+                                0.45 + 0.1
+                              =
+                                0.55
+
+                            ```
+
+                * Question: Heads or Tails 1
+                    ```
+                    1 - Given coin, with possible values heads or tails
+                    P(H) = 0.5
+                    P(T) = ?
+                    ```
+                    * Assume only two possible outcomes
+                * Solution
+                    * Recall **Bayes' Rule**
+                        ```
+                        P(X/Y) = P(Y/X) P(X) / P(Y)
+                        where P(Y/X) = 1 - P(~Y/X)
+                        ```
+                    * Translate problem into Probability Notation:
+                        ```
+                        1-  P(H)    = 0.5 (prob. with H)
+
+                        where P(T) = 1 - P(H) = P(~H)
+                                   = 1 - 0.5
+                                   = 0.5
+                        ```
+                * Question: Heads or Tails 2
+                    ```
+                    1 - Given coin, with possible values heads or tails
+                    P(H) = 0.25
+                    P(T) = ?
+                    ```
+                    * Assume only two possible outcomes
+                * Solution
+                    * Recall **Bayes' Rule**
+                        ```
+                        P(X/Y) = P(Y/X) P(X) / P(Y)
+                        where P(Y/X) = 1 - P(~Y/X)
+                        ```
+                    * Translate problem into Probability Notation:
+                        ```
+                        1)  P(H)   = 0.25 (prob. with H)
+
+                        where P(T) = 1 - 0.25 = P(~H)
+                                   = 1 - 0.25
+                                   = 0.75
+                        ```
+                * Question: Heads or Tails 3
+                    ```
+                    1 - Given coin, with possible values heads or tails
+
+                    Find probability of Heads 3x times in a row
+
+                    P(H)     = 0.5 (per flip)
+                    P(H,H,H) = ?
+                    ```
+                    * Assume only two possible outcomes
+                    * Assume coin flips independent
+                * Solution
+                    * Translate problem into Probability Notation:
+                        ```
+                        1)  P(H)   = 0.5 (prob. with H)
+
+                        * Multiple probabilities since each is
+                        independent event
+
+                        P(H,H,H)   = 0.5 * 0.5 * 0.5 = 0.125
+
+                        12.5%
+                        ```
+                * Question: Heads or Tails 4
+                    ```
+                    1 - Given coin, with possible values heads or tails
+
+                    Find probability of same side 4x times in a row
+
+                    P(H)     = 0.5 (per flip)
+                    P(~H)    = 0.5
+                    P(X1 = X2 = X3 = X4) = same result
+
+                    Pi(H) = 0.5 ∀i
+
+                    where Xi = result of i'th flip
+                          Xi = { H, T }
+                    ```
+                    * Assume only two possible outcomes
+                    * Assume coin flips independent
+                    * Assume each flip has identity and equal
+                    probability of heads result
+                * Solution
+                    * Translate problem into Probability Notation:
+                        ```
+                        * Multiple probabilities since each is
+                        independent event
+                        * Already know that probability 4x Heads is:
+                            * 0.5 * 0.5 * 0.5 * 0.5 = 0.0625
+                        * Already know that probability 4x Tails is 0.0625
+
+                        P(X1 = X2 = X3 = X4) = 0.0625 + 0.0625
+                                             = 0.125
+
+                        12.5%
+                        ```
+
+                * Question: Heads or Tails 5
+                    ```
+                    1 - Given coin, with possible values heads or tails
+
+                    Find probability of at least 3x heads
+                    out of 4x coin flips
+
+                    P(H)     = 0.5 (per flip)
+                    P( {X1 X2 X3 X4} contains >= 3H )
+                    ```
+                    * Assume only two possible outcomes
+                    * Assume coin flips independent
+                    * Assume each flip has identity and equal
+                    probability of heads result
+                * Solution
+                    * Identify different Sequences where
+                    head occurs at least 3x
+                        ```
+                        HHHH
+                        HHHT
+                        HHTH
+                        HTHH
+                        THHH
+                        ```
+                    * Translate problem into Probability Notation:
+                        ```
+                        * Already know that probability 4x Heads is:
+                            0.5 * 0.5 * 0.5 * 0.5 = 0.0625
+
+                        P( {X1 X2 X3 X4} contains >= 3H )
+                            = 5 * 0.0625
+                            = 0.3125
+
+                        31.25%
+                        ```
+
+                * Question: Weather 1
+                    ```
+                    1 - Given weather being sunny or rainy
+
+                    P(D1 = sunny)              = 0.9   (prob. sunny day)
+                    P(D2 = sunny | D1 = sunny) = 0.8   (prob. sunny day follows a sunny day)
+                    P(D2 = rainy | D1 = sunny) = ???   (prob. rainy day follows a sunny day)
+
+                    What is prob. of rainy day given prev. day was sunny day?
+                    ```
+                    * Assume sunny or rainy are only two possible outcomes
+                * Solution
+                    ```
+
+                    Using Negation of Probabilities
+                        P(¬X|Y) = 1 - P(X|Y)
+
+                    P(D2 = rainy | D1 = sunny)
+                      = 1 - P(¬ D2 = rainy | D1 = sunny)
+                      = 1 - P(D2 = sunny | D1 = sunny)
+                      = 1 - 0.8
+                      = 0.2
+
+                    20%
+                    ```
+                * Question: Weather 2
+                    ```
+                    1 - Given weather being sunny or rainy
+
+                    P(D1 = sunny)              = 0.9   (prob. sunny day)
+                    P(D2 = sunny | D1 = sunny) = 0.8   (prob. sunny day follows a sunny day)
+                    P(D2 = rainy | D1 = sunny) = 0.2   (prob. rainy day follows a sunny day)
+                    P(D2 = sunny | D1 = rainy) = 0.6   (prob. sunny day follows a rainy day)
+                    P(D2 = rainy | D1 = rainy) = ???   (prob. rainy day follows a rainy day)
+
+                    What is prob. of rainy day given prev. day was rainy day?
+                    ```
+                    * Assume sunny or rainy are only two possible outcomes
+                * Solution
+                    ```
+
+                    Using Negation of Probabilities
+                        P(¬X|Y) = 1 - P(X|Y)
+
+                    P(D2 = rainy | D1 = rainy)
+                      = 1 - P(¬ D2 = rainy | D1 = rainy)   (replace with complement probability)
+                      = 1 - P(D2 = sunny | D1 = rainy)     (substitute with negation that we already know)
+                      = 1 - 0.6
+                      = 0.4
+
+                    40%
+                    ```
+                * Question: Weather 3
+                    ```
+                    1 - Given weather being sunny or rainy
+
+                    P(D1 = sunny)              = 0.9   (prob. sunny day)
+                    P(D2 = sunny | D1 = sunny) = 0.8   (prob. sunny day follows a sunny day)
+                    P(D2 = rainy | D1 = sunny) = 0.2   (prob. rainy day follows a sunny day)
+                    P(D2 = sunny | D1 = rainy) = 0.6   (prob. sunny day follows a rainy day)
+                    P(D2 = rainy | D1 = rainy) = 0.4   (prob. rainy day follows a rainy day)
+
+                    What is prob. that day 2 is sunny?
+                    What is prob. that day 3 is sunny?
+                    ```
+                    * Assume sunny or rainy are only two possible outcomes
+                    * Assume that same Conditional Probability
+                    dynamics of D2 followed by D1 apply also to D3 followed by D2
+                * Solution
+                    ```
+                    Use "Dependence"
+
+                    i.e. Given sunny or rainy
+                    P(D1 = sunny) = 0.9 (prob. 1st day sunny)
+                       |
+                       branch to pick another day
+                       based on 1st flip outcome
+                       |
+                       `--> sunny : P(D2 = sunny | D1 = sunny) = 0.8
+                       |
+                       `--> rainy : P(D2 = rainy | D1 = rainy) = 0.4
+
+                        i.e. prob. 2nd day D2 is sunny given that
+                       1st day D1 was sunny is 0.8
+                       (by Conditional Probability)
+
+                    P(D2 = sunny) = ???
+
+                    compute probability catering for the complement
+
+                    P(D2 = sunny)
+                      =
+                        P(D2 = sunny | D1 = sunny) * P(D1 = sunny)
+                        + P(D2 = sunny | D1 = rainy) * P(D1 = rainy)
+                      =
+                        0.8 * 0.9
+                        + 0.6 * 0.1
+                      =
+                        0.72 + 0.06
+                      =
+                        0.78
+
+                    now, what is prob. that day 3 is sunny?
+
+                    P(D3 = sunny) = ???
+
+                    P(D3 = sunny)
+                      =
+                        P(D3 = sunny | D2 = sunny) * P(D2 = sunny)
+                        + P(D3 = sunny | D2 = rainy) * P(D2 = rainy)
+
+                      now, we know from last answer that
+                      P(D2 = sunny) = 0.78, and its complement
+                      P(D2 = rainy) = 0.22, so substitute:
+
+                      and given the assumptions we know the following are
+                      the same (only relevant ones from previous
+                      to get the answer here are shown):
+
+                      P(D2 = sunny | D1 = sunny)
+                        = P(D3 = sunny | D2 = sunny)
+                        = 0.8
+                      P(D2 = sunny | D1 = rainy)
+                        = P(D3 = sunny | D2 = rainy)
+                        = 0.6
+
+                      so substitute these too:
+
+                      =
+                        P(D3 = sunny | D2 = sunny) * 0.78
+                        + P(D3 = sunny | D2 = rainy) * 0.22
+
+                      = 0.8 * 0.78 + 0.6 * 0.22
+                      = 0.624 + 0.132
+                      = 0.756
+
+                    75.6%
+                    ```
+                * Question: Cancer 1
+                    ```
+                    1 - Probability of given population having cancer C is 1%
+
+                    P(C)   = 0.01        (prob. of given population having cancer C)
+
+                    What is prob. of not having the cancer?
+                    ```
+                    * Assume having or not having are only two possible outcomes
+                * Solution
+                    ```
+                    P(¬ C) = 1 - 0.01
+                           = 0.99        (prob. of given population not having cancer C)
+                    ```
+                * Question: Cancer 2
+                    ```
+                    1 - Probability of given population having cancer C is 1%
+                    2 - Drug company has test Y to show if person has cancer C
+                    (with a probabilistic answer)
+
+                    where P(+|C)   - prob. of test Y Positive detection given we have a cancer C
+                    where P(-|C)   - prob. of test Y Negative detection given we have a cancer C
+
+                    P(C)   = 0.01        (prob. of given population having cancer C)
+                    P(¬ C) = 0.99        (prob. of given population not having cancer C)
+
+                    P(+|C) = 0.9         (prob. of test Y Positive detection given we have a cancer C)
+                    P(-|C) = ???
+
+
+                    What is prob. of test Y being Negative given we have a cancer C?
+                    ```
+                    * Assume having or not having are only two possible outcomes
+                * Solution
+                    ```
+                    recall, Bayes' Rule:
+
+                        P(X/Y) = P(Y/X) P(X) / P(Y)
+
+                        where P(Y/X) = 1 - P(~Y/X)
+
+
+                    ```
+                    * Translate problem into Probability Notation:
+                        ```
+                        1- P(C)   = 0.01            (prob. of given population having cancer C)
+                        2- P(¬ C) = 0.99            (prob. of given population not having cancer C)
+                        3- P(Y/C) = P(+|C) = 0.9 ?? (prob. Y pos. detect with C present)
+
+                        P(¬ Y/C) = P(-|C) = ??      (prob. Y neg. detect with C present)
+                        ```
+                    * Find P(¬ Y/C) = P(-|C) = ?? first to use with Bayes' Rule
+                        ```
+                        P(¬ Y/C) = 1 - P(Y/C)
+                                 = 1 - P(+|C)
+                                 = 1 - 0.9
+                                 = 0.1              (prob. Y neg. detect with C)
+
+                                 probability of the test coming out negative given that the
+                                 cancer is present
+                        ```
+                * Question: Cancer 3
+                    ```
+                    In addition to that given in Question Cancer 2,
+                    assume:
+
+                    P(Y/ ¬ C)   = P(+|¬ C) = 0.2      (prob. Y pos. detect with no C present)
+                    P(¬ Y/ ¬ C) = P(-|¬ C) = 0.8      (prob. Y neg. detect with no C present)
+
+                    Find the "Joint Probabilities" (i.e. not Conditional):
+
+                    P(Y,     C) = P(+, C)   =         (prob. Y pos. detect and having C)
+                    P(¬ Y,   C) = P(-, C)   =
+                    P(Y,   ¬ C) = P(+, ¬ C) =
+                    P(¬ Y, ¬ C) = P(-, ¬ C) =
+                    ```
+                * Solution:
+                    *
+                        ```
+                        Substitute values into the Product Rule:
+                            P(X,Y) = P(X and Y)
+                                   = P(X) * P(Y|X)
+
+                        P(+, C) = P(+|C) * P(C)
+                                = 0.9 * 0.01
+                                = 0.009
+
+                        P(-, C) = P(-|C) * P(C)
+                                = 0.1 * 0.01
+                                = 0.001
+
+                        P(+, ¬ C) = P(+| ¬ C) * P(¬ C)
+                                = 0.2 * 0.99
+                                = 0.198
+
+                        P(-, ¬ C) = P(-| ¬ C) * P(¬ C)
+                                = 0.8 * 0.99
+                                = 0.792
+                        ```
+                * Question: Cancer 4
+                    ```
+                    In addition to that given in Question Cancer 2 and 3, find:
+
+                    P(C|Y) = P(C|+) = ???
+
+                    (prob. of having cancer C, given received a positive test Y diagnosis)
+
+
+                    Review prior cases...
+                    we know we have a Positive test (i.e. +)
+                    where we found
+                        P(+, C)   = 0.009
+                        P(+, ¬ C) = 0.198
+
+                    Noting and using Conditional Probability (Bayes' Rule)
+
+                         P(X|Y) = P(Y|X) P(X) / P(Y)
+                    P(X|Y) P(Y) = P(Y|X) P(X)
+
+
+                    Using the Product Rule
+                        P(X,Y) = P(X and Y)
+                               = P(X) * P(Y|X)
+
+                    Substituting Product Rule into Conditional Probability:
+                        P(X|Y) = P(X,Y) / P(Y)
+
+
+                    Solving using rearranged form of Product Rule
+                    P(C|+) = P(C|Y)
+                           = P(C,Y) / P(Y)
+
+                           where P(Y,C) = P(C,Y) = P(Y and C) = P(C and Y)
+                           = P(C and Y) / P(Y)
+                           substitute equivalent values from Q3
+                             where P(+, C) = (prob. Y pos. detect and having C)
+                             where P(Y) = Theorem of Total Probability
+                                        = (prob. Y pos. detect and either having or not having C)
+                                        = P(+, C) + P(+, ¬ C)
+                           = P(+, C) / Theorem of Total Probability
+                           = P(+, C) / P(+, C) + P(+, ¬ C)
+                           = 0.009 / 0.009 + 0.198
+                           = 0.043
+
+                      4.3%
+                    ```
+
+
+            * Ch 13 Questions
+                * What are "Query Propositions"? (bottom of actual pg 490)
+
+
+    * Lesson 13 - Bayes Nets
+        * Dfn: Bayes' (Baysian) Networks (theory of the world)
+        **Constructed** and used to make **Inferences**
+        about new **Situations**
+        to takes uncertainty in probability
+        and marry it with Efficient Structures,
+        so can see how each Uncertain Variable influences
+        other Uncertain Variables
+            * Usage:
+                * Construct (a Bayes' Nets)
+                * Indifference (using Bayes' Nets)
+            * Solve using either approach of:
+                * **Summing the Results of All Relevant Situations**
+                * **Inference by Sampling** (to handle bigger Bayesian Networks)
+            * Algorithms:
+                * **Monte Carlo Markov Chain**
+        * Bayesian Network - Graphical Representation of Distribution of Two Variables
+            ```
+            (A)   (NOT OBSERVABLE)
+             |
+             |
+            (B)   (OBSERVABLE)
+
+            where A and B are "Internal Variables"
+            where A means: have or not have cancer
+            where B means: test result pos. or neg. diagnosis
+
+            where P(A) is "Prior Probability" (i.e. best guess given no other evidence)
+            where P(B | A) and
+                  P(B | ¬ A) is prob. of B given different values of A
+
+            where P(A | B) and
+                  P(A | ¬ B) are "Diagnostic Reasonings" (Inverse of Causal Reasoning)
+            ```
+            * Question: What is qty of numerical parameters (of underlying probabilities)
+              required to specify the entire join prob. between A and B
+                * Answer:
+                    ```
+                    Recall that "Joint Probability" using the "Independence" formula
+                    between two variables A and B is:
+
+                    (i.e. When asked for probability of any
+                    combination of a number of A and B,
+                    look at probability of each individually and multiple them)
+
+                     A ⊥ B : P(A)(B)   = P(A,B)
+                             marginals  = joint probability
+
+                    Also recall the Product Rule
+
+                    P(A, B) = P(A and B)
+                            = P(A) * P(B | A)
+
+
+                    Parameter 1:
+                        A to specify P(A) from which can
+                        "derive" P(¬ A)
+
+                    Parameters 2, and 3:
+                        A and B to specify P(B | A) and P(¬ A) from which we can
+                        "derive" P(¬ B | A) and P(¬ B | ¬ A)
+
+                    Answer: 3x parameters for this Bayesian Network
+                    ```
+        * Example: Student Job
+            https://www.youtube.com/watch?v=8dvd80dgsEE
+            ```
+            Given
+            ========
+            Student about to graduate
+            Applied for jobs at 2x companies
+
+            - G represents Graduated Student
+            - O1 represents Student Received Job Offer from Company 1
+            - O2 represents Student Received Job Offer from Company 2
+
+            G ------> O1
+                |          P(O1 | G)   = 0.5
+                |          P(O1 | ¬ G) = 0.05
+                |
+                |___> O2
+                           P(O2 | G)   = 0.75
+                           P(O2 | ¬ G) = 0.25
+
+            Question:
+            =========
+            Calc. prob. that student received offer from
+            Company 2, given we know she received an offer
+            from Company 1.
+            ```
+        * Solution
+            ```
+            Find ratio of times that O2 is True when
+            given that O1 is True, to all situations when
+            just O1 is True.
+
+            Calculate answer using:
+                "Approach of Summing the Results of All Relevant Situations"
+
+            Note: Alternative approach is to use:
+                "Inference by Sampling to handle bigger Bayesian Networks"
+
+            P(O2 | O1)
+
+            =
+
+            Sum all possible Grad. situations where O1 and O2 are True /
+            Sum all possibe Grad situations * Sum of all possible O2 situations, where where O1 and O2 are True
+
+            =
+
+            Sum all possible Grad. situations where O1 and O2 are True /
+            Normalising Number + Situation when O2 is Negative
+
+            =
+
+            (Sum G) P(O2, O1, G) /
+            (Sum G) (Sum O2) P(O2, O1, G)
+
+            =  P(O1, O2, G) + P(O1, O2, ¬ G) /
+               (
+                 [P(O1, O2, G) + P(O1, O2, ¬ G)] +
+                 [P(O1, ¬ O2, G) + P(O1, ¬ O2, ¬ G)]
+               )
+
+            = ???
+
+            For Numerator and Denominator, we know:
+
+            P(O1, O2, G) = P(O1 | G) * P(O2 | G) * P(G)
+
+                Substitute values we know from Bayes' Network:
+
+                         = 0.5       * 0.75      * 0.9
+                         = 0.3375
+
+
+            P(O1, O2, ¬ G) = P(O1 | ¬ G) * P(O2 | ¬ G) * P(¬ G)
+
+                Substitute values we know from Bayes' Network:
+
+                         = 0.05       * 0.25      * 0.10
+                         = 0.00125
+
+            P(O1, ¬ O2, G) = P(O1 | G) * P(¬ O2 | ¬ G) * P(G)
+
+                Substitute values we know from Bayes' Network:
+
+                         = 0.05       * 0.25      * 0.9
+                         = 0.1125
+
+            P(O1, ¬ O2, ¬ G) = P(O1 | ¬ G) * P(¬ O2 | ¬ G) * P(¬ G)
+
+                Substitute values we know from Bayes' Network:
+
+                         = 0.05       * 0.75      * 0.1
+                         = 0.00375
+
+            P(O2 | O1) = 0.3375 + 0.00125 / [0.3375 + 0.00125] + [0.1125 + 0.00375]
+                       = 0.7445
+            ```
+
+        * Complex Bayesian Rule (and Complex Bayes' Networks)
+
+            ```
+
+            Bayes Rule
+
+                P(A | B) = P(B | A) * P(A)         / P(B)
+                         = easily computable term  / hard to compute term
+                                                     (but not depend on assumption for Var A)
+                Now the "complementary" range is:
+
+                P(¬ A | B) = P(B | ¬ A) * P(¬ A)   / P(B)
+
+                Note: "Normaliser" is both P(B) whether use A on LHS or ¬ A on LHS
+
+                Since two complementary events, also know that:
+
+                P(A | B) + P(¬ A | B) = 1
+
+
+                Compute the "posterior" probability that is
+                not "Normalised" (i.e. whilst ignoring/omitting the "Normaliser" P(B))
+
+                P'(A | B) = P(B | A) * P(A)
+
+                P'(¬ A | B) = P(B | ¬ A) * P(¬ A)
+
+                where P' is "prime" since not a real probability
+                where P'(A | B) equals the "Normaliser" (Denominator of prev. equation)
+                where P'(¬ A | B) "     "     "    ...
+
+                Now, recover original probabilities by "Normalising" based
+                on values P'(A | B) and P'(¬ A | B)
+
+                P(A | B) = η * P'(A | B)          (actual probability)
+
+                P(¬ A | B) = η * P'(¬ A | B)
+
+                where η is "Normaliser" eta (times the non-"Normalised" form)
+
+                and where:
+
+                η = 1 / ( P'(A | B) + P'(¬ A | B) )
+
+                Using these computed non-"Normalised" pseudo-probabilities we
+                defer the calculation of "Normaliser" P(B), and make
+                the calculation much easier
+
+
+            ```
+        * **Absolute Independence (aka Independence)** Bayes Network
+            ```
+            B
+
+            C
+            ```
+            * Dfn: A ⊥ B      where two nodes not connected at all
+            * Note: Absolute Independence DOES NOT imply Conditional Independence
+
+        * **Conditional Independence** Bayes Network
+            ```
+            A ------> B
+                |
+                |___> C
+            ```
+            * Dfn: A ⊥ B | C  where two nodes A and B are "conditionally independent" given
+                              a hidden cause A caused two independent different measurements
+                              (we know information from a common branch C)
+            * Note: Conditional Independence DOES NOT imply Absolute Independence
+            (i.e. since if A is test result returning pos., this will affect the probability
+            of the subsequent B test result likelihood of being pos.)
+
+        * **Confounding Cause** Bayes Network
+            ```
+            A -----,
+                    |--- C
+            B _____/
+            ```
+            * Dfn:      (two independent hidden causes confounded within a single
+                         observational variable)
+
+            * C adds a dependence on A and B
+
+        * Example: Two Tests for Cancer (Complex)
+          and **Conditional Independence**
+
+            * **Conditional Independence**
+                Dfn: Given C, T1, and T2 in below diagram,
+
+                * T1 ⊥ T2 | C  (i.e. T1 is "conditionally independent" of T2 given we know C)
+
+                * Question:
+                    * If we did not know C (i.e. knowing whether we had Cancer)
+                    and if T1 is "conditionally independent" of T2,
+                    does that imply that T1 and T2 are "independent" of each other?
+                        * No, since getting a pos. test result with T1
+                        of a specific cancer C,
+                        gives us info about whether we have cancer or not
+                        (i.e. raises probability of having cancer).
+                        With that increased probability outcome, we will
+                        predict that a subsequent test T2 will have a higher
+                        probability of giving a pos. test result
+                        (than if we didn't do T1 first),
+                        so they are NOT "independent"
+
+
+            ```
+            Given,
+
+                C  (Not Observable)
+               /  \
+            T1 ___ |
+                   T2
+
+            where C is Cancer
+            where T1 is Test 1
+            where T2 is Test 2
+
+            P(C)       = 0.01  (prior probability of Cancer)
+            P(+ | C)   = 0.9   (probability of receiving positive test result for either test)
+            P(- | ¬ C) = 0.8   (prob. of neg. test result for either test, i.e. cancer free)
+
+            Compute all other probabilities using the above:
+
+            P(¬ C)     = 0.99
+            P(- | C)   = 0.1
+            P(+ | ¬ C) = 0.2
+
+            Assuming both T1 and T2 results a pos., i.e.
+
+                P(C | T1 = +, T2 = +)  =  P(C | + +) = ??
+
+            What is probability of cancer now?
+
+            Answer:
+
+                Use the trick to compute:
+
+                        prior   +       +       P'      P(C|++)
+                C       0.01    0.9     0.9     0.0081  0.1698
+                ¬ C     0.99    0.2     0.2     0.0396  0.8301
+                                                ------
+                                                0.0477 "Normaliser"
+
+                               (use non-"Normalised" Bayes Rule
+                                and multiple 0.01 * 0.9 * 0.9 to get
+                                non-"Normalised" probability P' of
+                                having cancer C given a TWO pos. test results
+                                from T1 and T2
+                                of 0.0081)
+
+                                P' values are not probabilities.
+                                Add the P' values of 0.0081 and 0.0396
+                                we get 0.0477.
+
+                                Lastly we divide (i.e. "Normalise")
+                                the non-"Normalised" probabilities
+                                0.0081 and 0.0396 by the Factor 0.0477
+                                to get the correct "posterior probability"
+                                answers
+
+                P(C|++) = 0.1698
+
+
+            Other notes:
+
+            Hidden Variable C, causes the still Stochastic test results T1 and T1
+            We assumed T1 and T2 are identically distributed (i.e. use same 0.9 for each)
+            We assumed T1 and T2 were "Conditionally Independent"
+                i.e. if knew for certain that had cancer C,
+                     then knowing T1 would not help us make a statement about T2
+            We assumed that probability of T2 given C and T1,
+            which is same as probability of T2 given C
+
+                i.e. P(T2 | C, T1) = P(T2 | C)
+
+                (this is known as "Conditional Independence",
+                 where if we knew the value of cancer variable C
+                 for sure, then T2 would be "independent" of T1,
+                 but it's "Conditionally Dependent" since independence
+                 only holds True if we actually know C,
+                 since C separately causes T1 and T2 as shown in the diagram)
+
+
+            What is the prob. of second T2 test result being pos. if we
+            know that first T1 test result outcome was pos. ?
+
+            P(T2 = + | T1 = +)  =  ???
+
+            Solving using Bayes Rule
+
+            P(+2 | +1) = P(+1 | +2) P(+2)
+
+            Solve using "Theorem of Total Probability"
+            (note that everything is conditional on +1)
+
+            (i.e. Denominator fn RHS in Bayes Rule)
+
+            P(T2 = + | T1 = +)
+                = P(+2 | +1, C) * P(C | +1)  +  P(+2 | +1, ¬ C) * P(¬ C | +1)
+
+                Note that P(+2 | +1, C) is an example of "conditional independence"
+                since 1st test T1 gives no more information to 2nd test T2, as it
+                only gives more info if C was unknown (which is not the case here),
+                so we can re-write it as P(+2 | C), since we know now that
+                P(+2 | +1, C) = P(+2 | C)
+
+                So, simplifying the equation, by removing +1 from P(+2 | +1, C), since it
+                doesn't give any more info
+
+                = P(+2 | C) * P(C | +1) + P(+2 | ¬ C) * P(¬ C | +1)
+
+                Substitute with values we already know:
+
+                = 0.9       * P(C | +1) + 0.2         * P(¬ C | +1)
 
 
 
+                Use the same trick used previously to
+                compute P(C | +1) and P(¬ C | +1), but with only one
+                test T2, instead of both of them:
+
+                        prior   +       P'      P(C|+)
+                C       0.01    0.9     0.009  0.009/0.207 = 0.043
+                ¬ C     0.99    0.2     0.198  0.198/0.207 = 0.957
+                                        ------
+                                        0.207 "Normaliser"
+
+                               (use non-"Normalised" Bayes Rule
+                                and multiple 0.01 * 0.9 to get
+                                non-"Normalised" probability P' of
+                                having cancer C given one pos. test result
+                                T1 of 0.009)
+
+                                P' values are not probabilities.
+                                Add the P' values of 0.009 and 0.198
+                                we get 0.207.
+
+                                Lastly we divide (i.e. "Normalise")
+                                the non-"Normalised" probabilities
+                                0.009 and 0.198 by the Factor 0.207
+                                to get the correct "posterior probability"
+                                answers
+
+                P(C | +1)   = 0.043
+
+                P(¬ C | +1) = 0.957
+
+
+                = 0.9       * 0.043     + 0.2             * 0.957
+
+                = 0.2301
+
+                = 0.230
+
+                (i.e. if 1st test returns pos. then expect 2nd test to return
+                pos. with probability of 23% after seeing the pos. test result of 1st test,
+                which is an increase over the
+                default probability P(T2 = +) of 2nd test returning pos.
+                without a 1st year being performed of 20%, which was calculated
+                using "Normaliser" of Bayes Rule, which was 0.207 )
+
+
+            ```
+        * Example: Happiness (using Confounding Cause)
+            ```
+            R -----,
+                    |--- H
+            S _____/
+
+            where happiness H (or unhappy) driven by two causes,
+            whether it's sunny S or job raise R
+
+            where Specification of a Probability Distribution is:
+
+            P(S) = 0.7
+            P(R) = 0.01
+
+            P(H | S, R) = 1
+            P(H | ¬ S, R) = 0.9
+            P(H | S, ¬ R) = 0.7
+            P(H | ¬ S, ¬ R) = 0.1
+
+            What is:
+
+            P(R | S) = ???
+
+            Note that there is no mechanism by which
+            R and S could co-occur, so P(R | S) = P(R)
+            (i.e. prob. of raise given sunny is same as
+                  prob. of raise given any weather)
+
+            P(R | S) = P(R) = 0.01
+            ```
+        * **Explaining Away** (special instance of Bayes Network reasoning)
+            ```
+            R -----,
+                    |--- H
+            S _____/
+
+            If we know we are happy H,
+            then sunny S weather can "explain away" the cause of happiness H
+
+            If also know that it's sunny S weather,
+            then the probability that we received a raise R then DECREASES
+            (since the "observer" could already "explain away" that the reason
+            for being happy H is likely because it's sunny S if they first
+            observe that it's sunny outside
+
+            Such that "seeing" one of the causes R or S first, can
+            "explain away" any other potential cause of the effect H
+
+            1) What is:
+
+            P(R | H, S) = ???     (prob. raise given that i'm happy and its sunny)
+
+            expanding th term using Bayes Rule and using Total Probability:
+
+            P(R | H, S) = P(H | R, S) * P(R | S) / P(H | S)
+
+            now simplifying P(R | S) into just P(R) since cannot co-occur:
+
+                        = P(H | R, S) * P(R)     / P(H | R, S)
+
+            now expand the Denominator by folding in R and ¬ R
+
+                        = P(H | R, S) * P(R)     / P(H | R, S) * P(R) + P(H | ¬ R, S) * P(¬ R)
+
+            substitute values from tables:
+
+                        = 1 * 0.01                / 0.01 + 0.7 * 0.99
+
+                        = 0.0142
+
+            2) What is:
+
+            P(R | H) = ???      (prob. of raise given we're observed as being happy,
+                                 but we do not know anything about the weather)
+
+            compute auxiliary variable P(H) as combination of different variables that
+            can make lead to happiness
+
+            P(H) =   P(H | S, R)     * P(S, R) +
+                     P(H | ¬ S, R)   * P(¬ S, R) +
+                     P(H | S, ¬ R)   * P(S, ¬ R) +
+                     P(H | ¬ S, ¬ R) * P(¬ S, ¬ R)
+
+                 using "independence" to replace Join Probabilities with Marginals
+
+                 =   P(H | S, R)     * P(S)P(R) +
+                     P(H | ¬ S, R)   * P(¬ S)P(R) +
+                     P(H | S, ¬ R)   * P(S)P(¬ R) +
+                     P(H | ¬ S, ¬ R) * P(¬ S)P(¬ R)
+
+                now substituting in values we know
+
+                 =   1               * (0.7 * 0.01) +
+                     0.9             * (0.3 * 0.01) +
+                     0.7             * (0.7 * 0.99) +
+                     0.1             * (0.3 * 0.99)
+
+                 = 0.007 + 0.0027 + 0.4851 + 0.0297
+
+                 = 0.5245
+
+            now using Bayes Rule to substitute into the initial equation
+            with values we already know
+
+            P(R | H) = P(H | R) * P(R) / P(H)
+
+                     = P(H | R) * 0.01 / 0.5245
+
+            now find out what P(H | R) is using "Total Probability", and substitute numbers:
+
+            P(H | R) = P(H | R, S) * P(S) + P(H | R, ¬ S) * P(¬ S)
+
+                     = 1           * 0.7  + 0.9           * 0.3
+                     = 0.7 + 0.27
+                     = 0.97
+
+            now substitute this result back into equation to find P(R | H):
+
+
+            P(R | H) = 0.97 * 0.01 / 0.5245
+                     = 0.0185
+
+
+            What is (extreme case for making raise R likely), solve similar to before:
+
+            P(R | H, ¬ S) = P(H | R, ¬ S) * P(R | ¬ S) / P(H | ¬ S)
+
+                          = 0.9 * 0.01 / P(H | R, ¬ S) * P(R) + P(H | ¬ R, ¬ S) * P(¬ R)
+
+                          = 0.009      / (0.9 * 0.01 + 0.1 * 0.99)
+
+                          = 0.0833
+
+            so now it is clear that if don't know about the weather,
+            that there is a higher chance that the raise R caused happiness H:
+
+            P(R | H) > P(R | H, S)   = 0.0185 > 0.0142
+
+            and if we observe it to not be sunny, then it is much
+             more likely that cause of happiness is related to a job raise
+
+            P(R | S) < P(R | H, ¬ S) = 0.01   < 0.0833
+
+
+
+            ```
+
+        * **Bayes Networks** (General Definition)
+            * Dfn: Define Probability Distributions over Graphs
+            of Random Variables (i.e. A, B, C, D, E)
+
+            ```
+            A         B
+             \       /
+              \     /
+               *   *
+                 C
+               /   \
+              /     \
+             *       *
+            D         E
+            ```
+            * Bayes Network is **defined** by prob. distrib. inherent to
+            each individual node
+                ```
+                i.e. nodes A and B are defined as the following
+                     since A and B have no incoming arcs
+
+                        P(A)
+                        P(B)
+
+                i.e. node C is defined as "condition distribution"
+                     (conditioned on A and B)
+
+                        P(C | A, B)
+
+                i.e. node D and E are conditioned on C
+
+                        P(D | C)
+                        P(E | C)
+
+                The "Joint Probability" represented by a Bayes Network
+                is the product of various Bayes Network probabilities
+                defined over individual nodes,
+                where each node's probability is only conditioned on
+                the incoming arcs
+
+                        P(A, B, C, D, E) = P(A) * P(B) * P(C | A, B) * P(D | C) * P(E | C)
+
+                Required Variables (of Bayes Network vs Combinatorial Approach)
+                ==================
+
+                Advantage of using Bayes Networks here is that only requires 10 values
+                (so compactness of Bayes Network leads to representation
+                 that scales much better on LARGE Networks, than using the
+                 Combinatorial Approach that goes through all combinations of variable values)
+
+                  required parameters       1      1       4               2           2
+                                                         (A and B binary)  (C binary)  (C binary)
+
+                Using a Combinatorial Approach (unstructured representation)
+                the "Joint Distribution" over any 5x variables
+                would require all combinations of variable values
+
+                  required parameters      (2 ^ 5) - 1 = 31   (probability values)
+
+                Noting that any variable that has K inputs, requires 2 ^ K search variables
+                ```
+            * Question
+                ```
+                How many probability values are required to specify this Bayes Network?
+
+                       A
+                     / | \
+                    /  |  \
+                   *   *   *
+                  B    C    D
+                   \    \   /
+                    \    \ /
+                     *    *
+                     E    F
+
+                Answer:
+
+                    P(A, B, C, D, E, F) = P(A) * P(B | A) * P(E | B) * P(C | A) * P(D | A) * P(F | C, D)
+                                           1        2           2          2          2          4
+
+                    Summing up the qty of required parameters (search variables) is
+
+                    13
+
+                    (i.e. 13 numeric probabilities are required to specify this Bayes Network)
+
+                ```
+
+            * **D-Separation**
+
+                * Rule: Any two variables are "independent"
+                if they are not linked by just unknown variables
+                i.e. If know B, then any variable downstream
+                of B becomes "independent" of anything upstream of B
+
+
+                    ```
+                    Given the following Bayes Network
+
+                                A
+                              /   \
+                             /     \
+                            *       *
+                           B         D
+                          /           \
+                         /             \
+                        *               *
+                       C                 E
+
+                    Are the following "independent" of each other:
+
+                    C ⊥ A       NO, since A influence C by virtue of B,
+                                but if we know B, then A becomes independent of C.
+                                So the only determinant of C is B, if you know B for certain
+                                since in this case A won't tell C anything B hasn't already told it.
+                    C ⊥ A | B   YES
+                    C ⊥ D       NO, same as above
+                    C ⊥ D | A   YES, since if C already knows A, then D won't tell C anything it doesn't
+                                already know
+                    E ⊥ C | D   NO
+
+
+
+                    E is not "independent of C | D
+                    Knowledge of B does NOT render A and E independent
+
+
+                    ```
+
+                * Example 2
+
+                    ```
+
+                    Given the following Bayes Network
+
+
+                    A         B
+                     \       /
+                      \     /
+                       *   *
+                         C
+                       /   \
+                      /     \
+                     *       *
+                    D         E
+
+                    Are the following "independent" of each other?
+
+                    A ⊥ E       NO, since through C we can see influence of A to E
+                    A ⊥ E | B   NO, since A still influences C despite knowing B
+                    A ⊥ E | C   YES, since if know C the influence is cut off so
+                                A cannot influence E if we know C
+                    A ⊥ B       YES, different entry variables with no arcs
+                    A ⊥ B | C   NO, since given C, A and B become "dependent"
+                                due to the "Explain Away" effect
+
+                                (Knowledge of variable C, renders previously
+                                "independent" variables as "dependent")
+
+                                (i.e. since if know C to be True, then knowledge of A
+                                will substantially affect what we believe about B)
+
+                                (i.e. if there are two joint causes for C, i.e. A and B,
+                                and if we know A is True, then we will discredit
+                                cause B, and conversely, if we know B is False, it will
+                                increase our belief that B is True)
+
+                    ```
+
+    * Lesson 14 - Bayes Networks using Probabilistic Inference
+    (i.e. how to answer questions we're interested in, given certain inputs)
+            * This Lesson 14:
+                * **Probabilistic Inference**
+                    * Dfn: How to answer Probability questions
+                    using Bayes Networks
+
+            * Previous Lesson 13:
+                * Probability Theory of how a Bayes network can concisely represent
+                 a "joint probability distribution", including representation of
+                 "independence" between variables
+            * Example: Earthquake
+                ```
+                Given Bayes Network graph
+
+                (B)urglary       (E)arthquake
+                      \         /
+                       \       /
+                        *     *
+                        (A)larm
+                         /  \
+                        /    \
+                       /      \
+                      *        *
+                (J)ohn calls   (M)ary calls
+
+                "Inference" question:
+                    What are outputs given some inputs ?
+
+                "Probabilistic Inference" Terminology:
+
+                    "Evidence" variables = Inputs = B and E  (i.e. variables we know value of)
+
+                    "Query" variables = Outputs = J and M  (i.e. variabes we want to find value of)
+
+                        Important Note: "Probabilistic Inference" outputs are not single numbers, instead
+                        outputs are a "Probability Distribution", so the answer will be a
+                        Complete "Joint Probability Distribution" over the "Query" variables,
+                        which is known as the:
+
+                        "Posterior Distribution" (given the "Evidence")
+                        ===============================================
+
+                        P(Q1, Q2 ... | E1 = e1, E2 = e2)
+
+                        (i.e. "Posterior Distribution" of one or more "Query" variables
+                        given the exact values of the zero or more "Evidence" variables)
+
+                    "Hidden" variables = Internal = (i.e. variables that are neither "Evidence" nor "Query" that need to compute with internally)
+
+                Maximisable "Query" values (Q), given the "Evidence" values:
+                ===========================================================
+
+                    argmax q  P(Q1 = q1, Q1 = q2, ... | E1 = e1, ...)
+
+
+                    Note: The most likely explanation out of all the possible values
+                    for all the "Query" variables, which combination of values
+                    has the highest probability
+
+                Note: In ordinary programming, each function goes only one way:
+                    * Input variables
+                    * Computation
+                    * Output result variable(s)
+                However, in Bayes Networks, we can go MULTIPLE DIRECTIONS
+                    i.e.
+                        CAUSAL DIRECTION FLOW
+                            - giving as "Evidence" the root nodes of the tree
+                            - asking as "Query" values the nodes at the bottom of the tree
+
+                        REVERSE CAUSAL DIRECTION FLOW
+                            - giving as "Evidence" the J and M variables
+                            - asking as "Query" variables the B and E variables
+
+                        or any other combination...
+
+                        OTHER
+                            - giving as "Evidence" the M variable
+                            - asking as "Query" variables the B and J variables
+
+
+                ```
+                    * Question
+                        ```
+                        Situation where Mary (M) has called to report
+                        Alarm (A) is going off, and we want to know
+                        whether or not a Burglary (B) occurred.
+
+                        Show what nodes are "Evidence", "Hidden" or "Query" nodes
+
+                        B - "Query"
+                        E - "Hidden"
+                        A - "Hidden"
+                        J - "Hidden"
+                        M - "Evidence" (known)
+                        ```
+            * **Inference on Bayes Networks** https://youtu.be/nJqloQLLYaI?t=3m25s
+                * **Enumeration** Method
+                    * Dfn: Goes through all possibilities, adds them up, and derives answer
+                ```
+                Question:
+
+                    What is probability that the Burglar Alarm occurred
+                    given that John called and Mary called?
+
+                Answer:
+
+                    Use the definition of "Conditional Probability"
+                    and perform "Inference" by "Enumeration" on the Belief network
+
+                    P(Q | E) = P(Q, E) / P(E)
+
+                    P(+b | +j, +m)    ("conditional probability")
+
+                       = joint probability distribution of all three variables / conditionalised variables
+
+                       = P(+b, +j, +m) / P(+j, +m)   (using shorter notation)
+
+                       Note: here we "Normalise" by the Denominator P(+j, +m)
+
+                       (re-written without any "conditional probability")
+
+                       where P(B = True)
+                           = P(+e)
+                           = 1 - P(¬ e)
+                           = P(e)
+
+                       now enumerate all "atomic" probabilities and
+                       calculate the sum of products
+
+                       the Numerator can be determined by Enumerating an expression with
+                       all possible values of the Hidden variables
+                       (i.e. in this case E and A)
+
+                       P(+b, +j, +m)
+                         = ∑ "e" ∑ "a" P(+b, +j, +m, e, a)     (note how only b, j, and m are fixed as +)
+
+                         (sum over all values for "e" and "a" where only two values for each since Boolean,
+                         we ask what is the probability of this unconditional term)
+
+                         to get the values of the "atomic" events, we re-write the equation in a
+                         form that corresponds to the "conditional probability" tables that we have
+                         associated with the Bayes Network
+
+                         re-write the part after the ∑ "e" ∑ "a", as being an expression
+                          in terms of the Parents of each of the nodes in the network, giving a product
+                          of 5x terms, which we then sum over all values of Hidden variable values for
+                          "e" and "a"
+
+                         = ∑ "e" ∑ "a" P(+b) * P(e) * P(a | +b,e) * P(+j | a) * P(+m | a)
+
+                         = ∑ "e" ∑ "a" f(e, a)
+
+                         = f(+e, +a) + f(+e, ¬a) + f(¬e, +a) + f(¬e, ¬a)
+
+                         now expand and substitute +/¬e and +/¬a for each respectively:
+
+                         =   P(+b) * P(+e) * P(a | +b,+e) * P(+j | +a) * P(+m | +a)
+
+                             + P(+b) * P(+e) * P(¬a | +b,+e) * P(+j | ¬a) * P(+m | ¬a)
+
+                             + P(+b) * P(¬e) * P(+a | +b,¬e) * P(+j | +a) * P(+m | +a)
+
+                             + P(+b) * P(¬e) * P(¬a | +b,¬e) * P(+j | ¬a) * P(+m | ¬a)
+
+                         (sum of f, for all values of "e" and "a")
+                         (i.e. the sum of 4x terms, where each of the terms is the product of 5x numbers
+
+                         now, we get the numbers to substitute into this equation
+                         from the Conditional Probability Tables from our Model
+
+                        Question:
+
+                        Given the case where "e" is pos. and "a" is pos., to
+                        lookup in the Conditional Probability Tables
+                        https://youtu.be/nJqloQLLYaI?t=3m25s
+                        and substitute
+                        the values for each of the 5x terms, then multiple them together,
+                        and to determine their product
+
+
+
+
+                ```
+
+                * **Efficient Inference Technique #1 -
+                    Faster technique for doing Inference on Bayes Networks
+                    that involves "Pulling out terms" from the Enumeration**
+                    * Reasoning:
+                        * e.g. Network 1: If had 5x Hidden variables, there'd only be 32 rows in Conditional Probability Table to sum up
+                        * e.g. Network 2: If had 27x Hidden variables (if all Boolean), gives 100 million rows to sum out, but since some aren't Boolean,
+                        so representing the whole enumeration, we'd have to sum over a quadrillion rows,
+                        so we need methods that are faster than enumerating everything
+
+                    * e.g.
+
+                    ```
+                    given:
+
+                    ∑ "e" ∑ "a" P(+b) * P(e) * P(a | +b,e) * P(+j | a) * P(+m | a)
+
+                    here the prob. of "b" is the same for all values of "e" and "a"
+                    so we can take that out of the equation and have less work to do
+                    (i.e. multiply by P(+b) once, instead of having it in each row
+                    of the table)
+
+                    also, here the prob. of "e" does not depend on the summation of "a"
+                    so we can move it left outside the summation of "a", resulting in
+                    less work so the inner loop of the summation has less terms
+
+                    P(+b) ∑ "e" P(e) ∑ "a" P(a | +b,e) * P(+j | a) * P(+m | a)
+
+                    so we've reduced the cost of doing each row of the table,
+                    but still have same qty of rows in the table,
+                    so we'll need to try a different technique #2
+
+
+
+                    ```
+
+                * **Efficient Inference Technique #2 - "Maximise Independence"** of
+                    variables, in order to reduce the number
+                    of rows in the Conditional Probability Table
+                    * Note: The structure of a Bayes Network determines the
+                    efficiency for performing "inference" on it
+
+                        ```
+                        i.e.
+
+                          1) Linear Bayesian Network:
+
+                             - with string of variables X1 through to Xn    O(n)
+
+                             here "inference" can be done in a timeframe
+                             that's proportional to the number "n"
+
+                          2) "Complete" Network:
+
+                             - where every node points to every other node  O(2^n)
+                               could take up to 2^n timeframe, if all "n"
+                               variables are Boolean variables
+
+                          3) Example Alarm Network:
+
+                             - where had all "independence" relations
+                             represented in the structure of the network
+
+                             - BUT if we put the nodes in different order,
+                             we'd end up with different structure
+
+                             i.e. change to order with J node first then
+                             M node second (i.e. John calls then Mary calls).
+
+                             now, given just these two nodes J and M,
+                             is M node "dependent" or "independent" of the
+                             the J node
+
+                             ANSWER: "dependent" (since here we don't know that
+                             the alarm had occurred)
+
+                                  J -------* M
+                                  \         /
+                                   \       /
+                                    \     /
+                                     *   *
+                                       A
+                                     /   \
+                                    /     \
+                                   /       \
+                                  *         *
+                                 B  ------*  E
+
+                             If we add A to the network, it is "dependent" on both
+                             M and J
+
+                             If we add B to the network, it's just "dependent" on A
+                             (i.e. B is "independent" of J and M, given A)
+
+                             If we add E to the network, it's "dependent" on
+                             both A and B
+
+                             (since if E did occur, then its more likely that
+                             A would go off,
+                             and since if B did occur that would explain why A
+                             is going off, and would mean E is less likely)
+
+
+                        ```
+                    * **Causal Direction**
+                        * Bayes Networks easier to do "inference" on when
+                        they are written in the "Causal Direction"
+                        (i.e. when networks flow from "causes" to "effects"
+
+                * **Efficient Technique #3 - "Variable Elimination"**
+                    * Reasoning:
+                        ```
+                        previously to evaluate this equation, we first joined
+                        up the whole Joint Distribution, before Summing over the
+                        Hidden Variables "e" and "a", which is SLOW, since we
+                        end up repeating most of the work
+
+                        ∑ "e" ∑ "a"   (whole joint distribution)
+
+                        = ∑ "e" ∑ "a" P(+b) * P(e) * P(a | +b,e) * P(+j | a) * P(+m | a)
+                        ```
+                    * Dfn:
+                        * Faster that doing "inference" by Enumeration in most cases, but
+                        is still a difficult computation (its NP-hard to do "inference" on
+                        Bayes Networks in general)
+                        * Requires an Algebra for Manipulating Factors
+                        (names for multi-dimensional arrays that come out of these
+                        probabilistic terms)
+                    * Example
+                        ```
+                        Given a Bayes Network with 3x Boolean variables:
+
+                        where T "dependent" on R
+                        where L "dependent" on T
+
+                        R  --------*    T   --------*   L
+                        (raining)    (traffic)   (late for appointment)
+
+                        Conditional Probability Tables - for each variable
+                        ==============================
+
+                        P(R)        P(T | R)        P(L | T)
+                        +r  0.1     +r  +t  0.8     +t  +l  0.3
+                        -r  0.9     +r  -t  0.2     +t  -l  0.7
+                                    -r  +t  0.1     -t  +l  0.1
+                                    -r  -t  0.9     -t  -l  0.9
+
+                        now, use "inference" to determine answer to questions:
+
+                        QUESTION: Am I going to be Late ?
+
+                        ANSWER (using "Enumeration" ok for this simple example):
+
+                            by going through all possible values for "r" and "t",
+                            and then Summing the product of the 3x nodes
+
+                            P(+l) = ∑ r ∑ t P(r) P(t | r) P(+l | t)
+
+                        ANSWER (using "Variable Elimination" alternative for complex examples):
+
+                            Variable Elimination Steps
+                            ====================
+
+                            NOTE:
+
+                            (continued process of joining together "factors"
+                             to form a larger factor, and then eliminating
+                             variables by summing out. importantly, if we apply
+                             a good order by which we apply the operations in
+                             this process, then Variable Elimination can be
+                             much more efficient that just doing the whole
+                             "Enumeration")
+
+                            STEP 1 - starts with a big network and perform "Joining Factors"
+
+                                where each "factor" is one of the
+                                Conditional Probability Tables (multi-dimensional matrix)
+
+                                choose two or more of the "factors" (i.e. R and T)
+
+                                combine them together to form a NEW "factor" called RT
+                                that represents the "Joint Probability" of all the
+                                variables (i.e. "r" and "t") in that "factor"
+
+                                P(R | T)
+                                +r  +t  0.1 * 0.8 = 0.08
+                                +r  -t  0.1 * 0.2 = 0.02
+                                -r  +t  0.9 * 0.1 = 0.09
+                                -r  -t  0.9 * 0.9 = 0.81
+
+                                so we converted from before to after
+
+                                BEFORE    R  --------*    T   --------*   L
+
+                                AFTER           R T  --------*    L
+
+                            STEP 2 - eliminate some variables (aka Summing Out, aka Marginalisation)
+
+                                the objective of this step is to take the new Table
+                                called RT, and REDUCE it
+
+                                P(R | T)            P(L | T)
+                                +r  +t  0.08        +t  +l  0.3
+                                +r  -t  0.02        +t  -l  0.7
+                                -r  +t  0.09        -t  +l  0.1
+                                -r  -t  0.81        -t  -l  0.9
+
+                            STEP 3 - compute by summing out (aka marginalising)
+                                over the variable "r" to give us a
+                                P(T) Table that just operators on T,
+                                which has two entries, +t and -t.
+                                where +t is formed by "summing out" all the entry values in
+                                the P(R | T) Table for all values of "r" for which we have +t,
+                                and form the -t entry the same way
+
+                            ("combine" parts of the big network
+                             into "smaller parts", so we have a
+                             smaller network to deal with)
+
+                                P(T)
+                                +t  0.08 + 0.09 = 0.17
+                                -t  0.02 + 0.81 = 0.83
+
+                                so we converted from before to after
+
+                                BEFORE    R T --------*   L
+
+                                AFTER      T  --------*   L
+
+                                so now we have Probability Tables:
+
+                                P(T)            P(L | T)
+                                +t  0.17        +t  +l  0.3
+                                -t  0.83        +t  -l  0.7
+                                                -t  +l  0.1
+                                                -t  -l  0.9
+
+                            STEP 5 - continue "combining" by performing a "Join" over T and L
+                              variables using point-wise multiplication
+                              to give a new Table with "Joint Probability" P(T, L) and
+                              then "Enumerate" over it
+
+                              now we are down to a Single Node with this "Joint Probability" table:
+
+                              P(T, L)
+                              +t  +l  0.17 * 0.3 = 0.051
+                              +t  -l  0.17 * 0.7 = 0.119
+                              -t  +l  0.83 * 0.1 = 0.083
+                              -t  -l  0.83 * 0.9 = 0.747
+
+                            STEP 6 - finally, "Sum Out" to give us just the L node
+
+                              P(L)
+                              +l  0.051 + 0.083 = 0.134
+                              -l  0.119 + 0.747 = 0.866
+
+
+                        ```
+            * **"Sampling" approach to achieve Approximate Inference**
+                * Advantage 1 - of "Sampling" over "Inference" is that
+                  we know a procedure for coming up with at least an
+                  approximate value for the "Joint Prob. Dist.",
+                  as opposed to EXACT "Inference" where the computation
+                  may be very complex
+                * Advantage 2 - If do not know the numeric values of the
+                "Cond. Prob. Tables" are, but we can Simulate the process,
+                then we can still proceed by using "Sampling", whereas we
+                could not proceed in this situation using EXACT "Inference"
+                * Example:
+                    ```
+                    Given a "Joint Probability Distribution"
+                    i.e. distribution of Heads or Tails over two coins 1c and 5c
+
+                    STEP 1 - Build "Probability Table"
+
+                    1c 5c
+                    =========
+                    h  h  I
+                    h  t  IIII
+                    t  h  II
+                    t  t  I
+
+                    STEP 2 - Start counting by "Sampling"
+
+                    i.e. flip the coins, and add the result
+                         to the relevant row in the Table
+
+                    STEP 3 - Repeat "Sampling" process until enough counts
+                             until we are close to the True distribution so
+                             that we can "Estimate" the "Joint Prob. Dist"
+                             by inspecting the count tally
+
+                             If only a few "Samples" then results
+                             may not be accurate
+                             (random variation that prevents them
+                              from converging to true values)
+
+                    ```
+
+                * Example: Using "Sampling" to do "Inference"
+                and **Rejection Sampling**
+                    ```
+                    Given 4x boolean variables
+
+                             Cloudy
+                             /     \
+                            /       \
+                           /         \
+                          *           *
+                    Sprinkler         Rain
+                         *             *
+                          \           /
+                           \         /
+                            \       /
+                             Wet Grass
+
+
+                    And given "Condit. Prob. Tables";
+
+                    P(S | C)
+                    ===============
+                    +c  +s  0.1
+                     "  -s  0.9
+                    -c  +s  0.5
+                     "  -s  0.5
+
+                    P(W | S, R)
+                    ===============
+                    +s  +r  +w  0.99
+                     "   "  -w  0.01
+                     "  -r  +w  0.9
+                     "   "  -w  0.1
+                    -s  +r  +w  0.9
+                     "   "  -w  0.1
+                     "  -r  +w  0.01
+                     "   "  -w  0.99
+
+                     P(R | C)
+                     ==============
+                     +c  +r  0.8
+                      "  -r  0.2
+                     -c  +r  0.2
+                      "  -r  0.8
+
+                     "inference" over this network using "Sampling"
+
+                     STEP 1: Choose Variable where all Parents are defined
+
+                        i.e. Cloudy is the only such variable
+
+                        Conditional Prob. Table
+
+                        P(C)
+                        +c  0.5
+                        -c  0.5
+
+                     STEP 2: "Sample" from P(C) for variable C
+
+                        generate a random sample number, and let's say it comes up
+                        as a +c value, which is defined in P(C) Table
+
+                        now, choose another variable from a Parent, say S, and then
+                        look at rows of P(S | C) Table for which Cloudy (the Parent)
+                        is pos. +c, where we see +c +s is 0.1 and +c -s is 0.9
+
+                     STEP 3: "Sample" from P(S | C) for variable S
+
+                        generate a random sample number by "sampling" for S,
+                        and let's say it comes up -s
+
+                        now for the Rain variable R, go to P(R | C) Table,
+                        find row where the Parent C is pos +c
+                        (since we got a +c sample before), i.e.
+                        +c  +r  0.8 and  +c  -r  0.2,
+
+                     STEP 4: "Sample" from P(R | C) for variable R
+
+                        generate a random sample number, and let's say it comes up
+                        as a +r value
+
+                        now, choose final Parent W, and look at rows
+                        of P(W | S, R) Table for which
+
+                        Which rows of P(W | S, R) should we be considering ?
+
+                            since previously we generated "Samples" of +c, -s, and +r we
+                            choose rows with:
+
+                            -s +r +w
+                            -s +r -w
+
+                        Is it more likely to have a +w or a -w ?
+
+                            +w  (since it has higher value % of 0.9 than -w does)
+
+                    STEP 5: Write down our Complete "Sample" based on outcomes of choosing random
+                            values and working our way through the network to see if + or - for each variable
+
+                        Samples: +c, -s, +r, +w
+
+
+                    Note:
+
+                        prob. of choosing a particular variable value (i.e. +w vs -w),
+                        depends on the Parent variable values, which are chosen
+                        according to the Conditional Probability Tables
+                        (i.e. P(C), P(S | C), P(R | C), and P(W | S, R) ).
+                        So, in the count of each Sampled variable will approach the
+                        true probability (i.e. with infinite qty of Samples then
+                        this procedure computes the True "Joint Probability Distribution",
+                        such that the Sampling method is "Consistent".
+
+                        Use this kind of Sampling to compute the
+                        Complete "Joint Probability Distribution"
+                        OR use this kind of Sampling
+                        just to compute the value of an Individual Variable
+
+                    ```
+                * **Rejection Sampling** Procedure
+                    *Dfn:
+                        ```
+                        "Rejection Sampling" Procedure
+                        ====================
+                        If want to compute a Conditional Probability
+                        like P(w | -c), then the Sample we got previously
+                        (i.e. +c, -s, +r, +w) wouldn't be helpful at all,
+                        since it had to do with it being Cloudy +c, but not
+                        NOT Cloudy -c, so we would "Reject the Sample"
+                        by crossing it off the list of Samples
+                        (repeat rejecting for any other Sample that doesn't match
+                        conditional probabilities we're interested in,
+                        but keeping those Samples that do match).
+                        ```
+                    * Issues:
+                        * If the evidence is unlikely, then most of the Samples
+                        are Rejected. Overcome this issue by using the
+                        **Likelihood Weighting** Technique
+                            ```
+                            e.g. given the Burglary and the Alarm
+
+                              B  ----------*  A
+
+                            want to compute probability of a B given that
+                            the alarm A goes off
+
+                            P(B | +a)
+
+                            Issue: B's are infrequent
+
+                            Procedure for generating Samples:
+                            =============
+
+                            1 Generate a B,
+                            2 Results are added to Samples list
+                            3 Go back and check if results match what
+                            we want (i.e. does -b, -a match P(B | +a)? )
+                            4 Reject the Sample if no match
+                            5 Repeat from 1 to 5
+
+                            i.e.
+                                -b, -a  REJECT
+                                -b, -a  REJECT
+                                +b, -a  KEEP
+                                -b, -a  REJECT
+                                ...
+
+                            ```
+
+                * **Likelihood Weighting** Technique for Sampling
+                    * Dfn: Generates Samples so we can keep them all
+                    and do not have to Reject any, by
+                    **fixing** the value of the "Evidence"(input) variables
+                    to be what we want to compute (i.e. if we want to compute
+                    P(B | +a), then we'd fix the variable value of A to
+                    always be +a when generating Samples. So we'd get Samples
+                        i.e.
+                            -b, +a
+                            -b, +a
+                            +b, +a
+                            ...
+
+                    * Issue: **Fixing** values in Samples causes
+                        results that are "Inconsistent", but we can
+                        overcome this by applying **Likelihood Weighting**
+                        * Solve: Fix this issue by assigning a
+                        **"Probabilistic Weight"** to each Sample
+                    * Example: 1
+                        ```
+                        Say we want to compute P(R | +s, +w)
+
+                        (prob. of Rain given that the Sprinklers are on and
+                         the Wet Grass is wet)
+
+                            1 Pick random value for Cloudy C of +c
+                            2 Pick random value for Sprinkler S, but we are
+                              "Constrained" to always choosing +s
+                              (since want it to match what we want to compute)
+                              so select from P(S | C) Table the row
+                              +c +s, which as prob. of only 0.1,
+                              so we insert that prob. into the "Weight"
+                            3 Pick random value for Rain R, (no constraints
+                              of matching with what we want to compute)
+                              by selecting row from P(R | C) Table
+                              with +c (prev. chosen) and selecting say +r,
+                              so row has +c +r with prob. 0.8
+                            4 Pick random value for Wet Grass W (but
+                              we are "Constrained" to choose +w, since
+                              "w" appears in what we want to compute P(R | +s, +w) ),
+                              and we know that the Parents are also both positive
+                              (i.e. previously chose +s +r) so
+                              choose row +s +r +w with prob. of 0.99
+                              since it's a "Constrained" choice, we
+                              add in this prob. into the "Weight" Table
+                              and multiply it with the previously recorded
+                              weight value
+
+                            "Weight"              "Sample"
+                            ========              ========
+                            0.10 * 0.99 = 0.099   +c, +s, +r, +w
+
+                         When we include the "Weights", then counting
+                         a "Sample" that was forced to have +s, +w, with a
+                         "Weight of 0.099 instead of counting it as a full
+                         1.0 sample, makes it such that "Likelihood Weighting"
+                         is "Consistent"
+
+                        ```
+                    * Example: 2 - Doesn't solve all our problems
+                        ```
+                        want to compute P(C | +s, +r)
+
+                        (i.e. "Constraint" S and R to always be positive +s +r)
+                        now, since we use the "Evidence" when we
+                        generate a node that has that "Evidence" as Parents,
+                        then the Wet Grass W node will always get good values
+                        for each Sample based on the "Evidence"
+                        but the Cloudy C node won't, so it will be generating
+                        values are random without looking at these values,
+                        and most of the time or some of the time it'll generate
+                        values that don't go well with the evidence.
+                        We won't have to reject them (like in Rejection Sampling),
+                        but they will have a low probability associated with them.
+
+                        ```
+                * **Gibbs Sampling** Technique
+                    * Dfn: Takes all the "Evidence" into account, not just the
+                    Upstream "Evidence" (according to the Causal Directions) by
+                    using the **Markov Chain Monte Carlo (MCMC)**, which is "Consistent"
+                    and which involves
+                    re-Sampling just one variable at a time, Conditioned on all
+                    the other variables
+                        ```
+                        i.e. given a Set of variables
+
+                        C    S    R    W
+
+                        first we initialise them to random variable values
+                        (keeping the "Evidence" values Fixed) to create
+                        a Sample like below:
+
+                        +c   +s   -r   -w
+
+                        now, at each iteration through the loop, just select one
+                        non-"Evidence" variable, and re-Sample it based on
+                        all the other variables, which will result in outputting
+                        another Sample, i.e.
+
+                        +c   -s   -r   -w
+
+                        repeat (walking around in the space of assignments of
+                                variables randomly)
+
+                        +c   +s   +r   -w
+
+
+                        Note: In "Rejection Sampling" and in "Likelihood Weighting Sampling"
+                              each sample was "independent" of the other Samples.
+                              However, in MCMC, this isn't true, instead in
+                              MCMC, the Samples are "dependent" on each other,
+                              and Adjacent Samples are very similar
+                              (i.e. only differ in one place). MCMC is still "Consistent"
+                        ```
+
+                * **Monty Hall Problem**
+                    ```
+                    Given 3x doors D1 D1 D3
+                    Behind each door is a prize
+                    One door's prize is sports car
+                    Other two doors contain a goat (undesirable)
+
+                    Step 1: Choose D1, but don't open it
+                    Step 2: Monty opens one of the other two doors,
+                            but deliberately chooses D3, the one with the Goat
+                    Step 3: Now we need to decide whether to Stay or Switch
+
+                    What is prob. of winning if you stick to D1??
+
+
+                    Note: We learned info about D2, since it wasn't the door
+                          with the Goat
+                          flipped over by the host, so that additional info
+                          has updated the probability, but we haven't learnt
+                          any new info about D1 since it was never an option
+                          for the host to switch D1
+                    ```
+
+    * Lesson 15 - **Hidden Markov Models (HMMs)** (Probabilistic Models)
+        * References:
+            * Probabilistic Theory: http://www.med.mcgill.ca/epidemiology/hanley/bios601/GaussianModel/JaynesProbabilityTheory.pdf
+        * Other videos:
+            https://www.youtube.com/playlist?list=PLjLGYJqya5UiWa1bNPAAX8oOQ1NCUbvB8
+        * Dfn: Machine Learning Algorithms (tools) to process sequences of time-series data
+        such as Pattern Recognition through time (i.e. speech, hand-writing,
+        of signals with a language-like structure such as
+        sign-language recognition, and other human activities like
+        playing basketball, driving a car, vacuuming the floor),
+        which all have familiar units (i.e. movement), combinations of
+        those units, and a source statistical grammar
+        (most promising for future research in Thad's opinion)
+        * Dfn: HMMs have:
+            * States that represent Observed phenomena
+            * Transitions that describe how to move between states
+        * Dfn: "Hidden" in HMM refers to the fact we don't know exactly
+        what State matches what Physical Event. Instead each State may
+        yield certain Outputs, that we Observe over time, and Encode
+        a Sequence of States over time based on how likely they were to produce
+        that Output
+        * **Decoding HMMs** Find out which Model "best fits" a Sequence of Data
+        * **HMM Performance Boosters** tricks
+            * State Tiling
+            * Context
+            * Stochastic Grammars
+            * Boosting
+        * **First-Order HMMs**
+            * Dfn: Only depend on State immediately preceding them, but not an entire
+            history of multiple States
+        * **HMM Representation**
+            * Example: (from Norvig textbook) https://www.youtube.com/watch?v=34Noy-7bPAo
+            ```
+            Given Markov chain with Output node for each State
+            (common in Machine Learning community)
+
+
+            X0 ---* X1 ---* ... ---* XK ---* ... ---* XT
+                    |                |                 |
+                    |                |                 |
+                    *                *                 *
+                    E1               EK                ET
+
+            where X's each represent a Data Frame
+            where XO is initial state (useful for book keeping)
+            where X1 represents first timeframe T = 1
+            where E1 represents Output at T = 1
+
+            HMM States are implicit in the representation
+
+            BUT HMMs are better thought of in terms of their States
+
+            Given a graph of signal (y-axis) through time (x-axis) (0:59)
+            Create an x-State HMM, where x is the qty of different Gradients in the signal
+            to design a Model that may have generated the Data shown in the graph
+
+            Assume we can create a HMM by "Inspection" to represent at given signal.
+            In reality we want many examples of signal we want to Model, and need a
+            Model that can accommodate all different examples
+            (balancing generalisation and overfitting)
+
+            Use a "Left-To-Right HMM" (i.e. never transition back to a previous state after leaving it)
+
+            Loops at 1:31 represent "Self-Transitions", indicating that the Model may remain in
+            same State for several timeframes
+
+            Sometimes Entry Point values before entering a State are shown.
+
+            "Output Probabilities" (Emission Probabilities) - values that are allowable whilst in a given State
+            (but Output Distributions are "densities", so the Output Probabilities aren't really
+            probabilities)
+
+            Step 1: "Output Probabilities" for first State may be shown as a "Box Car" Distribution (2:07)
+            since from -2 to -1 and all values equally represented. Repeat for other States.
+
+            Step 2: Determine values for "Transition Probabilities".
+            Note that at start of graph we spend 10 timeframes before "transitioning" to second
+            part of the graph, so want to assign a probability at the end of the first part
+            where we escape State No. 1 (i.e. 0.1, so on average we expect to stay in that state for 10 frames)
+
+            Note: All probabilities out of a state must add up to 1, and that we only have
+           the "Self-Transition" remaining, we know it has probability of 0.9
+
+            Note: Qty of timeframes we expect to stay in a given State is
+
+                Qty_Timeframes_in_State = 1 / (1 - "Self-Transition Probability")
+
+            Step 3: Repeat similar to Step 2, which has 5 timeframes, so make
+            "Escape Probability" of 1/5 = 0.2, and "Self-Transition Prob." of 1 - 0.2 = 0.8
+
+            Repeat...
+
+            ...
+            ```
+
+        * **Dynamic Time Warp**
+            * See in example
+
+        * Note: In this section, focus on situations where
+        **language-like structure** to a problem
+        (i.e. a fundamental unit like a "letter" in handwriting) that's combined
+        with other units to make larger constructs such as "words", which are
+        then combined into larger constructs like "sentences"
+
+        * Example: Characters and Words https://www.youtube.com/watch?v=0DJanDy8-eA
+            ```
+            Given 2x HMMs (HMM A, HMM B), each with 3x states
+            Graph for each state shows "topology" and "transition probability"
+            Graph for each state shows only "output probability" (1x gaussian, including a "mean" and "standard deviation" of 1)
+            Goal is to use HMM A and HMM B for "Optical Character Recognition"
+
+            Given graphs with "y" (y-axis) and "t" (x-axis)
+            that depict a Character, and Words.
+
+            Given graph Inputs, a sequence of "v" values indexed over time
+            from left to right, where "v" computed by counting qty of "black" squares
+            in each column of time
+
+            i.e. L character has sequence of "v" values of 5, 1, 1, 1, 1
+
+            Given Figures 1 to 4 showing a sequence of characters over time,
+            indicate which of HMM A or HMM B most likely produced the data?
+
+            Note: All states from both HMM A and HMM B have same "transition probability"
+            The "output probabilities" of HMM A and HMM B are what makes them different
+            Each HMM state's "output probability" gaussian shows high or low "mean" values at different times,
+            so match these with qty of black squares over columns of time in each of Figures 1 to 4
+            ```
+
+        * Example: Dolphin Communication
+        (**Euclidean Distance**, **Dynamic Time Warping**, **Sakoe Chiba Bounds**)
+            ```
+            Given Spectogram of dolphin whistle, where:
+                - x-axis is Time
+                - y-axis is Frequency
+                - Pixel Brightness indicates Power in a Frequency Band
+                - Data in Spectrum shows same Dolphin Whistle repeated twice
+                where each Dolphin Whistle contains 2x parts.
+
+                    Note:
+                    - Noise in Ocean at Lower Frequencies when recording across broadband
+                        - 5 kHz to 17 kHz (Atlantic Spotted Dolphin whistles)
+                          and up to 110 kHz (Ultrasonic)
+                            - <= 3 miles (detection audible range under water)
+                            - Signature Whistles for Dolphin Identification
+                            (if in new area, emits Signature whistle to indicate to friends
+                             location where it wants their company)
+                        - < 5 kHz (Boat Wave Noise)
+                    - Dolphins have Sound Categories vocalisation:
+                        - frequency modulated whistles (Signature whistle)
+                        - burst pulse squawks (aggression, close proximity, social)
+                        - echolocation clicks (sonar, navigation, feeding by dig under sand, close proximity 1km)
+                        - close proximity sounds (aggressive contacts)
+                        - buzzes (discipline, close proximity, tactile effect used during courtship)
+                    - Human audible range is up to 15 kHz (i.e. Whistles)
+                    - Correlate Sound Categories with certain Behaviour types
+
+            Goal:
+                * Handle different Signal Categories (Classes)
+                where each example may be "warped" differently in time
+            Issues:
+                * Cannot just use the Whistle frequency over time
+                as Dolphins Raise/Lower the basic frequency of their Whistle
+            Important:
+                * Identify Patterns of Rise/Falls of Whistle frequency over time
+                * Plot "Delta Frequency" (the Change in frequency) instead
+                (i.e. instead of plot 5, 14, 10,  7, 10, 14...
+                      instead use:        9, -4, -3,  3, 4...
+                  that way Recogniser can handle Whistle frequencies starting at
+                  different values
+                * Try plot "Time Warping" (i.e. saying quickly vs slowly)
+                    * Solution:
+                        * Match "features" that make Whistle distinct
+                        whether produced quickly or slowly
+                * Try plot "Euclidean Distance" (INSUFFICIENT, use DTW instead)     https://www.youtube.com/watch?v=IdIiVJG4M0c
+                    * Weakness: Sensitivity to distortion in time axis
+                    i.e. plot two graphs, first G1 with 21 samples (S0, S1...) of Delta Frequency,
+                    and second G2 with 12 samples with remaining 9 padded with 0's (no change),
+                    or fill in with average or last value
+                    * Calculate "Euclidean Distance" by calculating
+                    square root of the squares of the distances
+                    (i.e. sqrt(
+                            t0 G1's S0 of 2 and G2's S0 of 5 would be (2-5)^2 = 9 +
+                            t1 G1's S1 of 3 and G2's S1 of 5 would be (3-5)^2 = 4 +
+                            ...
+                          )
+                   )
+                * Try plot "Dynamic Time Warping" (DTW)  https://www.youtube.com/watch?v=RvO7DhXKHn0
+                    * Benefit: When we know the two signals we are comparing will have
+                    some sections that are faster, whilst others are slower
+                        * Allows two similar time series but locally out of phase to align in
+                         non-linear manner
+                    * Disadvantage: O(n^2) complexity, but applying the Lower Bounding Technique
+                    on the DTW distance becomes O(n) (even with 4S approach).
+                    * Lower Bound Technique: Bounding envelope below and above the
+                    warping window. Used for sequences of same length.
+                    If sequences have different lengths, one of them must be reinterpolated
+                    and becomes the 4S approach
+                    (see Part 2.1 of paper for code)
+                    * Objective: Align 2x signal samples of Whistles to see/compare
+                    how we are matching togther
+                    * Important Note: A "Match" without any "time warping" on the
+                    x and y axis graph, would be a straight line diagonal
+                    from lower left to upper right corner (rare)
+                    * Process
+                        * Draw dotted diagonal line
+                        * Start plotting 1st Sample of each signal
+                        * Plot transitions to try and Match values as "close as possible
+                        to the ideal matching diagonal dotted line" to minimise error,
+                        and if values are tied, try and take preference in choice
+                        to keep to the dotted diagonal
+                        * After all dots plotted, calculate for each dot
+                         the sqrt of the x-axis value minus the y-axis value. then add all these
+                          values up and take the sqrt of the total
+                          (which is half the amount of using just plain Euclidean Distance
+                          padding the remaining with 0's)
+
+                * "Sakoe-Chiba Bounds"
+                    * If allow too much "warping" then distance may be smaller than desired
+                    * Use "Sakoe Chiba Bounds" to force more "reasonable" matching by bounding
+                    amount can deviate from diagonal
+                    "Sakoe Chiba Bounds" does not allow matches outside limits of two diagonal
+                    bounding dotted lines, causes matching to be worse and to lead to
+                    a bigger distance, which is what we want
+                    * Calculate "bounds" often empirically. Set different "bounds" and use
+                    cross-validation to ensure they're reasonable
+                    * Set different "bounds" for different sections of the signal
+                    each with different amounts of allowed warping
+                    (i.e. where lots of potential variance of short/long, but
+                    where hump shapes may have small variation)
+                    * Avoid different "Sakoe Chiba Bounds" for different sections of signal
+                    but would be complicated to train, instead use Hidden Markov Models (HMMs)
+                    * Note: DTW with lower bound requires two sequences being compared
+                    both of same length where amount of warping is constrained
+                    * Note: The 10% constraint on warping inherited from speech processing
+                    community is actually too large for real world data mining
+
+                * Readings on Dynamic Time Warping
+                  Ratanamahatana and Keogh’s “Everything you know about Dynamic Time Warping is Wrong”
+
+                  http://wearables.cc.gatech.edu/paper_of_week/DTW_myths.pdf
+                    * Section 2.1
+                        * shows how given two sequences, the optimal path
+                        is a path that minimises the
+                        warping cost (minimises the total cumulative distance between them)
+                        * shows how to align two sequences by constructing a warping matrix
+                        to search for the optimum path, and using constraints to
+                        restrict number of paths needed to be considered
+                        (using Sakoe-Chiba Bounds)
+
+
+
+            ```
+
+
+        * Readings:
+            - Dolphins https://www.youtube.com/watch?v=blmTrZMTcUs&feature=youtu.be
+                after 26 mins it talks about interaction with other dolphin species using underwater camera
+            - Prairie Dogs http://www.cogs.indiana.edu/spackled/2009readings/Slobodchikoff%202009.PDF
+
+            ```
+            Notes from Dolphins YouTube video:
+                    - Together or Apart from different Species
+                        - Mutual dialects (when with other species)
+                        - Individual dialect (when separate from other species of Dolphin)
+                    - Signals
+                        - Referential (i.e. refer to some label like a name or a word)
+                            i.e. Monkey Alarm Calls for different predators so take appropriate evasive action
+                            i.e. Prairie Dog Alarm Calls
+                        - Graded (i.e. intensity/frequency of sound as motivation or emotional state of animal)
+                    - Multiple Sounds
+                        - Dolphins can make two Sound Categories at the same time
+                    - Sound Direction
+                        - Dolphins are Directional senders/receivers of ultrasonic
+                        sounds and can interally vary angle by 20 degrees
+                    - Key Challenges:
+                        - Recording power to sample and decoding High Frequency sounds
+                        - Localising to deciphering which Dolphin made the sound
+                            - i.e. Hypdrophone array
+                        - Whistles are best studied sound, since easier to measure
+                        (but not most frequently used sound, not do they have much broadband
+                        characteristics with important information)
+                        - Goals with Thad's Georgia Tech CS:
+                            1 Categorise difficult Sounds (make sense of info, match with Behaviour types)
+                            2 Match with Behaviour
+                            3 Look for Structure and Order (mine data, look for longer Sequences,
+                            Structure, and Order, as not yet applied to animals)
+
+                    - Tech Overview
+                        - Neural Networks to train computer if have enough Samples of
+                        each individual to see quantitatively measurement of
+                        differences between Whistles
+                        - Analysis of Dolphin sounds using "Multi Model Signal Integration"
+                        with Noldus "Observer Behaviour Software" that
+                        shows interaction of Sound and Behaviour over timeline:
+                            - Body postures timeline from video breakdown on Ethergram over time are labelled (of behaviour)
+                            - Sounds from Spectogram over time and labelling the Sound Categories
+                    - Tools and Techniques (Thad)
+                        - Goal
+                            - Find Fundamental Units (FU) used by Dolphins
+                            - Check if they combine FU to form new vocalisations
+                        - Implementation
+                            - Algorithm takes large DB of data and search for FUs and Categorise different parts
+                            (previously done for handwriting recognition to pull out individual letters
+                            and words used repeatedly in a sentence)
+                            - Goal is Universal Algorithm that takes any structure from given data,
+                            uncovers FUs (those of interest excluding noise), put the FUs in a
+                            Visualisation tool and automatically tune it to recognise
+                            repeated Patterns in data set specifically
+                            (grammars, rules to the behaviour), by labelling the data set with
+                            colour codes for each discovered Pattern.
+                            Find "Rules, using Regular Expressions (Alignment Based Learning)
+                            where there is a structure in the data set (i.e. when a pattern
+                            is allowed or not to be used in the data set). The "Rules"
+                            indicated much more structure than first thought, and were
+                            better predictors of visual behaviour.
+
+                            Scenarios:
+                                - Add Dolphin "D1" and "D2" to scene
+                                - Find patterns in Behaviour (i.e. head to head, head to tail)
+                                - Try to "Predict" what Labels would be
+                                    - DISCOVERED that "Rules" (combination of Patterns) were
+                                    very good at "Predicting" which Dolphin was around at certain time
+                                - Try to use Acoustic Data to "Predict" Categories of distinct
+                                biological data. Found that all are distinct
+                                    - aggression
+                                    - play
+                                    - foraging
+                                    - reunion
+                                - Statistical Testing - use System and Rules to use Acoustic Data to
+                                "Predict" different "labels" of Visual Behaviours
+                                    Tables of Correlations:   https://youtu.be/blmTrZMTcUs?t=22m55s
+                                    (where "blue" means very similar
+                                           "green" means very different
+                                           "yellow" means some correlation
+                                        - Discovered "Rules" (Patterns generated) of aggression don't correspond to "Rules" of play
+                                        - Discovered "Rules of play don't correspond with "Rules" of foraging
+                                - Tool that takes 30 years of Data, processes it allowing
+                                hypotheses to be made and tested quickly
+                                    (similar to Tool for gene banks in genetics that looked
+                                     at repeated patterns in different Human characteristics
+                                     such as people with Parkinsons', or blue eyes, etc.
+                                     it uses discrete 4-base-pairs and sequence to predict when something
+                                     interesting will occur, but for Dolphin Acoustics
+                                     we are looking at Continous time instead of Discrete time
+                    - Tech Interface for Mutual Shared Communication dialect b/w Humans and Dolphins
+                        - Missing element is Tool allowing Dolphins to communicate back
+                            - Created portable Keyboard activated by Action touch
+                            point by Dolphin. Labeled Objects with Visual and Acoutistic cues:
+                                (shapes such as Scarf, Rope, Bow Ride)
+                                - Goal of Dolphins mimic human-Whistles so humans could
+                                respond to their requests
+                            - Problem: Too Slow response time
+
+                        - SOLUTION:
+                                Built underwater wearable computer called
+                                CHAT (Cetacean Hearing And Telemetry)
+                                (PROJECT 1 FUTURE FROM 2015 - ideally want Google Glass but waterproof
+                                so can see all FU as a script moving across i.e. ABBC
+                                that can manipulate and repeat back to Dolphins)
+                                    - Bond Conducting Headphones - speaker sends
+                                    vibrations through skull to cochlea (for underwater)
+                                    - Hyrophones - receives sounds
+                                    - Speaker - plays sounds
+                                    - Keypad - allows user generate sounds
+                                        - Instead of being on Arm, they put it on the box
+                                        (cast buttons and display in resin)
+                                            - Paper was released on how they designed this
+                                    - Real-Time Sound Recognition
+                                    (so if Dolphin mimics a sound we know in real-time
+                                    what sound it mimiced, and respond accordingly)
+                                Issue: Salt water intrusion (took 4 years)
+                                    - Delays ordering IP67 connectors to aluminium box
+                                    and $400, but now did with 3D Printer much cheaper
+                                    - Clear cover on case too, so Wifi signals go through
+                                    (can't go through aluminium) to download video quickly, and
+                                    send patch over wifi in real-time
+                                    - Hydrophones not entirely waterproof through movement
+                                    - Not want low power high throughput computer to not
+                                    overheat in small box
+                                    of aluminium in Bahama sun
+                                    - 192 kHz auio system (2 channel)
+                                    - Audio amplifier (to make non-compressible media
+                                    sound go through water
+                                    lots of power required, so had to design their own
+                                    speaker systems, for certain frequencies, where
+                                    amplifier matches speaker and powered off batteries)
+                                    - LED screen for status
+                                    - Risk of battery on fire near chest
+                                    - Risk of electrical current underwater attracts sharks
+                                    - Only tuned to narrowband width, but
+                                    Not powerful enough to recognise full 96 kHz band
+                                    used by Dolphins when they tried to mimic, so they could
+                                    Sample at, so needed Faster computer,
+                                    so used an Nvideo Jetson board and replaced
+                                    big fan with a large heatsink,
+                                    so could get Spectogram running Samples at 192 kHz
+                                    and 32 bits per channel using 256 GB SSD
+
+                                ACOUSTICALLY CONTROLLED SUB (DOLPHIN SUB)
+                                    - undergraduate project
+                                    - must reward animals immediately
+                                    within 50 ms otherwise cannot be trained
+                                        - Issue Identified:
+                                            - Maybe time to pass scarf underwater
+                                            taking too long for Dolphin to associate
+                                                - ideally a toy that reacted to
+                                                Dolphin vocalisations,
+                                                i.e. ultimately put CHAT inside a
+                                                DOLPHIN SUB, that makes sounds with a
+                                                chat box and flashes lights and performs
+                                                an corresponding
+                                                action like move left or right
+                                                (to spark interest from Dolphins)
+
+                                RECOGNISING SPOTS SYSTEM
+                                    - 95% of time recognises a Dolphin by its spots
+                                    (even works from tail-end view)
+                                    - applied same to Humpbacks
+
+                            GET INVOLVED
+
+                                CHAT Society Technical & Scientific Student Support
+
+                                www.WildDolphinProject.org
+
+
+            Goal:
+                Recognise the Types of Dolphin Whistles so marine mammal researchers
+                can automatically annotate their database of recordings
+
+            Issue:
+                The second time the Dolphin Whistle is repeated, its lasts longer
+            ```
+
+        * Example: Sign Language Recognition (real problem using HMM Representation)
+            * Step 1: Create HMMs for Word "I" (finger point to chest) Gesture
+            using Delta Y as our first feature (a bad feature), to purposely show
+            how powerful HMMs can be (can still tell difference b/w two words by
+            difference in timing, since it will show a higher probability in middle state
+            for I than WE, and the Transition Probabilities lower in I than WE since
+            it spends less time there moving hand across chest, since longer a
+            gesture is, the easier it is to recognise)
+                * Note: Delta Y is similar for both Word "I" and Word "WE"
+                        Delta X is easier to differentiate the two words "I" and "WE"
+                * Visualise the Derivative of a Signal
+                    * **Derivative Plots** https://www.youtube.com/watch?v=LiDdrJjjjfc
+            * Step 2: Plot HMM "I" with 3x States
+            for each of the 3x separate Motions of the Gesture
+                * State 1 - arm comes up toward chest
+                * State 2 - arm pauses for a moment
+                * State 3 - arm comes down away from chest
+            * Note: Higher probability on State 1 and 3 "Self-Transition" since
+            spend more time on them. "Transition Probabilities" for each State
+            based on the timing
+            * Step 3: Observe Plot of "Delta Y over time" for the Model to
+            check it's reasonable
+            * Step 4: Observe Plot of "Output Probability Distribution" (i.e. P(Delta Y) over Delta Y),
+            where State 2 has higher probability of Delta Y of 0,
+            where used Gaussians to model upper probabilities. https://youtu.be/CBW2C3lwbz4?t=47s
+
+            * Step 5: Create HMMs for Word "WE" (finger from side to right chest then
+            left chest then down to side) https://youtu.be/1mtzJGhRYHg
+                * Use 3x States
+                * State 2 Delta Y varies more so wider/shorter for "WE" than "I" (see "Output Prob. Distrib" plot)
+                * State 2 more time spent for "WE" than "I" (see "Delta Y over time" plot)
+                * State 2 more time spent for "WE" so higher prob. on Self-Transition (loop) (see HMM Model)
+
+            * Note: Distinguish between two gestures by observing the following sequence
+            properties of Delta Y:
+                * Duration of time spent in a state
+                * Distribution of Delta Y observed
+
+        * **Recognition of HMM Models**
+            * Given set of Observations "O" (Samples in example to recognise)
+            * Create a **Viterbi Trellis** to check likelihood that the
+            Model generated Samples in "O".
+                * Correct Match will be the Model with highest probability
+                * Note: "Hidden" is the exact Sequence of States that created the Output,
+                so need to go through all possibilities
+            * Lambda λ I is the combination of the HMM Model and the "Output Probability Distribution" Plot
+            * List the Data, a Sequence of Delta Δ Y values over time that we
+            want to recognise as either "I" or "WE"
+            * Goal is to solve P(O | λI) for "I" and "WE" and compare them
+            (i.e. probability of Observation Sequence given HMM Model of "I"
+            * Create a "Trellis" with separate row for each State S1, S2, S3, in the HMM Model
+            (want find State we're in at each Time). Fill out the Trellis
+                * **Eliminate impossible States and paths using HMM**. Fill in path of state transitions possible
+                (note that Transition Probabilities limit what State you can be in at any given time)
+                i.e. obviously S1 leads to S1 or S2 at the Start. and the last two
+                States must be S2 and/or S3 https://www.youtube.com/watch?v=aOPeQAxDS4E
+                * In Middle of Trellis, many more options for State Transitions exist.
+                * Add "Transition Probabilities" directly from HMM Model λI
+                * Go through Observation Sequence over time, determine probability of
+                getting the Delta Y value at each time, by looking at the
+                "Output Probability Distribution" to see what the probability the Gaussian
+                 would generate for a Delta Y value at each time https://youtu.be/tqYJnaQfsn0?t=1m7s
+                    * Note: Lower likelihood for tighter Gaussian width
+            * Find the **Viterbi Path** (most likely path)
+                * At each timeframe, we multiply the "Transition Probability" by the
+                "Output Probability" to find the **Maximum Path**
+                * Note: The "Viterbi Path" may not be the "Greedy Path"
+                (i.e. the highest expected value with each transition
+                may not lead to highest valued overall path)
+                * i.e.
+                    * Expected Value of Staying in a state S1 instead moving to S2
+                    at Time 2 is 0.8 * 0.5  versus  0.2 * 10^-7
+                    * **Greedy Algorithm** would expect to Stay in S1 since the value
+                    from the multiplication is bigger there
+            * Note: To account for the overall path, we need to track
+            the probability of each possible sequence of the Trellis.
+            Keep track of **Maximum value path** to each State in the sequence
+            at each time through the Trellis
+            https://youtu.be/Hq2P6zWA9F8?t=2m14s
+            and at the end choose the **Most likely path**
+            At Time = 2, there are only 2x nodes each sequence that could be chosen:
+            (ideally use Log space to calculate the probabilities to avoid
+             running out of precision in the way the OS represents the numbers)
+                ```
+                1 * 0.5 * 0.8 * 0.5 = 0.2
+
+                OR
+
+                1 * 0.5 * 0.2 * 10 ^ -7 = 10 ^ -8
+                ```
+
+        * **HMM Training for "I"**
+            * Dfn: We usually Train using the Data itself, instead of just creating
+            the Models by inspection.
+            When using HMMs for Gesture Recognition, have minimum 5x examples, and
+            ideally we have 12x examples for each Gesture we're trying to recognise.
+            Each example set of Data may have different amount of Data Points (timeframes)
+
+            * Example:
+                ```
+                Given 3x examples of Data, each with different amount of Data Points (timeframes)
+                Use a 3x State Left-To-Right Topology for HMM.
+
+                What examples of Data match with which State?
+
+
+                STAGE 1: Use Verterbi Alignment to Initialise the values for each HMM State
+                         (for each timeframe in each example of Data we assigned a State
+                         for that timeframe and calculated the resulting averages of all
+                         values assigned to each State, along with average amount of
+                         time we expect to stay in each State)
+                ==========================================================================
+
+                    Calculate "Transition Probabilities"
+                    ==================================
+                    - Assume each State has approx equal qty of timeframes.
+                    - Divide each example's timeframes into 3rds
+                    - Average length of each Data is 12 timeframes long (i.e. 4x Data Points per State per example Data)
+                    So "Transition Probability" out of each State is approx 0.25
+                    And so "Self-Transitions" must be 0.75 (since total probability for each State is 1)
+
+                    Calculate "Output Probabilities"
+                    ==============================
+                    - Assign the first 4x Data Points to the 1st State S1 for each example of Data
+                    Average of all the values is Mean: 5.4; Standard Deviation: 3.1, and then plot on single Gaussian
+                    - Repeat for State S2 and S3
+
+                    Iterate in Process similar to "Expectation Maximisation"
+                    ==============================
+                    - Try to get a Gaussian with less variance by performing calculation
+                    and moving the Mean and Std Deviations between the States S1, S2, S3.
+                    (See if moving boundaries in these examples of Data between
+                    States S1, S2 and S3 will lead to improved explanation of the Data)
+                    - Recalculate, by re-counting qty of Data Points in S1 for each example and
+                     recalculate the "Transition Probability" and "Self-Transition" in the HMM.
+                     Repeat for each State
+                    - Update the "Output Probabilities" on the Gaussians
+                    - Repeat until "Convergence" when none of the boundaries need to move,
+                    nor are the "Output Probabilities"
+                    going to change
+
+
+                STAGE 2: Finish HMM Training
+                ============================
+
+                    "Baum Welch (aka Expectation-Maximization (EM) algorithm) Re-Estimation Process"
+                    using the "Forward-Backward Algorithm" to keep track of calculations
+                    (final Model often gives better results than initial estimate).
+
+                    (similar to "Expectation Maximisation", but instead,
+                    every sample of Data contributes to every State
+                    proportionally to the probability of that frame
+                    of Data being in that State)
+
+                    (i.e. even though a Data Point is most likely in say S1,
+                    its value still affects S2 and S3 a little bit, since its
+                    likelihood of belonging to S2 and S3 is low)
+
+                    Note: Some Data Points have higher likelihood of being in
+                    two out of the three States i.e. S1 or S2, and so has a
+                    larger Influence on the final "Output Probabilities" for
+                    S1 and S2 states.
+                    ================================
+
+                    References:
+
+                        - Rabiner Tutorial on Baum Welch
+                            http://www.cogsci.ucsd.edu/~ajyu/Teaching/Tutorials/hmm.pdf
+                        - Thad's Master's Thesis (continues with Sign Language example using Baum Welch)
+                        - Review code of HMM Toolkit like HTK
+                        (watch Means and Variances change as re-estimation process
+                        iterates to build intuition)
+
+
+                ```
+
+
+        * **HMM Improvement using Delta X Feature** (instead of Delta Y done previously)
+            * Note: Choice of Delta X or Delta Y as being the better **Feature**
+            depends on the Sign being recognised. Since Sign Language is two-handed,
+            we need these **features** both for Left and Right Hands, so would have
+            8x **features** being tracked for time frames that we need to
+            integrate into our **HMM Models** by adding more dimensions
+            (i.e. calculate multi-dimensional distances instead of just one dimension) for our
+            Multidimensional **Output Probabilities**, and all the other HMM Training and recognition are
+            same as before. It's hard to show on Graphs, but easy to code
+            https://youtu.be/xDN1V4Y1Ung?t=56s
+
+            * Examples of **Good Features**:
+                * "Size" of the hand is a good feature of info about
+                whether hand coming toward or away from camera
+                * "Angle" of hand to the horizontal
+
+        * **"Mixture of Gaussians" Technique**
+            * Dfn: Use two Gaussians to Model whenever "Output Probabilities"
+            are **Bimodal** instead of Gaussian. The more Gaussians we use,
+            the closer we will model it
+            (try to limit to 2-3 Gaussians, otherwise tends to over fit)
+            * Note: **Central Limit Theorem** states we should get Gaussians if enough
+             factors affect the data
+
+        * **HMM Topologies**
+            * **Strategy** of try simple Topology first and
+            only add States when necessary. Many different Topologies may be used with
+            **cross-validation** with randomly selected training-independent test sets
+            to find the best one
+            * Note: Increase size of vocabulary from just "I" and "WE"
+            by creating a Topology for each
+            new Sign that we can use to start making phrases.
+            * "WANT" has onset lifting arms up arms stretched out infront,
+            and motion for sign itself of pull them towards body, then drop hands.
+            Requires 3x States.
+            * "NEED" has onset of lift one hand up with index and thumb like a claw,
+            then lower hand about 10cm, and then drop hand. Requires 3x States.
+            * "TABLE" has onset of both arms crossed horizontally with right on top
+            about 5cm apart, then bounce up/down connecting both arms twice
+            or three times (means same thing),
+            then drop arms.
+                * **HMM Alternative Topology (instead of Left-To-Right Topology)**
+                    * Loop in HMM from 3rd to 2nd State so motions
+                    may repeat a number of times.
+            * "CAT" can be either with one hand lifted to mouth, then pull away horizontally
+            away from body OR with both hands (means same thing)
+                * Find best Topology by using Strategy of simplest first, starting
+                with normal 3-State HMM, then use "Mixture of Gaussians" Technique
+                to help handle the "Output Probabilities" we get
+                * Alternatively (results in **highest accuracy** given sufficient
+                examples to train them, whilst adding more signs to vocabulary)
+                recognise as two different signs. Train a Model
+                for first variation of the sign called "CAT 1", and train a separate Model
+                for second variation of the sign called "CAT 2", and after
+                recognise "CAT 1" or "CAT 2" we'll just have recogniser output CAT
+        * **Phrase Level Sign Language Recognition**
+
+            * Example
+                ```
+                Give X Signs and Y Phrases to recognise.
+
+                Note: If have 2x Variants of CAT ("CAT 1" and "CAT 2" to recognise)
+                we need more Phrases.
+
+                Note:
+                    - Grammar used to simplify with order [Pronoun, Verb, Noun]
+                        i.e. PRONOUN = {I     | WE}, etc
+                             VERB    = {NEED  | WANT}
+                             NOUN    = {TABLE | CAT}
+                             CAT     = {CAT1  | CAT2}
+                    - We will only recognise one phrase at a time
+
+                Given Data from someone using Sign Language that we want to recognise
+                (i.e. the Phase "I NEED CAT")
+
+                Inspecting the Delta Y "feature" of the Data over time gives us
+                Observations (i.e. 20 Samples through time):
+                3 7 3 0 1 3 1 0 -1 -3 -2 0 2 1 0 1 0 -3 -7 -3
+
+                Use recognition as before but using Big "Trellis"
+
+                Create horizontal row with 20 Samples
+
+                Create vertical row with 22 States, break-down as follows:
+                    3x States for "I", "WE", "NEED", "WANT", "CAT 1", "CAT 2"
+                    4x States for "TABLE"
+
+                "Breadth-First Search"-like expansion of each possible path in each
+                time step
+
+                At T = 1, Grammar says must start with with "I" or "WE" (Pronouns)
+                so must start in State 1 (S1) these
+
+                At T = 2, could be in S1 or S2 of "I" or "WE"
+
+                At T = 3, could be in S1, S2, or S3 of "I" or "WE"
+
+                At T = 4, could be in S1, S2, or S3 of "I" or "WE" (Pronouns)
+                       OR transitioned to S1 of "NEED" or "WANT" (Verbs)
+                       https://youtu.be/0M-WJCgqtEc?t=1m45s
+
+                       ... complexity begins (even though simple example with 3x letters)
+
+                       ... see 2:45 to 2:53 that shows elimination of impossible final States that
+                        aren't Nouns
+
+
+
+                ```
+        * **Stochastic Beam Search (SBS)**
+            * Note: **HMM** uses a lot of memory (especially if had
+              vocabulary with all 6000 signs in American Sign Language ASL
+              and variations that give its expressiveness and speed.
+              Recognisers will find it hard to keep full "Trellis" in memory,
+              and keeping all the paths updated, so we use **SBS** to overcome the issue
+              instead of **Breadth-First Search**-like expansion of each possible path
+              in each time step.
+              **SBS** involves **pruning** some paths
+                * **Remove some Low Probability Paths**
+                    * i.e. some paths get low probability quickly (i.e. staying in S1
+                    until T = 1 seems impossible)
+                    * Do not remove all low probability paths (since possibility of
+                    Bad match in beginning of the Phrase that becomes a Good match later)
+                        * i.e. signer might hesitate or accidently start with wrong sign
+                        before changing it (like stuttering or false start in spoken language)
+                    * Keep paths **Randomly** (important in AI) in proportion to their probability
+                    (similar to the **Fitness Function** used previously in Genetic Algorithms
+                    and to the randomness of **Simulated Annealing**)
+                * **Draw Low Probability Paths** through the Trellis
+                * **Draw High Probability Paths** through the Trellis
+
+        * **Context Training** Trick (reduce error rate by factor of 2 when applied to language-like structure)
+            * Difference in movement between **Combination** of signs in a Phrase
+            vs just **Isolated** signs (i.e. in "I" vs "I NEED CAT", in the
+            Phrase the hand transitions skipping the last "I" position
+            to a mid "NEED" position, and so on, so hands don't have to move
+            as much for each word)
+                * The signs before and after a given sign affect how it appears
+                when being signed in a Phrase
+            * So, for **Verbs** that connect with other signs at the beginning and
+            end, we'll **concatenate** a combined 6x State model of
+            "I NEED" and "NEED CAT" (in practice lots of examples of Phrases of a
+            sign to Train on, rather than individual signs).
+            Assume we have many examples Data of three sign phrase
+            * Note: In Thad's Paper on recognising Phrases of ASL, he had 40 signs
+            in vocabulary, but the only Training Data used was 500 Phrases
+            that each contained 5x signs.
+            * Use same steps used in Stage 1 and Stage 2 of **HMM Training for "I"**
+            shown previously for Phrase "I NEED CAT",
+            doing same thing for first step, but
+            assuming the Data is evenly divided between each sign, and
+            then divide the Data of each State within each sign,
+            then as before, iterate and adjust boundaries for each State and
+            each sign until convergence.
+            After converged everything for each sign, **go back** and find
+            every place where "I NEED" occurs (whilst we'll assume there are
+            enough examples, there will be less
+            examples of "I NEED" than of "NEED"), and **cut out** all
+            Data that we think belongs to "I NEED", and use the
+            modelling approach **Context Training** Trick to Train the
+            Combined 6x State HMM Model on it, since the "Output Probabilities"
+            at the boundary b/w "I" and "NEED", as well as the
+            "Transition Probabilities" in that region will then be tuned to better
+            represent "I NEED", rather than the general case which would also include
+            Phrases like "WE NEED", since in speech, the effect of one phoneme
+            on an adjacent phoneme is called **Coarticulation**.
+            Repeat for "NEED CAT 1" and every other two-sign Combination.
+            Iterate using **Baum Welch** using these larger two-sign Contexts
+            for embedded Training until converge again.
+            If have sufficient Data, ideally use larger three-sign Contexts
+            (or more) when Phrases are complex since huge benefits
+
+            * Benefits: **Context Training** reduces error rate by 2 in recognition
+            tasks where there's a language structure
+
+        * **Statistical Grammar** Trick (reduce error rate by factor of 4 when applied to language-like structure)
+            * Dfn: In real life, language isn't well segmented. If record
+            large qty of language and record proportion of times that
+            "I" comes before "NEED" versus "I" coming before "WANT":
+                i.e. "I NEED" 6%, "I WANT" 10%, etc
+            Use these probabilities to help bia our recognition based on expected
+            distribution of co-occurrence of the signs.
+
+            Instead of **Simple Grammar** (i.e. order [PRONOUN, VERB, NOUN])
+            that places strong limit of start and end in Viterbi Trellis
+
+            * Benefits: **Statistical Grammar** reduces error rate
+            by a factor of 4
+
+        * **State Tying** Trick
+            * Dfn: Combining Training for States, where the States within
+            the HMM Model have close Means and Variances during Training,
+            and then determine if performing "State Tying" looks logical given
+            the motion we expect
+            * Example:
+                ```
+                Given HMM Models and "Output Probability Distribution"
+                for "I" and "WE"
+
+                Note that when recognising Isolated Signs, the initial movement
+                of right hand to chest is similar in both HMM Models.
+                So instead of having a separate "I" State 1 (S1) and
+                "WE" State 1 (S1), we'll define a "COMMON" Initial State
+                and included it in the definition of both the "I" and "WE"
+                HMM Models, so when we Train the HMM, we have twice as much data
+                to Train the Initial State.
+
+                Repeat for the Final State S3, since inspecting the
+                "Output Probability Distribution" of the hand movement back down
+                to rest looks the same for both "I" and "WE"
+
+
+                Care must be taken since "State Tying" gets complicated when
+                "Context Training" is used
+                ```
+
+        * **Segmentally Boosted HMMs (SBH)** Trick
+            * About: Combines some advantages of discriminative models
+            with generative models. Not yet in HTK Toolkit or
+            Georgia Tech Gesture Toolkit https://wiki.cc.gatech.edu/ccg/projects/gt2k/gt2k
+            * Example: Hand Appearance Models
+                * **Similarity Metric** of how closely current hand looked
+                like different visual models of the hand as "features" for
+                the HMM. Issue encountered by using many dimensions
+                was that when models that didn't match
+                well were producing relatively random results and caused
+                **noise** such that many dimensions became meaningless
+                    * **Boosting** (to Weight the "feature" vector)
+                    used as mitigation measure and is called
+                    **Segmentally Boosted HMMs**
+            * SBH Process:
+                * Align and Train HMMs as normal
+                * Use the Training to Align the Data that belongs
+                to each State as best as possible
+                * Iteratively examine each State of each Model
+                * **Boost** by finding what "features" help us most
+                in differentiating the Data for our chosen State
+                versus the rest of the States
+                * Weight (Up/Down) the Dimensions appropriately in that HMM
+            * Benefit: 20%-70% better results than with normal HMMs
+            (depending on the Data set used)
+
+        * **Using HMMs to Generate Data**
+            * Initially hoped that same HMMs used to recognise speech could
+            also be used to generate speech, but was not a good idea,
+            since when plot sequence of data points in time, the
+            "Output Distributions" do not understand the concept of
+            "continuity" (could solve but using many States to force a better
+            ordering of the Output, but would lead to over-fitting)
+                * Solution:
+                    * Model the State Transitions with a HMM, but
+                    using a different process whilst in each State,
+                    a process that is more aware of the Context required
+                     to generate the final Data with "continuity", using techniques
+                     such as the following for better results:
+                        * Combining HMMs with **Deep Belief Networks** at Google
+
+
+        * **TODO** Readings on HMMs
+            * AIMA: Chapter 15.1-15.3
+            * Rabiner’s famous Tutorial on hidden Markov models and selected applications in speech recognition
+                * Slides http://www.cogsci.ucsd.edu/~ajyu/Teaching/Tutorials/hmm.pdf
+                * PDF http://www.cs.ubc.ca/~murphyk/Bayes/rabiner.pdf
+                * errata http://alumni.media.mit.edu/~rahimi/rabiner/rabiner-errata/
+            * Thad Starner's MS thesis: Visual Recognition of American Sign Language Using Hidden Markov Models
+                * link: https://dspace.mit.edu/handle/1721.1/29089
+                * PDF https://dspace.mit.edu/bitstream/handle/1721.1/29089/32601581-MIT.pdf
+            * The Hidden Markov Model Toolkit (HTK)
+                * Download http://htk.eng.cam.ac.uk/
+                * About http://svr-www.eng.cam.ac.uk/research/projects/HTK_HMM_Toolkit/
+            * Chapter 1 The Fundamentals of HTK (pages 3-13) in The HTK Book (version 3.4)
+                * PDF http://speech.ee.ntu.edu.tw/homework/DSP_HW2-1/htkbook.pdf
+                * HTML http://www.ee.columbia.edu/ln/LabROSA/doc/HTKBook21/HTKBook.html
+
+        * **TODO** HMM Resources
+            * AIMA: Chapter 15.4-15.6 (provides another viewpoint on HMMs
+            with a natural extension to Kalman filters, particle filtering,
+            and Dynamic Bayes Nets), Chapter 20.3 (hidden variables, EM algorithm)
+
+            * Yechiam Yemini's
+            "slides on HMMs used in genetics (gene sequencing, decoding)."
+            http://www.cs.columbia.edu/4761/notes07/chapter4.1-HMM.pdf
+
+            * Sebastian Thrun and Peter Norvig’s AI course:
+                * HMMs and Kalman filters https://classroom.udacity.com/courses/cs271/lessons/48734405/concepts/last-viewed
+                * Natural Language Processing https://classroom.udacity.com/courses/cs271/lessons/48641663/concepts/last-viewed
+                * Natural Language Processing II https://classroom.udacity.com/courses/cs271/lessons/48734403/concepts/last-viewed
+
+            * Further study
+            Huang, Ariki, and Jack’s book
+            "Hidden Markov Models for Speech Recognition."
+            http://www.amazon.com/Hidden-Recognition-Edinburgh-Information-Technology/dp/0748601627
+
+        * **TODO** Resources for Segmentally Boosted HMMs
+            * Gesture and Activity Recognition Toolkit (GART), which utilises HTK
+                * https://wiki.cc.gatech.edu/ccg/projects/gt2k/gt2k
+
+            * SBHMM project at Georgia Tech http://www.cc.gatech.edu/cpl/projects/sbhmm/
+
+            * Further study
+                * Pei Yin’s dissertation:
+                Segmental discriminative analysis for American Sign Language recognition and verification
+                https://smartech.gatech.edu/handle/1853/33939
+
+        * **TODO** HMMs for Speech Synthesis
+           * Junichi Yamagishi’s
+           An Introduction to HMM-Based Speech Synthesis
+           https://wiki.inf.ed.ac.uk/twiki/pub/CSTR/TrajectoryModelling/HTS-Introduction.pdf
+
+           * Heiga Zen’s
+           Deep Learning in Speech Synthesis
+           http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41539.pdf
+
+        * **TODO** Project 4
+            * file:///Users/Ls/Downloads/0dreuw07-interspeech.pdf
+            * https://web.stanford.edu/class/cs124/lec/languagemodeling.pdf
+                * http://www.speech.sri.com/projects/srilm/
+            * https://discussions.udacity.com/t/slm-data-for-this-asl-dataset/230822/16
+            * http://www.cs.cmu.edu/~bhiksha/courses/11-756.asr/spring2010/class.19apr/ngrams.pdf
+
+        * TODO
+            * Optional AI lectures http://artificialbrain.xyz/artificial-intelligence-complete-lectures-01-23/
+
+    * Project 4
+        * Discussions https://discussions.udacity.com/c/nd889-probabilistic-models/nd889-project-translate-sign-language
+
+        * Part 4 Optional Notes:
+
+
+
+            * Definitions
+                * SLM - Statistical Language Models
+                * Visual
+
+            * References
+                * Refer to folder: docs_part4
+                    * DONE READ Slides - Introduction to N-grams (Stanford Jurafsky) https://web.stanford.edu/class/cs124/lec/languagemodeling.pdf
+                    * Detailed Slides - Language Model Topics http://wwwhomes.uni-bielefeld.de/~gibbon/Handbooks/gibbon_handbook_1997/node199.html
+                    * Paper - Speech Recognition Techniques for Sign Language https://www-i6.informatik.rwth-aachen.de/publications/download/154/Dreuw--2007.pdf
+                    * DONE SKIM READ IT - http://www.cs.cmu.edu/~bhiksha/courses/11-756.asr/spring2010/class.19apr/ngrams.pdf
+                * Other links
+                    * DONE SKIM READ IT - https://en.wikipedia.org/wiki/Language_model
+                    * http://masatohagiwara.net/training-an-n-gram-language-model-and-estimating-sentence-probability.html
+                * ARPA Format links
+                    * http://www.speech.sri.com/projects/srilm/manpages/ngram-format.5.html
+                    * https://msdn.microsoft.com/en-us/library/office/hh378460(v=office.14).aspx
+                * Discussion Forums
+                    * https://discussions.udacity.com/t/slm-data-for-this-asl-dataset/230822/9
+
+            * Tutorials
+                * Data Analysis and
+                    * Data Analysis - https://classroom.udacity.com/courses/ud170
+                * Pandas
+                    * Pandas Cheat Sheet - https://github.com/pandas-dev/pandas/blob/master/doc/cheatsheet/Pandas_Cheat_Sheet.pdf
+                    * Panda DataFrames - https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python#gs.AzoIXlk
+                    * Pandas quick guide - http://pandas.pydata.org/pandas-docs/stable/10min.html
+            * Goal
+                * Improve the WER of the "0-gram" (equivalent) recogniser by using SLM data in the downloaded data set using "1-gram", "2-gram", and/or "3-gram" statistics. Use probabilities data already calculated and convert into a pandas DataFrame if desired.
+
+            * Setup
+                * Download SLM data for this ASL dataset:
+                    * ftp://wasserstoff.informatik.rwth-aachen.de/pub/rwth-boston-104/lm/
+                * Extract all `gzip *.gz`
+
+            * Natural Language Processing (NLP) Summary of:
+                https://web.stanford.edu/class/cs124/lec/languagemodeling.pdf
+
+                * **Language Model (LM) (aka grammar)**
+                    * Dfn: Model that computes probability of upcoming word
+                    OR probability of a certain sequence of words (sentence)
+                        ```
+                        P(W) = P(w1, w2, w3, ..., wn)
+                        P(W) = P(wn | w1, w2, w3, ..., wn-1)
+                        ```
+                    * N-gram Model Issues:
+                        * language has long-distance dependencies
+                        * Always in Log space (avoids underflow, and adding is faster than multiplying)
+                            ```
+                            log(p1 * p2 * p3) = log p1 + log p2 + log p3
+                            ```
+                        * Overfitting,
+                        where N-Grams only work well for
+                        word prediction if the Test corpus looks like the
+                        Training corpus (but in real life it often doesn't)
+                            * Overcome by Training the Models to generalise
+                            and account for where a word or sequence occurs in the
+                            Test Set but does not exist in the Training Set
+
+                            ```
+                            i.e.
+
+                            Training set        Test set
+                            I am                I did
+                            Dog am
+
+                            P(did|I) = 0
+
+
+                            ```
+                            * **Zero Probability Bigrams**
+                                * i.e. cannot divide by 0 to compute Perplexity
+
+                    * **Smoothing**
+                        * i.e.
+                            ```
+                            given broad statistics
+
+                            P(w|I)   (i.w. probability of a word w given previous word is "I")
+                                3  am
+                                2  eat
+                                1  have
+                                -------
+                                6  total
+
+                            Use a "Probability Mass" to "Generalize" better
+
+                            P(w|I)
+                                2.5  am
+                                1.5  eat
+                                0.5  have
+                                1.5  other
+                                -------
+                                6  total
+
+                    * **Laplace Smoothing** (Add-One Estimation)
+                        * Usage: Not used for N-Grams (better options out there),
+                        only used to "Smooth" other NLP methods
+                        (i.e. when not many zeros)
+                        * Dfn: Pretend saw each word one more time than
+                        we actually did (i.e. add 1 to all counts)
+                        to overcome **Zero Probability** issue.
+                        Modify the MLE Equation into the Add-One Equation estimate
+                        (where V is Vocabulary??)
+                            ```
+                            P(wi|wi-1) = count(wi-1,wi) + 1 / count(wi-1) + V
+                            ```
+                    * Example: (**Perplexity**)
+                        ```
+                        Compute "Joint Probability" of:
+
+                            P(W) = P(its, water, is, so)
+
+                        Use "Chain Rule of Probability"
+
+                            P(A,B,C,D)     = P(A)  * P(B|A)   * P(C|A,B) * P(D|A,B,C)
+                            P(x1,x2,..,xn) = P(x1) * P(x2|x1) * P(x3|x1,x2) ... P(xn|x1,...,xn-1)
+
+                        P(W) = P(its) * P(water|its) * P(is|its,water) * P(so|its,water,is)
+
+                        Estimate Probabilities with N-gram Models:
+                        =================================
+
+                            * "Unigram" Model (1-gram)
+
+                                P(w1,w1,...,wn) ~= ∑i P(wi)
+
+                            * "Bigram" Model (2-gram) (conditional on previous word)
+
+                                P(wi|w1,w2,...,wi-1) ~= P(wi|wi-1)
+
+
+                        Maximum Likelihood Estimate (MLE)
+                        =================================
+                            * "Bigram"
+
+                                P(wi|wi-1) = count(wi-1,wi) / count(wi-1)
+
+                                Dfn: MLE of some Parameter of a Model M from
+                                Training Set T maximisess the likelihood of
+                                T given M
+
+                                * NOTE: Modify the equation to use "Laplace Smoothing"
+                                to overcome the "Zero Probability" issue
+
+                                e.g. given word "bagel" occurs 10 times in 100 words
+                                the probability that a random word from another
+                                text will be "bagel" using the MLE estimate is:
+                                10/100 = 0.1
+
+                                e.g. given these sentences:
+
+                                    "now I am Sam ok"
+                                    "now Sam am I ok"
+                                    "now I am dog ok"
+
+                                P(am|I) = 2/3 = 0.67
+                                P(ok|Sam) = 0.5
+                                P(Sam|now) = 1/3 = 0.33
+                                P(am|I) = 2/3 = 0.67
+
+
+                        Raw "Bigram" Counts
+                        =====================
+
+                            * "Bigram" counts given various sentences (3 OFF), draw table of count
+                            of first (rows) and second (cols) words
+
+                                  now   I   am   Sam   dog  ok
+                            now    0    0    0   1     0     0
+                            I      0    0    2   0     0     0
+                            am     0    1    0   1     1     0
+                            Sam    0    0    1   0     0     1
+                            ok     0    0    0   0     0     0
+
+                            * "Normalise" by "Unigrams" counts (i.e. individual word counts)
+
+                            now  I   am   Sam  dog  ok
+                            3    3   3    2    1    3
+
+                            * Result (i.e. divide each in value in "Bigram" by respective
+                            count for the first word in combo in the "Normalised" table:
+
+                                  now   I   am    Sam  dog   ok
+                            now    0    0    0    1/3  0      0
+                            I      0    0    2/3  0    0      0
+                            am     0    1/3  0    1/3  1/3    0
+                            Sam    0    0    1/2  0    0      1/2
+                            ok     0    0    0    0    0      0
+
+                            * "Bigram" Estimate of Sentence Order probability
+
+                            P(am Sam dog) = P(Sam|am) * P(dog|Sam)
+                                          = 1/3       * 0
+                                          = 0
+
+                        Evaluate Model goodness
+
+                            * Check assigns higher probability to sentences
+                                * real or frequently observed   VS   ungrammatical or rarely observed
+                            * Train Model Params on a Training Set
+                            * Test Model Performance on Test Set (unseen dataset)
+                            and use Evaluation Metric to show performance
+                                * Note: Test Set is unused, differs from Training Set
+
+
+                        Extrinsic Evaluation of N-Gram Models
+
+                            i.e. comparing accuracy of Models A vs Model B
+                            by comparing WER
+
+
+                        Intrinsic Evaluation of N-Gram Models:
+
+                            i.e. Perplexity
+
+                            Benefit:  shorter duration than Extrinsic
+
+                        Perplexity
+
+                            Dfn: Best language Modle is one that best predicts
+                            (best performance) during Evaluate Model goodness phase the
+                            an Test Set (unseen test set) and gives
+                             highest probability of a sentence
+
+                              Perplexity is Weighted Equivalent Branching Factor
+
+                              i.e. Perplexity of recognising digits "0,1,2"
+                              is equal to 3
+
+                              Minimising Perplexity == Maximising Probability
+
+                              Lower Perplexity == Better Model
+                              (i.e. Perplexity decreases the higher the N in N-Gram)
+
+                            PP(W) = P(w1,w2,...,wN) ^ 1/N
+
+
+                            Dfn: Perplexity is inverse probability of test set,
+                              normalised by qty of words.
+
+                            so, represented for "Bigram" using Chain Rule, gives:
+
+                            PP(W) =  Nsqrt ( of Sum(j=1 to N) of 1 / P(wi|wi-1) )
+
+
+                            Example: Perplexity
+
+                              given sentence with random digits
+                              where Model assigns probability of 1/10 to each digit:
+
+                                  PP(W) = P(w1,w2,...,wN) ^ -1/N
+                                        = ( (1/10)^N ) ^ -1/N
+                                        = (1/10) ^-1
+                                        = 10
+
+                              given sentence with 2x random words
+                              where Model assigns probabilities:
+                                dog (probability 1 in 4)
+                                cat (probability 1 in 3)
+
+                                  PP(W) = P(w1,w2,...,wN) ^ -1/N
+                                        = ( )
+
+                        Shannon Visualisation Model
+                            * Dfn: Showing 2-gram/3-gram of words in step-like appearance,
+                            for 2-gram choose random N-gram for each next stage that has first
+                            element in 2-gram the same as the second element in previous,
+                            until add obvious last element
+
+                        Reconstituted Counts (pg 53/88) ???
+                            i.e. compared with raw bi-gram counts
+
+
+                        Backoff
+                            * Dfn:
+                                * uses 3-gram only when good evidence
+                                * use 2-gram / 1-gram when poor evidence
+
+                        Interpolation
+                            * Dfn:
+                                * Mixes 1-gram, 2-gram, 3-gram
+
+                                * i.e. Extended Interpolated Kneser-Ney
+
+                            * Types:
+
+                                * Linear Interpolation
+
+                                    * Simple Interpolation
+
+                                        P(wn|wn-1,wn-2) = λ1 * P(wn|wn-1,wn-2)
+                                                          + λ2 * P(wn|wn-1)
+                                                          + λ3 * P(wn)
+                                      where ∑i λi = 1
+
+                                    * Lambdas Conditional on Context
+
+                                        P(wn|wn-2,wn-1) = λ1(wn-1,n-2) * P(wn|wn-2,wn-1)
+                                                          + λ2(wn-1,n-2) * P(wn|wn-1)
+                                                          + λ3(wn-1,n-2) * P(wn)
+
+                            * Set Lambda:
+                                * Use "held-out" corpus:
+                                    * Training data
+                                    * Held-out data
+                                    * Test data
+
+                                * Choose λs to maximise probabilities of "held-out" data
+                                by fixing N-gram probabilities on training data
+                                and then searching for λs giving largest prob. to "held-out" data
+
+                                logP(w1,...,wn|M(λ1...λk)) = ∑i log P _M(λ1..λk) (wi|wi-1)
+
+                                where _ means subscript
+
+                        Open vs Closed Vocabulary Tasks (All Unknown words vs Known words)
+
+                            * Closed Voca. Tasks
+                                * Vocab. V is fixed
+
+                            * Open Vocab. Tasks
+                                * Out of Vocabulary = OOV words
+
+                                * Create Unknown word token <UNK> then Train the
+                                <UNK> word probabilities
+                                (create fixed lexicon L of size V, and at text Normalisation
+                                phase change to <UNK> any Training word not in L,
+                                then Train probabilities of <UNK> like a normal word, and use
+                                <UNK> probabilities when decoding any word not in Training
+
+                        Large-scale N-Grams (i.e. Google N-gram)
+                            * see Skipped pg 62-63 (too advanced) including
+                            "Stupid Back-offs", "Pruning", etc
+
+                        Smoothing Algorithms
+                          (use count of things seen to help estimate count
+                          of things we've never seen)
+
+                            * God-Turing
+                            * Kneser-Ney
+                            * Witten-Bell
+
+                        ... skipped the rest
+
+                        ```
+
+                    * Google N-Gram (Google Machine Translation Team at Google Research)
+                        * https://research.googleblog.com/2006/08/all-our-n-gram-are-belong-to-you.html
+                        * Shared large dataset of 1 trillion words and counts of
+                        all 1 billion five-word sequences that appear
+                        at least 40 times (where total of ~13 million unique words)
+
+                        ```
+                        i.e.
+
+
+                        3-gram Data in Corpus
+
+                        sentence      count
+                        ===================
+                        I am dog      4
+
+                        4-gram Data in Corpus
+
+                        sentence      count in db
+                        ===================
+                        I am a dog    92
+                        ```
+                    * Google Books N-Gram Viewer
+                        * https://books.google.com/ngrams/graph?content&year_start=1800&year_end=2000&corpus=0&smoothing=3&direct_url=
+                        * Raw data set http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
+
+                * Automatic Sign Language Recognition (ASLR) Summary of: https://www-i6.informatik.rwth-aachen.de/publications/download/154/Dreuw--2007.pdf
+                    * ASLR difficulties are with Computer Vision, whereas Auto Speech Recog. (ASR) issues already solved
+                        * Try adopting "speech" recognition system's large Vocabulary
+                        to recognise sentences of continuous sign language.
+                            * Obtain "features" from video cameras
+                            * Focus on:
+                                * Feature and Model combo techniques used in ASR
+                                * Language Models (LM) and pronounciation in sign language
+                        * Vision issues:
+                            * capturing, tracking, segmentation
+                    * Sign language
+                        * Basic components
+                            * Manual components
+                                * Hand configuration
+                                * Place of articulation
+                                * Hand movement
+                                * Hand orientation
+                            * Non-Manual Components
+                                * Facial expression
+                                * Body posture
+                    * Continous Sign Language Recognition must deals with
+                        * Coarticulation effects (probability of sign depends on preceding and succeeding signs)
+                        * Inter- and Intra-personal variability
+                    * Goal:
+                        * Sign Language Recognition System, that is person independent,
+                        and recognises sentences of continous sign language using vision-based approach
+                        (i.e. no data acquisition devices like gloves or motion capture) using a webcam
+                    * Sytem Overview
+                        * Based on **Bayes Decision Rule**
+                        * Search for the "best" fit word sequence to recognise for the current observation
+                          against the Acoustic Model (trained word model inventory from ASR)
+                          and against the LM
+                        * **Visual Modelling**
+                            **Phonological Model** Dfn:
+                                * Signs divided into "chiremes" units
+                                * Sign language words split into sub-word "phonemes" units
+                                    * e.g
+                                        ```
+                                        Split Words
+
+                                            each word model split into 1-3 pseudo-"phonemes"
+                                            modelling avg word length from training)
+
+                                            lexicon ends up with 247 pseudo-"phonemes"
+                                            after dividing up 104 words
+
+                                        Model the Split Words
+
+                                            model each pseudo-"phoneme" with 3-state
+                                            left-to-right HMM with 3x Gaussian mixtures
+                                            and a pooled Covariance Matrix
+                                        ```
+                            * Issues and Solutions
+                                * Different dialects (many words with same meaning)
+                                * HMMs fix small difference between appearance and length of utterances
+                                * Different Models required to fix different pronounciations of signs
+                                (with different qty of States and GMMs)
+                            * RWTH-Boston-104 Corpus Data (of sign language sentences) used (see Section 3)
+                                * Perplexity PP of the language model is low since its
+                                sentences have simple structure
+                                * Out-of-vocabulary (OOV) word (only 1 OFF) is in the Test Corpus
+                                (that cannot be recognised correctly)
+
+
+                        * **Language Models**
+                            * **Bayes Decision Rule**
+                                * Acoustic Model (AM) and Language Model (LM) have same impact on
+                                 decision
+                                 * Increase the Weight/scale of LM (alpha scale)
+                                 above AM (beta scale) where
+                                 **Language Model Factor** = alpha/beta
+                                 (see equation in section 2.2)
 
 
 
