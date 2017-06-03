@@ -27,12 +27,20 @@ title: Drones
         * Sample Robotic arm with how to do 3D printing too
             https://www.hackster.io/masteruan/a-robotic-arm-with-viper-and-st-nucleo-762a4b?ref=channel&ref_id=5378_trending___&offset=9
 
+* Tessel (uses Node.js) https://tessel.io/
+
 * Particle Proton
     * https://littlebirdelectronics.com.au/products/particle-photon-1
     * https://core-electronics.com.au/particle-photon.html
     * https://core-electronics.com.au/particle-photon-starter-kit.html
     * LED Strip Lighting https://community.smartthings.com/t/particle-photon-spark-core-rgb-ws2812b/23638
 
+    * Particle Maker Kit https://core-electronics.com.au/particle-maker-kit-with-photon.html
+        * Examples to build https://docs.particle.io/tutorials/projects/maker-kit/
+        * Arduino Shield https://core-electronics.com.au/particle-shield-shield-for-photon.html
+    * Particle Cellular https://core-electronics.com.au/electron-cellular-iot-kit-3g-eur-afr-asia.html
+        * WRONG MODEL !!!
+    * Raspberry Pi 3 with Particle https://core-electronics.com.au/particle-iot-starter-pack-for-raspberry-pi-includes-pi-3.html
 
     * https://www.adafruit.com/products/170
     * https://www.adafruit.com/products/2798
