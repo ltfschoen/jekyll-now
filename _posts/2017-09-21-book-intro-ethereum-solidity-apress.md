@@ -21,11 +21,11 @@ title: Book Summary - Intro to Ethereum and Solidity
     * Communication via encoded messages
 * Ethereum Dfn
   * What
-    * Protocol - Ethereum Protocol is an extension derived from Bitcoin that is a Turing-complete data structure with the ability to save state (a stateful system that detects and remembers information changes over time)
+    * Protocol - Ethereum Protocol is an extension derived from Bitcoin that is a Turing-complete data structure with the ability to save state (a stateful system that detects and remembers information changes over time) when building decentralised applications
     * Network - Ethereum "peer-to-peer" Network of computers using the Protocol that are connected to each other running the same software
     * Project - Ethereum Funding source
     * Distributed Apps (Dapps) - applications built with Ethereum kit
-    * Cryptoeconomics - System of incentives and disincentives that secure the Ethereum Network
+    * Cryptoeconomics - Study of economic activity conducted across a secure Ethereum Network using a system of incentives and disincentives
   * How
     * Custom Decentralised Economic Systems - Build custom decentralised economic systems that include:
       * Account management
@@ -33,4 +33,4 @@ title: Book Summary - Intro to Ethereum and Solidity
     * Web browser access to Ethereum Network
       * Use software libraries like Web3.js to connect an applications front-end (browser GUI) to its back-end Ethereum Network blockchain via JavaScript APIs
     * Custom Financial Contracts (aka Smart Contracts)
-      * Write financial contracts with other Ethereum users using the Solidity programming language
+      * Write financial contracts with other Ethereum users using the Solidity programming language and leverage the stateful nature of Ethereum to engineer transactions between users under certain conditions using control flow

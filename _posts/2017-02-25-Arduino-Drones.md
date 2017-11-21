@@ -77,5 +77,6 @@ title: Drones
         * ESP8266 has built in wifi capabilities
             * i.e. https://www.adafruit.com/products/2680
 
-
+* Raspberry Pi 3 http://au.element14.com/buy-raspberry-pi
+    * Raspberry Pi Hats to extend
 

@@ -17,6 +17,13 @@ title: Artificial Intelligence Nanodegree Term 2
     * https://github.com/lemuelbarango/dog-breed-classifier
     * https://github.com/binojohnthomas/AIND-RNN
     * https://github.com/morganel?tab=repositories
+    * cmiller112000
+    * angelmtenor
+    * https://github.com/angelmtenor/deep-learning
+
+## Graduated
+* Email:  ndgrad-support@udacity.com
+alumni-support@udacity.com
 
 ### Concentrations
 
@@ -3072,3 +3079,2025 @@ title: Artificial Intelligence Nanodegree Term 2
         * Video on CNN object localisation https://www.youtube.com/watch?v=fZvOy0VXWAI
         * Visualization techniques to better understand bottleneck features
         https://github.com/alexisbcook/keras_transfer_cifar10
+        * http://machinelearningmastery.com/object-recognition-convolutional-neural-networks-keras-deep-learning-library/
+        * https://arxiv.org/pdf/1611.10012.pdf
+        * http://www.pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/
+        * https://pythonprogramming.net/haar-cascade-face-eye-detection-python-opencv-tutorial/
+        * https://www.packtpub.com/books/content/tracking-faces-haar-cascades
+
+* Recurrent Neural Networks (RNN)
+    * About
+        * Supervised Learning type
+            * Learning between Input/Output pairs
+
+            * **Unstructured Input** in **Vanilla Supervised Learning Models**
+            (i.e. Feedforward Networks)
+                * Issue as cannot exploit any particular structure
+                * Do not make any assumptions about how Input Dataset is Structured
+                    * Example
+                        * Given row of data from medical dataset with
+                        single data point (one input-output pair) as
+                        **Unstructured Inputs**.
+                        **Unstructured Input** features in any order used to predict
+                        whether a given disease exists by feeding them
+                        into a **Vanilla Supervised Learner** designed to assume and process
+                        **Unstructured Input** data (ignore structure)
+                            * Input
+                                * Categories
+                                    age: 43
+                                    gender: male
+                                    height: 5.9
+                                    weight: 188
+                            * Output:
+                                disease: No
+            * **Structured Input**
+                * Many data types do have **Input Structure**
+                    * Examples
+
+                        * Images - input pixels of image patch are related spatially
+                        (pixels near one another are similar). If pass to a
+                        **Vanilla Supervised Learner** that's designed to assume and process
+                        **Unstructured Input** then it won't care about the spatial
+                        correlations with same level of performance, but if we instead
+                        use a Convolutional Neural Network (CNN) then if we pass
+                        **Structured Input** it will leverage it
+                        (i.e. the spatial correlation b/w pixels)
+
+                        * Video
+
+                        * Text - where there's a natural Order to Words and Chars
+                        in a Sentence. Trying to predict the next word given Input Words
+                        a **Vanilla Supervised Learner** won't care (is indifferent)
+                        what Order the Input Words are fed in
+
+                        * Financial Time Series - where naturally Ordered Structure of
+                        past Input History events over time considered and
+                        used to predict future value. **Vanilla Supervised Learner** would
+                        be indifferent to Order when we train it, but we should instead exploit
+                        the **Ordered/Sequential Structure** if its available
+                        by using **Recurrent Neural Networks (RNN)**
+
+    * Usage:
+        * CNN - Images, Video
+            * Example
+                * Linear Relationship (line) splits Feature Space
+                of Input image with faces plotted on one side or non-face on other side
+        * RNN -
+            * Sequential Data - speech recognition (time-series text-to-audio),
+            text generation, stock price prediction
+            * Example
+                * Regressor Line indicates of a trend of first weekend revenue predicts movie popularity
+    * Background
+        * Supervised Learning Problems
+            * **Ordered Sequences Problems**
+                * Financial Time Series
+                    * Example
+                        * Ordered Sequence based on historical price Input of Apple stock price over time
+                * Natural Language Processing (NLP)
+                    * Example
+                        * **Text generation**
+                            * Given small sequence of text, try to Auto-complete
+                            using Supervised Learning where we've well trained
+                            a network model on a large text corpus to generate
+                            new sentences
+                            to understand complex relationships b/w Words and Characters from
+                            the English language
+                                * Links
+                                    * Academic RNN text generator http://www.cs.toronto.edu/~ilya/rnn.html
+                                    * Twitter bots that tweet automatically generated text http://tweet-generator-alex.herokuapp.com/
+                                    *  NanoGenMo annual contest to automatically
+                                    produce a 50,000+ novel automatically https://github.com/NaNoGenMo/2016
+                                    * Robot Shakespeare a text generator that automatically
+                                    produces Shakespear-esk sentences https://github.com/genekogan/RobotShakespeare
+                                        * NTLK http://www.nltk.org/
+                                * Input - Ordered Sequence of Words or Chars (Training Text Corpus)
+                                * Output - Ordered Sequence of Chars
+                        * Machine Translation
+                            * Automatic translation of one language into another
+                                * Input - Ordered Sequence of Words (language X)
+                                * Output - Ordered Sequence of Words (language Y)
+                * Speech Recognition
+                    * Example
+                        * Speech Recognition
+                            * Input - Ordered Sequence of Raw Audio Signal
+                            * Output - Ordered Sequence of Words (text-based)
+
+    * Modelling Ordered Sequence (Sequential) Data Recursively (used in RNN framework)
+        * Use previous values of time-series to predict future values
+
+        * Notation for **Generic Ordered Sequence** of Values (Ordered by Index)
+            `(S1, S2, S3, ..., SP)`
+
+            * **Generic Ordered Sequence** has Big P values
+            * S1 comes before S2, S2 comes before S3, etc
+            * Indices may be of any interpretation, or even Timestamps
+            (indexing when a certain value in a sequence occurred)
+
+            * Example
+                * Elements 1 to 5
+                ```
+                S1  S2  S3  S4  S5
+                my  dog is  the best
+                ```
+
+            * Example: Stock Price History (or time-series generally)
+                * Ordered Sequence from **Left to Right**
+                * S1 at Time 1, S2 and Time 2, etc
+
+        * Model Ordered Sequence Structure (often product of real underlying process)
+            * Example:
+                * Predict temperature. Input is temperature over time
+                (temperature-based time-series) dependent on factors (i.e. Sun)
+                * Predict stock price for investor. Input is price history
+                of given stock that's dependent on factors (Known and Unknown)
+                i.e. success of product line, vitality of overall economy,
+                CEO and board of directors actions, etc.
+
+                * **Model Ordered Sequence Recursively**
+                (in lieu of Knowing the underlying process)
+                    * i.e. use past values of sequence to predict future values
+                    * i.e. model future values of sequence mathematically
+                    in terms of its predecessors
+                    * **SEED** is the original value in a recursive sequence
+                    (recursive sequences always start with seed value(s))
+                    * **ORDER** number of most recent element values used as Inputs
+                    each time it recurses to produce future ones
+                    i.e. number of previous elements a recursive sequence requires
+                    in order to predict future elements
+
+
+                    * Mathematically Recursive Sequences Examples
+                        * Example:
+                            * Odd Numbers:
+                                * 1,3,5,7,...
+                                * S1==1, S2==3
+
+                                * Generate Ordered Sequence Recursively
+                                    ```
+                                    S1 = 1           (1x SEED value)
+                                    S2 = 2 + S1 = 3
+                                    S3 = 2 + S2 = 5    (just add 2 to previous sequence value)
+                                    S4 = 2 + S3 = 7
+                                    ...
+
+                                    Note: ORDER == 1 - Since uses 1x most recent value each time it recurses
+                                    ```
+                                * **Unfolded Views of Recursive Sequence**
+                                    * https://www.youtube.com/watch?v=OS9yQCTzCkg
+
+                                    * Find Recursive Equation to Generate Values
+                                        ```
+                                        Function-based Notation of Generic Recursive Sequence
+                                        ***
+                                        f(s) = 2 + s
+                                        ***
+
+                                        i.e. f(S1) = 2 + S1
+                                             f(S2) = 2 + S2
+                                        ```
+                                    * Graphical Notation
+                                        ```
+                                        S1 --(f)--> S2 --(f)--> S3 ... ST-1 --(f)--> ST ...
+                                        ```
+
+
+                                * **Folded View of Recursive Sequence**
+                                    * Single line represent all our recursive levels
+
+                                    ```
+                                    S1 = 1
+                                    St = f(St - 1),   t = 2, 3, 4
+                                    ```
+
+                                    * Graphical Model Analogue
+                                        (feeds output into itself repeatedly)
+                                        ```
+                                           __ f __         __f__
+                                          |       |       |     |
+                                        S1        > S2 ...      > ST
+
+                                        ```
+
+                                * Graph the Step (x-axis) vs Values (y-axis)
+                                * **Recursive Sequence** -
+                                Every value in sequence can be defined in terms of its
+                                predecessors (except the first value)
+                                i.e. where future elements are based mathematically
+                                on previous values
+
+                            * Fibonacci sequence:
+                                * 1,1,2,3,5,8,13,21
+
+                                * Note: This recursive sequence generates the
+                                Golden Ratio and creates a Spiralling Effect
+                                when represented Geometrically
+
+                                * Generate Ordered Sequence recursively
+                                (this time with 2x SEED values)
+                                    ```
+                                    S1 = 1, S2 = 1    (2x SEED values)
+                                    S3 = S1 + S2 = 2  (just sum previous two elements)
+                                    S4 = S3 + S1 = 3
+                                    S5 = S4 + S3 = 5
+                                    S6 = S5 + S4 = 8
+                                    ...
+
+                                    Note: ORDER == 2 - Since uses 2x most recent values each time it recurses
+                                    ```
+
+                                * **Unfolded Views of Recursive Sequence**
+
+                                    * Find Recursive Equation to Generate Values
+                                        ```
+                                        Function-based Notation of Generic Recursive Sequence
+                                        ***
+                                        f(St - 2, St - 1) = St - 2 + St - 1
+                                        ***
+
+                                        S1 = 1, S2 = 2
+                                        S3 = f(S1, S2)
+                                        S4 = f(S2, S3)
+                                        S5 = f(S3, S4)
+                                        ...
+                                        ```
+
+                                * **Folded View of Recursive Sequence**
+                                    * Single line represent all our recursive levels
+
+                                    ```
+                                    S1 = 1, S2 = 1
+                                    St = f(St - 2, St - 1),     t = 3, 4, 5, ...
+                                    ```
+
+                        * Links: Fibonacci Sequence https://en.wikipedia.org/wiki/Fibonacci_number
+
+                    * Example 2: Rayleigh - Reverse Steps
+
+                        * Define a few SEED values and Recursive Equation
+                        then Generate a Recursive Sequence using the Recursive Equation
+
+                            ```
+                            1)
+                                Seed Recursive Sequence with 2x SEED values:
+                                    S1 = 1, S2 = 0.5
+                                    S3 = 0.4 * MAX(0, 1 + S1 - 0.1 * S2)     (use S1 and S2 Inputs)
+                                    S4 = 0.4 * MAX(0, 1 + S2 - 0.1 * S3)     (use S2 and S3 Inputs)
+                                    ...
+
+                                    Note: ORDER == 2 - Since uses 2x most recent values each time it recurses
+
+                                        (i.e. 0.4 times the linear combo of S1 and S2 through Rayleigh function
+                                        that takes an Input and Outputs the Max of that Input and 0)
+
+                            ```
+
+                            * **Folded View of Recursive Sequence**
+                                * Single line represent all our recursive levels
+
+                                ```
+                                S1 = 1, S2 = 0.
+                                St = f(St-2, St-1),     t = 3, 4, 5, ...
+                                     f(St-2, St-1) = 0.4 * MAX(0, St-2 - 0.1 * St-1)
+                                ```
+                            * Graphed of oscillation at 4:20 https://www.youtube.com/watch?v=KN_dRCy3rtw
+
+
+        * Basic Graphical Model Representation using Maths to understand RNNs
+            * See earlier examples of Odd
+                * **Unfolded Views of Recursive Sequence**
+                * **Folded View of Recursive Sequence**
+
+                * Summary https://youtu.be/OS9yQCTzCkg?t=4m36s
+
+    * Expressing Recursive Sequences
+        * Functionality
+        * Graphically (graphical models)
+        * Programatically (in code)
+
+    * Views of a Recursive Sequence
+        * Unfolded
+        * Folded
+
+    * Drive a Hidden Recursive Sequence using any Driver (Input Sequence)
+        * About
+            * Generating methods for Markov Chains
+            * Dynamic systems
+            * RNNs
+        * Example
+            * Create model of savings account balance at end of each month
+            (month-to-month basis)
+                ```
+                Denote the following:
+
+                    h1 = initial savings balance at end of 1st month
+                    ht = savings balance at end of month t
+                    st = income (or loss) at end of month t   (i.e. drivers/influencers of savings balance each month)
+                        i.e.
+                            s1 is income (or loss) at end of 1st month
+                            etc
+
+                Example Model for monthly savings level
+
+                    h1 = 0        (initial savings level during month 1, the seed value)
+                    h2 = h1 + s1  (add 1st months savings to 1st months income (or loss))
+                    h3 = h2 + s2  (add previous months balance to previous months income (or loss))
+                    ...
+                    repeat for every month (time period)
+
+                Folded view of month-to-month savings balance summarises these recursive updates
+
+                    h1 = 0
+                    ht = ht-1 + st-1,    t = 2, 3, 4, ...
+
+                    where future values of sequence h are fully dependence on the previous values
+
+                    Note:
+                        - h is recursive sequence always
+                        - s may be recursive OR random
+
+                Simulation of how monthly income (or loss) drives the savings balance
+
+                    - Monthly income (or loss) simulated as random variable of
+                    value of either -1, 0, or 1 (with equal probability).
+
+                    - Initialise savings account balance at 0
+
+                    - Simulate 23x months worth of income (or loss)
+
+                    - Update formula used to generate monthly savings account balance
+
+                    - Refer to Simulation on graph:
+
+                        https://youtu.be/JQ2Nzzxx5oQ?t=4m10s
+                ```
+
+        * Example
+            * Create model of real stock price sequence end of each month
+            (month-to-month basis)
+
+            * **Driver** (i.e. Input Sequence) - sequence driving things along
+
+            * **Hidden Sequence** - sequence being driven
+            (since we do not actually receive its values as data, instead we
+            generate them recursively using the Driver)
+
+                ```
+                Folded view of month-to-month real stock price summarises these recursive updates
+
+                    h1 = 0                     (could be set to any value)
+                    ht = tanh(ht-1 + st-1),    t = 2, 3, 4, ...
+
+                    Note:
+
+                    - s (Driver) is sequence of real stock price that may be recursive OR random
+                    - s is used to drive a recursive sequence where each new
+                    element in the sequence after the seed is created by adding the
+                    previous value of h to the driver sequence s, and then taking
+                    tanh of the result
+
+                Simulation
+
+                    - Refer to Simulation on graph (Value vs Step):
+
+                        https://youtu.be/JQ2Nzzxx5oQ?t=4m38s
+
+                        - h (Hidden Sequence) is layered on top of the
+                        driver sequence s in the graph
+                        and both appear similar, since the driver sequence s is
+                        more Structured than the drive used in the previous example
+                        (where we modelled savings account balance)
+
+                Function Notation representing the Recursive Update
+
+                    h1 = 0
+                    ht = f(ht-1, st-1),       t = 2, 3, 4, ...
+
+                Graphical Model representing this Generic Hidden Sequence
+
+                    https://youtu.be/JQ2Nzzxx5oQ?t=6m02s
+                ```
+
+    * How to Inject the assumption of Recursivity directly into a Supervised Learner
+    (using Feedforward Networks)
+
+        * Definitions
+            * **Recursivity** - Modelling the Structure of Recursive Ordered Sequences
+            * **Recursive Sequence** - Able to generate new values in a sequence by combining
+            old values using a specific formula
+
+        * Lazy Way
+            * Adjust Vanilla Supervised Learners to deal with Ordered Sequence data
+
+            * Goal
+                * Given an Input Sequence (dataset Driver) we want to Model it as Recursive
+                using a formula that approximately generates values of that Sequence, given
+                previous values, then use that formula to make predictions about future
+                values in the Sequence (whether the Sequence itself is truly Recursive or not)
+                (i.e. perform Supervised Learning with Ordered Sequences)
+
+                * Note:
+                    * Given an Input Sequence we Model it as Recursive to make meaningful predictions
+                    * Inject the Structural assumption into a Supervised Learner
+                        * Options to approach
+                            * Feedforward Networks (simple approach)
+                            (reverse engineer the notion of Recursivity and inject it as a
+                            parameterised Model into a Supervised Learner)
+                            * RNNs (complex approach)
+
+    * Injecting Recursivity into a Supervised Learner
+
+        * **Example using Random Guessing**:
+
+            * Given a Random Sequence (Original Sequence) of numbers that
+            we suppose is recursive
+                `1,3,5,7,9,11,13,15`
+            * Assume the sequence is of ORDER == 1, then SEED value is just 1st value in series
+            * Steps to find the formula for the recursive update of the sequence
+                * Pick a function
+                    ```
+                    Pick a function:
+
+                        g(s)
+
+                    Where:
+
+                        s1 = 1
+                        s2 = 2 + s1
+                        s3 = 2 + s2
+                        ...
+                        s8 = 2 + s7
+
+                    ```
+                * Use the function with a Seed value to see if it generates
+                something close to sequence we have
+                * Inject first Seed value into the function as parameter, and
+                inject successive hat values into next value to
+                generate a new sequence using the function
+                    ```
+                    s1 = 1
+                    ^s2 = g(s1)
+                    ^s3 = 2 + s2 = g(^s2)
+                    ...
+                    ^s8 = 2 + s7 = g(^s7)
+
+                    ```
+                * New sequence generated with the function
+                    ```
+                    s1, ^s2, ^s3, ..., ^s8
+                    ```
+                * Compare new sequence with original sequence to check
+                how close our alignment is
+                between recursive function and recursive formula
+                    ```
+                    s1, ^s2, ^s3, ..., ^s8
+
+                    VS
+
+                    s1, s2, s3, ..., s8
+                    ```
+            * Sample implementation of finding steps
+                * Pick Random Function
+                    ```
+                    g(s) = 1 - 0.5 * s
+                    ```
+                * Generate an 8-value sequence starting with Seed value s1
+                check how close you get to the original sequence
+                * Plot the comparison between
+                    * Random Sequence (Original Sequence)
+                    * Random Function (Proposed Solution Recursive Parameterised Sequence Function)
+                * Try a different Random Function (Proposed Solution Recursive Parameterised Sequence Function)
+                * Repeat
+            * Note: cannot rely on just guessing to determine
+            the Proposed Solution Recursive Parameterised Sequence Function, we need to instead
+            Learn such a Function using the Sequence Original Sequence itself
+
+        * **Example 1 (Simple):
+        Using Recursive Parameterised Sequence Function as our
+        Recursive Approximator that has Weights we may tune to the given Sequence**
+            * **Summary** of steps
+                * Inject Recursivity into a Supervised Learner in order to
+                Model and Ordered Sequence Recursively
+                    * Proposing Recursive Parameterised Formula (Network Architecture)
+                    * Windowing the Sequence to produce Regression Input-Output Pairs
+                    * Parameter Tuning using the Input-Output Pairs
+                    * Sequence Generation using the Trained Network as a Regressor
+
+            * Given a Random Sequence (Original Sequence) of numbers that
+            we suppose is recursive,
+                * Note: Goal is to make a recursive approximation of
+                by first making a guess about the architecture of its
+                recursive formula and then tuning the parameters of the architecture
+                optimally using the sequence itself
+                (ideally try multiple architectures to find best one)
+
+                `1,3,5,7,9,11,13,15`
+            * Pick a Simple Linear Parameterised Function as the
+            **Recursive Approximator** (simply Feedforward Network) with
+            2x Weights that we'll use to Learn Weights
+            `w0` and `w1` by Fitting
+
+                ```
+                g(s) = w0 + w1 * s
+                ```
+            * Model each element of Sequence past the Seed as a
+            Linear Combination of its previous element
+
+                ```
+                s1 = 1
+                s2 = w0 + w1 * s1
+                s3 = w0 + w1 * s2
+                ...
+                s8 = w0 + w1 * s7
+                ```
+
+                * **Weights** (i.e. `w0` and `w1`) need to be learnt
+                * **Equalities (Levels of Recursion)** (i.e. `s2` to `s1`, `s3` to `s2`, etc)
+                must be determined, since if they hold for some values of
+                Weights `w0` and `w1` then we have a Recursive Formula
+                that will generate our sequence
+
+            * Find the best Weights to make Equalities hold as best possible
+                * **Learn** by **Forming** and then **Minimising** a
+                **Least Squares Cost Function** (breaking recursion into levels)
+                    * Ignore the top Level (i.e. s1 = 1)
+                    * At each Level of Recursion, we take the difference
+                    between both sides of the Equality and square the result
+
+                        ```
+                        s2 = w0 + w1 * s1   ===>  (s2 - (w0 + w1 * s1))^2
+                        s3 = w0 + w1 * s2   ===>  (s3 - (w0 + w1 * s2))^2
+                        ...
+                        s8 = w0 + w1 * s7   ===>  (s8 - (w0 + w1 * s7))^2
+                        ```
+                    * Then Sum up the differences of each level of recursion
+                    to give us a Least Squares Cost Function
+                        ```
+                        8 ∑ t=2   (st - (w0 + w1 * st-1))^2
+                        ```
+
+                    * **Minimise the Least Squares Cost Function** over the
+                    Weights to give us their Optimal values, which gives
+                    the Best Recursive Formula of the Form:
+                        ```
+                        g(s) = w0 + w1 * s
+                        ```
+
+                    * Note: Resolving the formula uses **Regression** where
+                    out Input-Output Pairs consist of consecutive elements
+                    of the Sequence
+
+                    * Note: **Recursive Approximator** `g(s)` is a
+                    simple **Feedforward Network** (Linear Function)
+
+            * After Training, Tune the Network to generate new values in
+            the Sequence
+
+            * Process **Training** Sequence (aka **Windowing**)
+                * Fit an Order-One Recursive Formula to the
+                Sequence of numbers
+                * Extract the Set of Regression Input-Output Pairs from
+                the Sequence to perform and Minimise the
+                Least Squares Cost Function
+
+                    * Input-Output Pair 1   (Elements 1 and 2 are first two elements of Sequence)
+                        * Input `s1`, Output `s2`
+                    * Input-Output Pair 2
+                        * Input `s1`, Output `s2`
+                    * etc
+                    (Slide over Input Window one unit to the right of Graph
+                    that shows Input-Outputs over time)
+
+                    * Note: If the Sum is `8 ∑ t=2` there will be 6x pairs
+                    (since sum from 2 to upper limit 8, where P == 8)
+
+                * Add Input-Output Pairs to Summands of Least Squares Loss
+
+                    ```
+                    Input    Output     Summand
+                    s1       s2         (s2 - (w0 + w1 * s1))^2
+                    s2       s3         (s3 - (w0 + w1 * s2))^2
+                    ...
+                    sp-1     sp         (sp - (w0 + w1 * sp-1))^2
+                    ```
+                * Inputs are calculated given the first 7x members of
+                the Sequence in the example
+                    ```
+                    Input      Output
+
+                    [[1]       [[3]
+                    [3]        [5]
+                    [5]        [7]
+                    ...
+                    [13]]      [15]]
+                    ```
+                * Fitting with **Keras** by constructing a Model to
+                reflect the derivations of the Least Squares Loss
+
+                    * Build Feedforward Network (FFN) with One Linear Layer
+                    to perform regression on our input/output data
+                    and Output Loss using Mean Squared Error. then
+                    Fit the model
+                        ```
+                        # Build FFN to perform regression on input/output data
+                        model = Sequential()
+                        layer = Dense(1,
+                                      input_dim=1,
+                                      activation='linear')
+                        model.add(layer)
+                        model.compile(loss='mean_squared_error',
+                                      optimizer='adam')
+
+                        # Fit the Model with Batch size and Epochs qty
+                        model.fit(x,
+                                  y,
+                                  epochs = 3000,
+                                  batch_size = 3
+                                  call_backs = callbacks_list,
+                                  verbose = 0)
+                        ```
+                * After Training, substitute each Input value into the
+                FFN (Linear Combination `8 ∑ t=2   (st - (w0 + w1 * st-1))^2`)
+                to make a set of predictions `g(st-1)` on the Training Set
+                * Set of Predictions built
+                    ```
+                    Input      Output     Predictions  g(st-1)
+
+                    [[1]       [[3]       [[ 2.999 ]
+                    [3]        [5]        [ 4.999  ]
+                    [5]        [7]        [ 6.999  ]
+                    ...
+                    [13]]      [15]]      [ 15.000 ]
+                    ```
+                * Compare the Predictions to the Output to check
+                how close they are (i.e. aim is to achieve a
+                fair approximation of the true recursive function
+                i.e. `f(s) = 2 + s` in the case of the Odd Sequence example )
+
+                * Print the Learned Weights (see how similar to original model
+                and true function and associated Coefficients
+                that we're aiming for)
+                    ```
+                    model.get_weights()
+
+                    [array(((1.000]], dtype - float32) array((1.999],dtype - float32)]
+
+                    g(s) = w0 + w1 * s
+                    g(s) = 1.99999 + 1.000001 * s
+                    ```
+
+                * Notes (about Trained Network):
+                    * Used a very simple Feedforward Network (FFN)
+                    to fully train network/weights
+                    * Usage is possible also
+                    as any other classical trained predictor by exporting
+                    the Original Sequence to a Training and Testing set
+                    and tune the Weights to minimise Testing Error
+                    (rather than minimising the Training set Error)
+                    * Use of Trained Network as a Generative Model to
+                    produce new unseen elements of the sequence
+
+            * Generating Next Points in Sequence using Full Trained Network
+            for the Generical Sequence
+                * https://www.youtube.com/watch?v=6LgdU4avFSk
+                * Simple Network Model `g(s) = w0 + w1 * s`
+                * Substitute the last element of the Sequence `sp` into the
+                Simple Network Model to give Generated Output
+                of new point that's Generated using the Trained Network
+                (may or may not be close to true future values of the sequence)
+                * Repeatedly move/slide the Window forward to the Next Input
+                (i.e. plug `^sp + 1` into the network to give output `^sp + 2`)
+
+                * Generate Outputs
+                    ```
+                    Input     Output
+                    sp        ^sp + 1     =   g(sp)      (generated 1st point)
+                    ^sp + 1   ^sp + 2     =   g(^sp + 1) (generated 2nd point)
+                    ...
+                    ```
+
+                * Using above to the Odd Sequence Example to generate points:
+                    ```
+                    Input            Output
+                    [[ 15 ]          [[ 17.0007 ]
+                    [[ 17.0007 ]     [[ 19.0009 ]
+                    ...
+                    ```
+
+            * Graphical Model View
+
+                * of the simple Linear Network showing how
+                each element of the Sequence is related to the shared
+                Weights `w0` and `w1`
+
+                * https://youtu.be/I72EOcAroFk?t=2m44s
+
+        * **Example 2 - Rayleigh (Complex) where we inject recursivity into a supervised learner:
+            * Instead of creating the Sequence ourselves, we are given the Sequence of Values
+            and aim to Model it using a Recursive Formula
+            * Suppose we have the first 50 values of the Sequence of Values
+            * Assume we do not know what precise Recursive Formula generates the data
+            (even though we really know its
+                ```
+                S1 = 1, S2 = 0.5
+                S3 = 0.4 * MAX(0, 1 + S1 - 0.1 * S2)     (use S1 and S2 Inputs)
+                S4 = 0.4 * MAX(0, 1 + S2 - 0.1 * S3)     (use S2 and S3 Inputs)
+                ...
+                S50 = 0.4 * MAX(0, 1 + S48 - 0.1 * S49)    (use S48 and S49 Inputs)
+
+                Note: ORDER == 2 - Since uses 2x most recent values each time it recurses
+
+                    (i.e. 0.4 times the linear combo of S1 and S2 through Rayleigh function
+                    that takes an Input and Outputs the Max of that Input and 0)
+
+                ```
+            * We Propose to Fit a simple Parameterised Rayleigh Architecture as an
+            attempt to try and see how close it gets to a Recursive Formula
+            * Model each Non-Seed value of the Sequence as follows
+            (linear combination of two prior elements shoved through a Rayleigh function):
+                ```
+                S1 = 1, S2 = 0.5
+                S3 = W0 + W1 * MAX(0, W2 + W3 * S1 + W4 * S2)
+                S4 = W0 + W1 * MAX(0, W2 + W3 * S2 + W4 * S3)
+
+                S50 = W0 + W1 * MAX(0, W2 + W3 * S48 + W4 * S49)
+                ```
+            * Tune the Weights (`W0` to `W4`) as did previously
+            by Squaring the Difference between both sides at each
+            Level of the **Recursion**, giving a number of
+            Squared Error Terms
+                ```
+                (S3 = W0 + W1 * MAX(0, W2 + W3 * S1 + W4 * S2))^2
+                (S4 = W0 + W1 * MAX(0, W2 + W3 * S2 + W4 * S3))^2
+                ...
+                (S50 = W0 + W1 * MAX(0, W2 + W3 * S48 + W4 * S49))^2
+                ```
+            * Sum up the Squared Error Terms giving the Least Squares Loss Function
+            (since this is a Regression problem our Regressor is a
+             Two-Layered Feedforward Network with 1x RELU and 1x Linear
+             that may be viewed with a
+             Recursive Formula or as a Graphical Model)
+                ```
+                50 ∑ t=3   (ST - W0 + W1 * MAX(0, W2 + W3 * ST-2 + W4 * ST-1))^2
+                ```
+
+            * Graphical Model of Feedforward Architecture (showing how Weights are
+            shared b/w Regression Points)
+                * https://youtu.be/ZFWOCob2gZ8?t=1m43s
+
+                * `g(St-2, St-1) = W0 + W1 * MAX(0, W2 + W3 * St-2 + W4 * St-1)`
+
+            * Minimise the Least Squares Loss Function by transforming the
+            Series into a Set of Input-Output Pairs when Processing the Sequence
+                * Window with Input Size == 2
+                    * Since must substitute the Last 2 Entries of the Sequence to Predict
+                    the Next one (each input takes the the past 2x elements of the sequence
+                    to predict the next one)
+
+                    ```
+                    Window of Length 2
+
+                        Input-Output Pair 1
+
+                            Input 1
+                            Input 2
+                            Output 1
+
+                        Input-Output Pair 2
+
+                            Input 2
+                            Input 3 (Output 1)
+                            Output 2
+
+                        ...
+                    ```
+                * Code to Minimise the Least Squares Loss
+                    ```
+                    # Create model with Two-Layers and a Least Squares Loss Function
+                    # Minimises and recovers its optimal Weights by a
+                    # Stochastic Gradient Descent
+
+                    model = Sequential()
+                    model.add(Dense(1,
+                                    input_dim=2,
+                                    activation='relu'))
+                    model.add(Dense(1,
+                                    activation='linear')
+                    model.compile(loss='mean_squared_error',
+                                  optimizer='adam')
+
+                    # Fit the model
+                    model.fit(x,
+                              y,
+                              epochs=1000,
+                              batch_size=20,
+                              callbacks=callbacks_list,
+                              verbose=0)
+                    ```
+                * Preview the resulting Fit with the Training Set (after Training)
+                of the 50 elements in the Sequence (i.e. Graph with Step x-axis, Value y-axis)
+                * Plot the Input-Output Pairs (Input x-axis, Output y-axis) that were
+                formed when using FNN-based recursive approximation method
+                based on the Original Sequence
+                    * View dependence between Inputs and Outputs. If there is dependence
+                    then its NOT IID
+                    * FLAWS with Feed forward Neural Networks (FNN)
+                        * https://www.youtube.com/watch?v=IXtAGSJOpDQ
+                        * If a Sequences consists of consecutive
+                        Independent and Identically Distributed (IID) pairs, then change to values of
+                        one pair of elements should not have any effect on the following values
+                        * **Pure Recursivity** is the exact opposite of IID. It is where
+                        every value depends fundamentally on those before, since the
+                        FNN-approach is geared toward trying to learn model depednency
+                        in the form of recursivity, but when we tune our model we end up
+                        doing the opposite and provoke Independence instead (the opposite
+                        of what we want)
+
+                * Generate new values using a Regressor beginning at the End of the
+                Training Set and Preview them by Overlaying them on the next Actual
+                Sequence
+                * Check if Generated Fit matches Original (to indicate that
+                Learnt Model is right)
+                * Check Weights of the Model in Keras.
+                May find that generated Weights are different than the Original, but
+                that's ok, since our aim was to find a Recursive Formula that explains the
+                behaviours of our Sequence, which we've done, and **there may be
+                lots of Recursive Formulas that could be used to generate the Sequence**
+                (more than 1x correct way to model this Rayleigh sequence)
+                    ```
+                    w0 = 1.886
+                    w1 = 1.309
+                    w2 = 0.305
+                    w3 = 0.305
+                    w4 = -0.641
+                    ```
+
+        * Interesting Notes:
+            * Different Architectures may be used to approximate a given Ordered Sequence of Values
+            (i.e. many different Architectures can model a Sequence created by one
+            particular Recursive Formula) that we wish to Model Recursively
+
+                * Example:
+                    ```
+                    Given Sequence created as Output of the using the ReLU Network
+
+                        g(St-2, St-1) = W0 + W1 * tanh(W2 + W3 * St-2 + W4 * St-1)
+
+                    The TANH Network can Fit the Sequence good, following the
+                    same procedure used before for Training on the first 50 elements used before.
+
+                        Graph with Training Fit
+                            https://youtu.be/Xf1oAaTd42w?t=38s
+
+                    Generate values that closely mirror the remainder of the true Sequence as follows
+
+                        Graph with Generator Fit
+                            https://youtu.be/Xf1oAaTd42w?t=43s
+
+                    ```
+            * Adding Noise (Gaussian Noise) when Generating the Sequence so it is
+            almost Recursive (except for the noise)
+                ```
+                S1 = 1, S2 = 0.5
+                S3 = 0.4 * MAX(0, 1 + S1 - 0.1 * S2) + ɛ1     (use S1 and S2 Inputs with Noise)
+                S4 = 0.4 * MAX(0, 1 + S2 - 0.1 * S3) + ɛ2     (use S2 and S3 Inputs with Noise)
+                ```
+                * Follow previous steps to Fit the ReLU-based Regressor to the Training Set
+                of this Noisy Sequence, producing a Fit that performs well as Training Fit
+
+                    * Graph of Training Fit
+                        * https://youtu.be/Xf1oAaTd42w?t=1m21s
+
+                * Use the Tuned Regressor to Generate values as before
+                as the Generative Fit
+
+                    * Graph of Generative Fit
+                        * https://youtu.be/Xf1oAaTd42w?t=2m24s
+
+                * Note: Both the Training Fit and the Generated Fit points come from same
+                Tuned Recursive Formula. So we should consider the
+                Training Fit and the Generated Fit points as a SINGLE Recursive Sequence
+                that we're using to approximate our True Sequence as closely as possible
+
+                    * Graph Recursive Sequence (combination of both Training Fit + Generative Fit)
+                        * https://youtu.be/Xf1oAaTd42w?t=2m49s
+
+                * Note: The Original Sequence shown in black was NOT Recursive but
+                the Recursive Sequence shown in green is by design (since was created using the
+                 Recursive Formula used to find an approximation to truth)
+
+        * **Example 3 - Real Financial Time-Series Dataset**
+            * Previously we transformed pursuit of an approximation of a Sequence into a
+            Regression problem
+            * Now we'll apply the approach to a real dataset
+            * Given
+                ```
+                Given historical stock price dataset graphed Step VS Time
+                    https://www.youtube.com/watch?v=UfOUisfQPZc?t=18s
+
+                Use:
+                    - Order 5
+                    - Linear Network Architecture
+                    - Window size = 5
+
+                Build the architecture using Keras
+
+                    # Create model
+                    model = Sequential()
+                    model.add(Dense(1,
+                                    input_dim=window_size,
+                                    activation='linear'))
+                    model.compile(loss='mean_squared_error',
+                                  optimizer='adam')
+
+                Train on the first 100 elements of the Sequence
+                (i.e. Steps 0 to 100)
+
+                Note: We do not know of a True Recursive form of the Sequence
+                (or if one even exists)
+
+                Aim: Resolve a formula that explains the behaviour of this
+                Ordered Sequence Recursively (i.e. approximates it with a truly
+                Recursive Sequence)
+
+                Training the Model allows visualising the Fit on the
+                first 100 points
+                    * Graph "Training Fit" https://www.youtube.com/watch?v=UfOUisfQPZc?t=1m05s
+
+                Generate say 40 new points using Tuned Linear Regressor
+                    * Graph "Generative Fit" https://www.youtube.com/watch?v=UfOUisfQPZc?t=1m07s
+
+                Check how Fit compares between Generative Fit and Original
+                    * Note: May not be a strong fit to True Sequence since underlying dataset
+                    is more complex than the architecture we're using for the
+                    Recursive Approximation.
+
+                    * Regardless of the architecture, being able to predict precisely the
+                    stock price MANY time periods in future using historical price alone
+                    is impossible to
+
+                    * SHORT time periods in the future may be predictable based on historical price
+                    alone
+
+                If task is to predict stock price over SHORT periods in the future then:
+                    * DO NOT need Regressor as a Generative Model
+                    * Only need Regressor as a Training / Testing instrument
+                        * https://www.youtube.com/watch?v=UfOUisfQPZc?t=1m46s
+
+                    i.e.
+
+                    Given Trained Regressor, Window size == 5
+
+                    Using it to perform Predictions that are 1 period in future
+                    using financial time-series
+
+                        Slice the financial time-series into 2x Parts:
+                            - Training (already done)
+                            - Testing
+
+                        Test the efficiency of the predictor by Windowing the
+                        last 5x elements of the Training Set, and use the
+                        Predictor to estimate the next value
+
+                        Repeat for next
+                        unit by moving the Window forward 1x unit
+                        (using 4x units from Tail of Training Set, and 1x unit First one
+                        from Testing Set), and use the
+                        Predictor to estimate the next value
+
+                            * https://www.youtube.com/watch?v=UfOUisfQPZc?t=2m35s
+
+                        Repeat the above until we have all our Predictions
+                        and we can overlay Test Set Predictions on our True Sequence
+                        for visual comparison
+
+                            * https://www.youtube.com/watch?v=UfOUisfQPZc?t=3m12s
+
+                ```
+
+        * Recap
+            * Goal: Model Ordered Sequences Recursively using an
+            Feed forward Neural Networks (FNN) approach
+            * Approach: Resolve a Recursive Formula
+                * Using the Recursive Formula to construct Recursive Approximation
+                * Recursive Approximation used to:
+                    * Choose Architecture (Order, Functionality)
+                    * Break Recursion into Levels
+                    * Windowing the Sequence (producing Input/Output Pairs)
+                    * Minimising the Loss to Tune Parameters of this Architecture
+                        * If Sequences are **Continuous** values
+                            * Then use "Least Squares Loss"
+                        * If Sequence is **Discrete** values (i.e. text-data)
+                            * Then use "Logistic Result Max Loss"
+                    * Using Tuned Regressor as Generative Model (if possible)
+                * Recursive Formula
+                    * Gives when properly Tuned a 100% Recursive Sequence that approximates
+                    a True Sequence (Original that may or may not be recursive)
+                * Noted that Generative Models are not appropriate for some applications
+                (i.e. financial time-series) where traditional Train/Test should be used
+
+        * **Recursive Neural Network (RNN) Framework Fundamentals**
+            * Previously
+                * Using the FNN-approach we model recursivity correctly but
+                we completely lose dependence (IID instead) on earlier levels
+                from further levels when we tune parameters which is fundamental to recursivity
+
+            * Derivation of an RNN (that Improves on FNN without losing dependence
+            offering better more structured recursion that stresses Dependence between
+            levels explicitly). Known as the `SimpleRNN` model in Keras
+
+                * **RNNs came from the desire to enforce greater Dependency between further levels
+                on earlier levels where each level ingests its predecessor (Hidden States are
+                driven by Input Sequence) that builds on the failings of the FNN approach that
+                failed to enforce this Dependency**
+
+                * Goal: Avoid further levels becoming Independent of earlier levels.
+                So we must enforce more Dependency between levels by enhancing our recursion.
+
+                    * Step 1:
+                        * Re-write earlier steps of recursion, we want the LHS and RHS of
+                        equality to hold as best possible (i.e. approximately hold),
+                        * Add an **Auxiliary Variable** (aka **Hidden States**)
+                        (i.e. h1 to h4) at each line. Since while we recurse on `h`
+                        we observe `s`, and `s` Drives `h`.
+                        They help organise
+                        the derivation and reminds us that RHS of each level actually
+                        defines a Sequence when taken together based on their Input and
+                        Parameter sides
+
+                            ```
+                            s1 = h1 = α
+                            s2 ~= h2 = g(s1)
+                            s3 ~= h3 = g(s2)
+                            s4 ~= h4 = g(s3)
+                            ```
+                    * Step 2
+                        * Remove the LHS of each level since wen want to approximate
+                        the True Sequence and get stuff out of our field of view
+
+                            ```
+                            h1 = α
+                            h2 = g(s1)
+                            h3 = g(s2)
+                            h4 = g(s3)
+                            ```
+                        * Now our aim is the Tune the function to `s4` that we just removed
+                        (along with removing `s1`, `s2`, and `s3`
+                    * Step 3
+                        * Adjust our Recursion to enforce Dependency between the levels
+                        (avoid Independence across consecutive levels as was failing of FNNs)
+                        by Forcing consecutive level Dependency
+                        (i.e. so each level after the Seed is functionally Dependency on
+                        the preceding level, i.e. 4th level functionally Dependent on the 3rd, etc)
+                            * Force Dependency by making Architecture ingest the previous level
+                            (plugging in 3rd line into 4th line of the Architecture).
+                            i.e. for 4th level using any parameterised function of 2x Inputs:
+                            s3 (as usual) and h3 (for Dependency)
+
+                            ```
+                            h1 = α
+                            h2 = g(s1) = f(h1, s1)
+                            h3 = g(s2) = f(h2, s2)
+                            h4 = g(s3) = f(h3, s3)
+                            ...
+                            ht = g(st-1) = f(ht-1, st-1)
+                            ```
+                            * i.e. `f(h3, s3) = tanh(w0 + w1 * h3 + w2 * s3)`
+                    * Step 4
+                        * https://youtu.be/Y3-YuSbhbQM?t=6m15s
+                        * Roll-up the recursion, showing that the
+                        **RNN in the form of a Hidden Sequence that is Driven by Input**
+                        (i.e. taking a Sequence `s` and Driving a Sequence recursively `h`).
+                        This was covered previously
+                            ```
+                            h1 = α
+                            ht = f(ht-1, st-1),    t >= 2
+                            ```
+                            * `h` is **Hidden** since was not directly observed but was
+                            instead Driven using an Input Sequence `s`
+                            * Previously using the FNN-model we turned the definition of
+                            recursivity on its head and used it to develop a recursive approximation
+                            to our Input.
+                            * **Now, with RNNs we've turned the Hidden Sequence concept on its head,
+                            by taking the Hidden Sequence model and fitting it into our Input
+                            (by tuning `f` to approximate the Driver `s` as well as possible)
+                            and using it to develop a recursive approximation to our Sequence**
+                        * Plot Hidden `h` vs Driver `s`
+
+            * **Formulate Least Squares Error/Loss using RNNs**
+                * Given
+                    ```
+                    s1 = h1 = α
+                    s2 ~= h2 = g(s1) = f(h1, s1)
+                    s3 ~= h3 = g(s2) = f(h2, s2)
+                    s4 ~= h4 = g(s3) = f(h3, s3)
+                    ...
+                    st ~= ht = g(st-1) = f(ht-1, st-1)
+                    ```
+                * Remove Hidden State variables introduced during derivation
+                    ```
+                    s2 ~= f(h1, s1)
+                    s3 ~= f(h2, s2)   i.e.  = f(f(h1, s1), s2)
+                    s4 ~= f(h3, s3)   i.e.  = f(f(h2, s2), s3)  = f(f(f(h1, s1), s2), s3)
+                    ...
+                    st ~= f(ht-1, st-1)
+
+
+                    where h2 = f(h1, s1)
+                    ```
+
+                    * **RNN level dependent on ALL previous levels (complete history
+                    of sequence values that precede it)**
+                    (whereas shallow FNN is only dependent on immediate previous level)
+                    using Hidden State of the previous level
+                        * i.e. `s3` dependent on `s2` and `s1`
+                        * i.e. `s4` dependent on `s3`, `s2` and `s1`
+                * Make these approximate equalities hold as tight as possible
+                by Squaring the Error at each level and add them up
+                    ```
+                    (s2 - f(h1, s1))^2
+                    (s3 - f(h2, s2))^2
+                    (s4 - f(h3, s3))^2
+                    ...
+                    (st - f(ht-1, st-1))^2
+                    ```
+                * Minimise the Sum over the first `P` elements of the Sequence
+                 to get a Least Squares Error/Loss
+                    ```
+                    P ∑ t=2   (st - f(ht-1, st-1))^2
+                    ```
+                    * Note 1: Broke into levels that are each explicitly Dependent
+                    on each other (unlike with the FNN approach where we lost it)
+
+                    * Note 2: When using Architectures with **Bounded Input**
+                    i.e. `f(h,s) = tanh(w0 + w1 * h + w2 * s)` often used in RNNs
+                    its is good to Minimise the Difference between each Sequence element
+                    and the Linear Combination of the corresponding Hidden State
+                    to ensure values >1 may be reached by either:
+                        * ADJUSTING the
+                        Least Squares Error/Loss Function as follows:
+                            ```
+                            P ∑ t=2   (st - (b + w * f(ht-1, st-1))^2
+                            ```
+                        * Alternatively bake-in the Linear Combination into the Recursion directly
+                        at each level
+
+            * Apply the RNN Framework in Keras
+
+                * Example 1: ReLU-generated sequence
+                    * https://www.youtube.com/watch?v=F5PVwVrEVHY
+
+                    * Note: RNN Regressor is our generator
+
+                    * Fit RNN Architecture to the first 50 elements of the ReLU
+                    generated Sequence we saw earlier (shown 'blue'). Use as a
+                    Sequence Generator as well (as was done with FNN-approach)
+
+                    ```
+                    model = Sequential()
+                    mode.add(SimpleRNN(3, input_shape=(2,1), activation='relu'))
+                    model.add(Dense(1))
+                    model.compile(loss='mean_squared_error', optimizer=optimizer)
+                    ```
+
+                    * Plot the Original Sequence, Training Fit, and Generative Fit
+
+                * Example 2: Apply RNN to fitting a Financial time-series dataset
+                    * https://www.youtube.com/watch?v=F5PVwVrEVHY
+
+                    * Fit first 2/3 of the dataset using below code snippet:
+                        ```
+                        model = Sequential()
+                        mode.add(SimpleRNN(1, input_shape=(5,1)))
+                        mode.add(Dense(1))
+                        model.compile(loss='mean_squared_error', optimizer=optimizer)
+                        ```
+                    * Plot Original Sequence, Training Fit, Testing / Generative Fit
+
+                    * Note:
+                        * Recursive models (RNNs) typically used for short-term
+                        predictions on financial time-series datasets.
+                            * Require Windowing longer sequences is a practical matter,
+                            not architectural matter
+                        * With financial time-series its more appropriate to use the
+                        Regressor as a more traditional Training/Testing tool rather than
+                        just a Pure Generator given the complexity of the phenomenon
+
+
+        * **Recursive Neural Network (RNN) Framework - Characteristics**
+
+            * Related to sequences and lists
+
+            * **Memory** (loops allow info to persist) and Dependency
+                * https://www.youtube.com/watch?v=0B8O2eNv2DY
+
+                * Compare RNN and FNN
+
+                    * RNN more expressive and data-driven than FNN
+                     (by explicit modelling of dependencies between consecutive
+                     levels of the recursion)
+
+                    * **RNN level dependent on ALL previous levels (complete history
+                     of sequence values that precede it)** so it has **MEMORY**
+                     (whereas shallow FNN is only dependent on immediate previous level)
+                     using Hidden State of the previous level
+
+                    * RNNs have more Memory since each Hidden State contains a
+                    complete History of the Input Sequence up to that point
+
+        * **Recursive Neural Network (RNN) Framework - Graphical Models**
+
+            * https://www.youtube.com/watch?v=LON9wniFUiE
+
+            * Used Graphical Models to view
+
+                * **Unfolded View** of recursions
+
+                    ```
+                    h1 = α
+                    h2 = f(h1, s1)
+                    h3 = f(h2, s2)
+                    h4 = f(h3, s3)
+                    ...
+                    ht = f(ht-1, st-1)
+                    ```
+
+                    * Unfolded Graphical View of Purely recursive sequence
+                    that is a Hidden Sequence `h` driven by `s`
+
+                    * Adding Prediction of `^st` then Graphical Model must denote a
+                    Supervised Learner where information flows when using Gradient Descent
+
+                * **Folded View** (compact) of recursions
+
+                    ```
+                    h1 = α
+
+                    ht = f(ht-1, st-1),   t >= 2
+                    ```
+
+                    * Folded Graphical View of model of a driven Hidden Sequence
+                    but when adding `^st` we know the model is being used as a Predictor
+
+        * **Recursive Neural Network (RNN) Framework - Training - Technical issues**
+            * Technical issues
+                * Optimisation
+                    * Vanishing Gradient problem (affects FNNs and RNNs)
+                        * Mitigation
+
+                            * Regularising Activation Functions or different level
+                            Architectures such as **Long Short Term Memory (LSTM)**
+
+                            * Variations of **Stochastic Gradient Descent (SGD)**
+                            (modifications to avoid the issue)
+
+                            * Basic concerns like Windowing in Deep Networks
+                            since each State in a
+                            RNN adds a Hidden Layer to the corresponding network may
+                            be mitigated by cutting up Longer Sequences into
+                            Shorter Sequences and treating them as a **Batch**
+                * Memory life
+
+                * Data requirements
+
+                    * Deep Networks (function approximators like RNNs)
+                    for high performance require large datasets for their
+                    expressive power to show cutting edge results
+
+                    i.e. text-generation with '000s of datapoints to play with
+
+        * RNN Summary
+            * https://www.youtube.com/watch?v=EFrAo74C8Ow
+
+            * Notes: Activation Functions
+
+                 * Sigmoid Layer
+                    * decides what parts of the cell state we're going to
+                    output (i.e. forget is 0, keep is 1)
+
+                 * Tanh Layer
+                    * put the cell state through tanh (to push the values
+                    to be between −1 and 1) as candidates
+
+                * ReLU
+                    * max of 0 or greater value
+
+        * Links
+            * RNNs from Deep Learning https://github.com/angelmtenor/deep-learning/blob/master/intro-to-rnns/Anna_KaRNNa.ipynb
+
+
+        * **Long Short Term Memory Networks (LSTMs)**
+
+            * Slides
+                * Architecture of LSTMS
+                    * https://www.youtube.com/watch?v=70MgF-IwAr8
+                    * https://www.youtube.com/watch?v=gjb68a4XsqE
+
+                * Architecture of RNN
+                    * https://www.youtube.com/watch?v=ycwthhdx8ws
+
+            * Definition:
+                * Useful when neural network needs to switch between remembering
+                recent things, and things from long time ago
+
+                * **AWESOME Links about LSTMs**
+
+                    * WOW - http://colah.github.io/posts/2015-08-Understanding-LSTMs/
+
+                    * WOW - http://blog.echen.me/2017/05/30/exploring-lstms/
+
+                    * Augmented RNNs & Attention http://distill.pub/2016/augmented-rnns/
+
+                    * Other RNN/LSTM with Python Code  character-level language models
+                      http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+
+                    * Translation https://arxiv.org/pdf/1508.07909.pdf
+
+
+                * Issue with RNNs
+                    * RNNs mostly store **Short-Term Memory**
+                    * Key past information we're trying to predict with may be in an
+                    earlier RNN (in sequence of RNNs)
+                    but input information is squished repeatedly by Sigmoid
+                    functions (that output numbers between 0 and 1
+                    describing how much each component should be let through)
+                    and lost, so we need **Long Term Memory**
+                    * Training a network (of multiple RNNs) using **Backpropagation**
+                    (recursive application of the chain rule from calculus)
+                    all the way back to much earlier RNN may lead to problems
+                    like the **Vanishing Gradient**
+
+                * Solution - **LSTM Networks**
+
+                    * Input to LSTM has both **Long-Term Memory** and
+                    **Short-Term Memory**
+                    that both get merged at each stage with current **Event**
+                    (what we just saw)
+                    (protects old information better)
+
+                    * **Goal of LSTM Node Architecture of Gates**:
+
+                        * Create **Prediction**
+                            * of what the image is (i.e. long term
+                              memory may be required to know this)
+                              by combine **Long-Term Memory** and
+                              **Short-Term Memory** and **Event**
+
+                        * Update with **New Long Term Memory** for next stage
+                            * by merging **Long-Term Memory** and **Short-Term Memory** and **Event**
+
+                        * Update with **New Short-Term Memory** for next stage
+                            * by merging **Long-Term Memory** and **Short-Term Memory** and **Event**
+
+                    * Output is prediction of what the Input is and as
+                    part of the Input for the next iteration of the Neural Network
+
+                * **Architecture of LSTMs**
+
+                    * **Gates in LSTM Node Architecture**:
+
+                        * Summary of All Gates using an
+                        arbitrary Architecture that is known to work
+
+                            * https://www.youtube.com/watch?v=IF8FlKW-Zo0
+
+                            * TODO - Invent new Architectures that actually WORK
+                            as this spaces is under development
+
+                        * **Forget Gate**
+
+                            * https://www.youtube.com/watch?v=iWxpfxLUPSU
+
+                            * Input is **Long-Term Memory (LTM)** is multiplied
+                            by a Forget Factor `ft`
+                            (to forgets everything no longer considered useful
+
+                            * `ft` calculated with 1x small Layer Neural Network
+                            that combines inputs STM and E with a Linear Function
+                                ```
+                                ft = σ(Wf[STMt-1, Et] + bf)
+                                ```
+
+                        * **Learn Gate**
+
+                            * Slide https://www.youtube.com/watch?v=aVHVI7ovbHY
+
+                            * Combines inputs **Short-Term Memory (STM)** and **Event (E)**
+                            using a Linear Function (i.e. `tanh`) that consists of
+                            joining the Vectors (STM and E), multiplying by a matrix
+                            of Weights (W), adding a Bias (b), and squishing result
+                            with `tanh` Activation Function to create New Info (N):
+                                ```
+                                Nt = tanh(Wn[STMt-1, Et] + bn) * it
+                                ```
+
+                            * Forgets/Ignores any unnecessary info to give
+                            **New Info (N)** by multiplying by an Ignore Factor `i`
+                            Vector that multiplies element-wise.
+
+                            * Note: `i` is calculated by building a small Neural Network
+                            that accepts Inputs of Short-Term Memory and Event,
+                            passing them through a Linear Function
+                            (with new Weights matrix and new Bias, and
+                            squishing with Sigmoid Function to keep between 0 and 1)
+                                ```
+                                it = σ(Wi[STMt, Et] + bi)
+                                ```
+
+
+                        * **Remember Gate**
+
+                            * https://www.youtube.com/watch?v=0qlm86HaXuU
+
+                            * Accepts combination of
+                                * **Forget Gate** (input is LTM)
+                                * **Learn Gate** (input is combined STM and E)
+                            * Outputs a **New Long Term Memory**
+                                ```
+                                LTMt = LTMt-1 * ft + Nt * it
+                                ```
+
+                        * **Use Gate**
+
+                            * https://www.youtube.com/watch?v=2kDufi6FDjU
+
+                            * Decides what information to use from what we
+                            previously knew + what now know, and use it to
+                            make a **Prediction**
+
+                            * Accepts combination of
+                                * **Forget Gate** (input is LTM)
+                                * **Learn Gate** (input is combined STM and E)
+
+                            * Outputs a **New Short Term Memory**
+                            (which is the **Prediction**)
+
+
+                            ```
+                            - Input to FORGET GATE is LTMt-1
+                            - Output of FORGET GATE is small Neural Network #1
+                              that uses the tanh Activation Function
+
+                                Ut = tanh(Wu * LTMt-1 * ft + bu)
+
+                            - Inputs of STM and E are applied to another
+                              small Neural Network #2 using the Sigmoid Activation
+                              Function
+
+                                Vt = tanh(Wv[STMt-1, Et] + bv)
+
+                            - Final Output it multiplies both the
+                              Outputs of the small Neural Network #1
+                              and small Neural Network #2 together
+
+                                STMt = Ut * Vt
+
+
+                            ```
+
+        * Other Architectures that work
+
+            * Slide https://www.youtube.com/watch?v=MsxFDuYlTuQ
+
+            * **Gated Recurrent Unit (GRU)**
+
+            * **LSTM with Peephole Connections**
+
+                * Previously
+                    * Forget Factor calculated as combo of STM and E
+                    (but LTM was not included in decision)
+
+                * Now
+                    * Connect the LTM into the Neural Network that calculates
+                    the Forget Factor (makes decisions inside the LSTM),
+                    where mathematically the
+                    Input to Sigmoid is larger since we're concatenating it
+                    with LTM matrix
+
+
+    * RNN Project
+
+        * Time Series Prediction and Text Generation.
+            * Goal: Use RNNs and LSTMs for two major purposes:
+                * Predict stock prices.
+                * Generate Sherlock Holmes text.
+
+### Natural Language Processing (NLP)
+
+* NLP Pipeline
+
+    * My Code Examples of it all:
+        * https://github.com/ltfschoen/AIND-NLP
+
+    * Stages
+        * Text Processing
+            * Raw text input
+                * Pandas working with text
+                    * https://pandas.pydata.org/pandas-docs/stable/text.html
+                * Sources
+                    * Website textual content
+                        * Raw HTML markup
+                    * PDFs
+                    * Word docs
+                    * Speech recognition system
+                    * Book scanned with OCR
+            * Build text processing functions
+            * Clean
+                * Python Regular Expressions
+                    * https://docs.python.org/3/library/re.html
+                * Remove HTML tags
+                    * Parse HTML using BeautifulSoup to
+                    extract text without tags
+                    (since Regular Expressions not suitable)
+                        * https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+                    * Use Beautiful Soup to walk the DOM tree
+                * Remove non-relevant data
+                * Remove source-specific markers
+                * Retain only plain text
+                to reduce complexity of procedures
+                (i.e. and, the, are, of)
+                    * Use NLTK Stopwords
+            * Normalise
+                * Lowercase (so each word represented by unique token)
+                * Remove punctuation
+                    * for Document Classification and Clustering
+                    where low-level details don't matter much
+                    * Replace with Space so words don't
+                    concatenate
+                * Remove extra spaces
+            * Tokenise (aka Symbol)
+                * http://www.nltk.org/api/nltk.tokenize.html
+                * Split text into Tokens (Sequence of Words)
+                * Remove common words that don't offer meaning
+                to reduce complexity and still may be inferred
+                (aka **NLTK Stop Words**)
+                * NLTK
+                    * Smart way of tokenising
+                    * Even includes one for parsing Twitter handles,
+                    hashtags, emoticons, etc
+            * Process Words
+                * Identify Different using NLTK `pos_tag`:
+                    * Parts of Speech (Nouns, Verbs, Named Entities)
+                        * Understand words in sentence to better understand what's being said
+                        * Identify Relationships between Words
+                        * Identify Cross-References between Words
+                        * Named Entities are Noun phrases that refer to specific Object,
+                        Person, or Place. Use `ne_chunk` to label Named Entities in text
+                            * Usage: Index and search for news articles of companies that are of interest
+                * Convert Words into Canonical forms using (further simplify and normalise
+                different variations of words)
+                    * Stemming
+                        * Dfn: Reducing a word to its 'stem' (aka root form) to reduce complexity
+                        whilst retaining essence of meaning of Words
+                            * i.e. `branch` is the root of `branches`, `branching`, `branches`
+                            since all convey same thing.
+                        * Note: Important that all Words are reduced to the SAME STEM since
+                        captures same common idea (ok spelling mistake in root)
+                            * i.e. `cach` is ok as root of `caches`, `caching`
+                        * NLTK Stemming Types include:
+                            * Porter
+                            * Snowball
+                            * Language-specific Stemmers
+                    * Lemmatisation
+                        * Dfn: Reduces words to normalised root form, but uses a Dictionary to
+                        map different variances of a Word back to its root to overcome
+                        non-trivial inflections
+                            * i.e. `be` is the root of `is`, `were`, `was`
+                            * i.e. `one` is the root of plural `ones`
+                        * NLTK Lemmatisers
+                            * WordNet database (Default)
+                        * Usage: Initialise instance of WordNet Lemmatiser and pass
+                        individual words to the `lemmatize` method
+                        * Note:
+                            * Lemmatisers may be more Memory intensive than Stemming
+                            since stores in Dict
+                            * Lemmastisers' final form is a meaningful root word (i.e. `cache`, not
+                            `cach` like would be done with a Stemming)
+                            * Lemmatiser must make assumptions about the Part of Speech (PoS)
+                            for each word it's trying to transform. i.e. WordNet Lemmatiser
+                            defaults to Nouns, which may be overridden by specifying the
+                            parameter `pos='v'` for Verbs
+                            * Chained procedures are often used
+            * Transform ready for next stage
+        * Feature Extraction
+            * Build feature extractors
+                * Text
+                    * Considerations
+                        * Since text data represented on modern computers
+                        using Encoding (i.e. ASCII, Unicode) that map
+                        each character to a number that are stored and
+                        transmitted by computers as Binary, which
+                        have an implicity ordering
+                        (i.e. 65 < 67)
+                        * Incorrect to assume that A < B < C since may
+                        mislead our NLP algorithms
+                        * Words carry meaning of concern,
+                        NOT individual Characters
+                        * Computers DO NOT have standard representation
+                        for Words (since just Sequences of ASCII or Unicode
+                        values without Meaning or Relationships captured
+                        between Words)
+                    * Goal
+                        * Generate representation for Text Data
+                        (similar to Pixels used for images) that
+                        we may used as Features for Modelling
+                            * Depends on Model we're using
+                                * **Graph-based Model** to extract
+                                insights
+                                    * Words represented as
+                                    symbolic **Nodes** with
+                                    **Relationships** between like
+                                    Coordinate
+                                * **Statistical Models**
+                                    * Numerical representation
+                                    required to represent Words
+                            * Depends on **Task** trying to accomplish
+                                * Document-level task
+                                    * Spam Detection
+                                    * Sentiment Analysis
+
+                                    * Per-Document Representation
+                                        * **Bag-of-Words (BoW)**
+                                            * Dfn: Treats each Document (unit of text to analyse)
+                                            as an Unordered Collection (Bag of Words)
+                                                * Example: Document types
+                                                    * Compare essays prepared by students for
+                                                    plagarism, then each essay would be a Document
+                                                    * Analysing the sentiment conveyed by tweets then
+                                                    each tweet would be a Document
+
+                                            * Issue:
+                                                https://www.youtube.com/watch?v=LYYWIrWbBq4
+
+                                                * BoW Treats each Word as being equally important,
+                                                but intuitively we know some Words occur more frequently in
+                                                a Corpus.
+
+
+                                                * Solution:
+                                                    * **TF-IDF** assigns Weights to words that signifies their
+                                                    relevance in documents
+
+                                                    * About TF-IDF approach:
+                                                        * Count the **Document Frequency** (number of times
+                                                        each word occurs out of all Terms aka Columns
+                                                        in Document-Term Matrix)
+                                                        * Divide the Term Frequencies by the Document Frequency
+                                                        associated with that Term (giving a
+                                                        Metric that's proportional to the frequency of occurrence
+                                                        of a term in a document, but inversely proportional to
+                                                        number of documents it appears in).
+                                                        * Highlights words that are more Unique to a document
+                                                        (with higher value) and are better for characterising it
+
+                                                * **Usage of BoW or TF-IDF** Representation
+                                                    * Document Classification Task
+                                                        * **Spam Detection**
+                                                            * Use TF-IDF Vectors as Features as well as
+                                                            labels "Spam" and "Not Spam" to setup a
+                                                            Supervised Learning Problem
+
+                                            * Steps
+                                                * Obtain Bag of Words from raw text we apply
+                                                Text Processing steps
+                                                (cleaning, normalising, splitting into words,
+                                                stemming, lematisation, etc) then.
+                                                    * INEFFICIENT to then treat the
+                                                    resulting Tokens as an Unordered Collection
+                                                    (aka a Set), and multiple occurrences not included,
+                                                        ```
+                                                        i.e.
+                                                        "Little house on little Prairie" --> { "littl", "hous", "priari" }
+                                                        ```
+                                                    * EFFICIENT: **Document-Term Matrix**
+                                                    (illustrates relationship between Documents is Rows and
+                                                    Words/Terms in Columns where each element is a
+                                                    Term Frequency i.e. how frequently term occurs in a document)
+                                                    https://www.youtube.com/watch?v=A7M1z8yLl0w
+                                                    Convert each Document
+                                                    (where a set of Documents is a **Corpus**)
+                                                    into a Vector of numbers that represents how many times
+                                                    a Word occurs in a Document
+                                                        * Collect all Unique Words present in Corpus (C)
+                                                        to form Vocabulary (V), arrange them in some order
+                                                        as Vector element positions OR Table Columns,
+                                                        then assume each Document is a Row, then count
+                                                        the number of occurrences of each Word in each
+
+                                                * **Usage**:
+                                                    * Compare two documents based on how many words they
+                                                    have in common (or how similar Term Frequencies are).
+                                                        * BAD - Mathematically performed by calculating the
+                                                        Dot Product between two row vectors that equals
+                                                        sum of the products of the corresponding elements
+                                                        (where the greater the Dot Product, the more similar the
+                                                        two vectors are), but flaw of Dot Product is it only
+                                                        compares values of overlap, but not affected by other
+                                                        values that aren't in common (so different pairs
+                                                        may get same Dot Product as identical pairs.
+
+                                                        * EFFICIENT - **Cos Similarity**
+                                                        https://youtu.be/A7M1z8yLl0w?t=3m15s
+                                                        where divide the
+                                                        Dot Product of two Vectors by the product of their
+                                                        magnitudes (or euclidean norms), where Vectors thought of
+                                                        as arrows in n-dimensional space, then this is equal to
+                                                        Cosine of the angle Theta that's between each of two vectors.
+                                                            * Most Similar - Identical Vectors - Cosine output: 1
+                                                            * Partly Similar - Orthogonal Vectors - Cosine output: 0
+                                                            * Not Similar - Exactly Opposite Vectors - Cosine outpput: -1
+
+                                            * Treat each document like a BoW
+                                            allows computing simple statistics that
+                                            characterise it, where the Statistics may be
+                                            improved by assigning appropriate Weights
+                                            to Words using a **TFIDF Scheme**
+                                            (Term Frequency–Inverse Document Frequency) for more
+                                            accurate comparison between documents.
+                                                * i.e. in certain apps need Numerical representations
+                                                of individual Words by use of
+                                                **Word Embeddings** method
+
+                                            **One-Hot Encoding**
+                                                * https://www.youtube.com/watch?v=a0j1CDXFYZI
+
+                                                * Background:
+                                                    * Previously characterised entire Document
+                                                    (Collection of Words) as one Unit
+                                                    where inferences made are at Document-level
+                                                        * Document Topics
+                                                        * Document Similarity
+                                                        * Document Sentiment
+                                                * Purpose:
+                                                    * Deeper Analysis of Text requires a
+                                                    Numerical representation for each Word
+                                                    (where treat each word like a Class, and
+                                                    assign each a Vector that has 1 in a
+                                                    positions the word exists in the word
+                                                    and 0 elsewhere)
+                                                    * Similar to BoW, but we keep a Word in each
+                                                    Bag and build a Vector for each
+
+                                                * Issues
+                                                    * Doesn't work when have Large Vocabulary
+                                                    to deal with, since size of Word representation
+                                                    grows with qty of Words, so need to use:
+
+                                                        * **Word Embeddings** as a way to
+                                                            that we can
+                                                            **Control the Size of the Word Representation
+                                                            by limiting it to a fixed-sized Vector**
+                                                            (i.e. find an embedding for each Word in
+                                                            Vector space that exhibits desired properties)
+                                                            * i.e.
+                                                                * if two words similar in meaning they
+                                                                should be closer together than those that aren't)
+                                                                * if two pairs of word have similar difference in
+                                                                their meaning they should be separated similar
+                                                                distance in vector space
+
+                                                            * **Word2Vec** (Word Embedding type)
+                                                                * Dfn: Popular **Word Embedding** used in
+                                                                practice by transforming Words into
+                                                                Vectors
+                                                                * Approaches:
+                                                                    * https://www.youtube.com/watch?v=7jjappzGRe0
+
+                                                                    * **Continous Skip-Gram Model**
+
+                                                                        * About:
+                                                                            * Model where given Middle Word
+                                                                            that predicts Neighboring Words in a Sentence
+                                                                            for a given Words in the Sentence
+                                                                            is likely to capture the contextual meaning of
+                                                                            Words
+
+                                                                        * Steps
+                                                                            * Pick any Word in Sentence
+                                                                            * Convert Word into a One-Hot Encoded Vector
+                                                                            * Feed One-Hot Encoded Vector into a
+                                                                            Neural Network (or other probabilistic model)
+                                                                            that's designed to Predict surrounding words
+                                                                            (its context)
+                                                                            * Loss Function will optimise the Weights
+                                                                            or parameters of the Model and repeat until
+                                                                            it learns to predict context words as best
+                                                                            possible
+
+                                                                            * Note: Taking an intermediate representation
+                                                                            such as Hidden Layer in Neural Network,
+                                                                            then the Outputs of that layer
+                                                                            for a given word will become the corresponding
+                                                                            "Word Vector"
+
+                                                                    * **Continuous Bag of Words Model**
+
+                                                                        * About
+                                                                            * Model where given Neighboring Words
+                                                                            that predicts a Word in a Sentence
+                                                                            given some Neighboring Words in the Sentence
+                                                                            is likely to capture the contextual meaning of
+                                                                            Words
+
+                                                                            * Robust representation of words since
+                                                                            Meaning of each Word is distributed
+                                                                            throughout the Vector
+
+                                                                            * Vector size is independent of vocabulary
+                                                                            (size of word vector is up to us on how
+                                                                            we want to choose performance vs complexity
+                                                                            but **Vector size remains Constant no matter how many
+                                                                            Words we Train on**). Note that this
+                                                                            differs from Bag of Words where Vector size grows
+                                                                            with number of unique words.
+
+                                                                            * Pre-Train a Large number of Word Vectors, so can
+                                                                            then use them Efficiently without having to transform
+                                                                            repeatedly since they are Trained once, and
+                                                                            Stored in a Lookup Table
+
+                                                                            * Ready for use in Deep Learning Architectures
+                                                                                * i.e. may be used a Input Vector for RNNs
+                                                                                * Possible to use RNNs to learn even
+                                                                                **better Word Embeddings**
+
+                                                                                * **Optimisations** possible to further reduce
+                                                                                Model and Training Complexity, such as
+                                                                                    * Representing Output Words using:
+                                                                                        * **Hierarchical Softmax**
+                                                                                    * Computing Loss using:
+                                                                                        * **Sparse Cross Entropy**
+
+                                                            * **GloVe (Global Vectors for Word Representation)** (Word Embedding type)
+
+                                                                * https://www.youtube.com/watch?v=KK3PMIiIn8o
+
+                                                                * About
+                                                                    * TODO - https://nlp.stanford.edu/pubs/glove.pdf
+                                                                    * Directly Optimise Vector representation of each Word
+                                                                    using **Co-Occurrent Probabilities Statistics**
+                                                                    (with Context and Target Words occurrences) to capture
+                                                                    Similarities and Differences between Words
+                                                                        * Differs from Word2Vec that sets up an auxiliary
+                                                                        word predictiontask)
+                                                                    * Note: Use the Log of the values since values
+                                                                    of Co-Occurrence Probabilities are small
+                                                                    * Note: Refinement over using Raw Probabilities is
+                                                                     to Optimise for the Ratio of Probabilities
+
+
+                                                            * **Distributed Hypothesis**
+                                                                * https://www.youtube.com/watch?v=gj8u1KG0H2w
+
+                                                                * Words occurring in same Context tend to have
+                                                                similar Meanings
+                                                                * When large context of Sentences used to Learn in
+                                                                Word Embedding, Sentences with common context
+                                                                Words are Vectors that are closer together
+                                                                * Add another **Dimension** in Word Vectors to capture
+                                                                **Differences** and **Similarities** where
+                                                                Word meanings vary to make the Word Vector more
+                                                                expressive
+
+                                                                * **Example: Neural Network Architecture for NLP task
+                                                                of Predicting a Word**
+                                                                    * Add Word Embedding Layer
+                                                                    and apply **Transfer Learning**
+                                                                        * Narrow scope model (i.e. medical terminology)
+                                                                        * Broad scope mode
+                                                                            * RNN Layer Example
+                                                                            https://youtu.be/gj8u1KG0H2w?t=3m36s
+                                                                            * Use Pre-Trained Word Embedding
+                                                                            as a Lookup (i.e Word2Vec or GloVe)
+                                                                                * Then only need Learn/Train the
+                                                                                later Recurrent Layers
+                                                                                specific to our task
+
+                                                                            ```
+                                                                            - One-hot encoded word
+                                                                            - Word Embedding
+                                                                                - Lookup (Word2Vec or GloVe)
+                                                                            - Word Vector
+                                                                            - Learn
+                                                                                - Recurrent Layers
+                                                                                - Dense Layers
+                                                                            - One-hot encoded output
+                                                                            ```
+
+                                                            * **t-SNE (t-Distributed Stochastic Neighbor Embedding)**
+                                                                * Dfn:
+                                                                    * Dimensionality reduction technique that
+                                                                    maps high dimensional vectors to a
+                                                                    lower dimensional space and useful for
+                                                                    **Visualising Word Embeddings** since
+                                                                    preserves the linear Substructures and Relationships
+                                                                    learnt by the Word Embedding Model
+                                                                        * Clusters groups of Words or Images according to
+                                                                        associated Class Labels
+                                                                    * Tool for better understanding the representation
+                                                                    that a network learns and identifying bugs
+                                                                    * Similar to Principle Component Analysis (PCA) but
+                                                                    adds extra property when performing transformation
+                                                                    whereby it tries to maintain relative distances b/w
+                                                                    objects so
+                                                                        * Similar objects stay close together
+                                                                        * Dissimilar objects stay apart
+                                        * **Doc2Vec**
+                                * Individual Words and Phrases for
+                                Text Generation and Machine Translation
+                                    * Word-level Representation
+                                    (i.e. fox -> 0.4,0.7,0.1,0.5
+                                          dog -> 0.4,0.5,0.2,0.6)
+                                        * Word2Vec
+                                        * Glove
+                * Images
+                    * Images stored in computer memory, where each
+                    pixel contains relative intensity of light
+                    at locatin in image.
+                        * Colour images have 1x value per Primary colour
+                        Red, Blue, Green, that carry relevant info,
+                        so Two Pixels with similar values are
+                        perceived similar, so is **OK to use
+                        Pixel values in Numerical Model**
+                        (after Edge Detection and Filtering)
+            * Extract/produce relevant feature representations
+            that are:
+                * appropriate for model type planning to use
+                * appropraite for NLP task trying to accomplish
+        * Modelling
+            * Dfn and Usage:
+                * Observations in a form that allows us to understand them
+                better and predict new unseen occurrences
+                * Build models that achieve various NLP tasks:
+                    * Classification Models
+                        * Sentiment Analysis
+                        * Spam Detection
+                    * Topic Modelling
+                        * Grouping Related Documents
+                    * Ranking
+                        * Improving Search Relevance
+                    * Machine Translation Systems
+                        * Converting Text between languages
+                    * Others
+                        * Extending and adapting techniques
+                        to design an appropriate solution
+            * Steps
+                * Build models for NLP tasks
+                * Design Baseline Model
+                    * Statistical model
+                    * Machine Learning model
+                * Fit Model Parameters to Training data
+                using an Optimisation procedure (Known data)
+                * Use to make Predictions on Unseen data
+            * Considerations
+                * Numerical Features allow use of any
+                Machine Learning Model
+                    * Support Vector Machines
+                    * Decision Trees
+                    * Neural Networks
+                    * Custom Models (combining multiple for
+                    improved performance)
+            * Utilising
+                * Deploy as Web/mobile app
+                * Integrate with other services
+
+        * Iterate
+            * Rethink features that are required
+            and in turn our text processing routines
+    * Considerations
+        * Dependencies between steps
+        * Design decisions
+        * Choose existing libraries and tools
+        * Non-linear workflow of iterating repeatedly
+
+
+    * **Project: Machine Translation**
+        * Different Methods:
+            * Rule-Based Machine Translation (RBMT) - Classical
+                * https://en.wikipedia.org/wiki/Rule-based_machine_translation
+                * Based on Linguistic Info about Source and Target languages
+                retrieved from Multi-lingual Dictionaries and Grammars that
+                cover Semantic, Morphological, and Syntactic regularities of
+                each language
+                * Given Input Sentences (Language A), the RBMT System generates
+                Output Sentences (Language B) based on Analysis of
+                Semantic, Morphological, and Syntactic of both Source and
+                Target Languages in translation task
+            * Statistical Machine Translation
+                * https://en.wikipedia.org/wiki/Statistical_machine_translation
+                * Translations generated based on
+                Statistical Models whose parameters
+                are derived from analysis of Bilinguil
+                Text Corpus
+            * Example-based Machine Translation
+                * https://en.wikipedia.org/wiki/Example-based_machine_translation
+                * Bilinguil Corpus with parallel texts
+                with translation by analogy
+                (case-based reasoning approach)
+        * Problems
+            * Still unsolved, just many papers
+        * Solutions
+            * Neural Networks large leap forward
+        * Task
+            * Build Deep Neural Network that functions as part of
+            end-to-end Machine Translation Pipeline that accepts
+            English text Input and returns French translation Output
